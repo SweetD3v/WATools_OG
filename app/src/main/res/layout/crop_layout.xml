@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/confirmToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imgClose"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackgroundBorderless"
+            android:padding="8dp"
+            android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/rotate"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:padding="10dp"
+            android:src="@drawable/ic_rotate"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgSave"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackgroundBorderless"
+            android:padding="10dp"
+            android:src="@drawable/ic_done"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.isseiaoki.simplecropview.CropImageView xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/crop_view"
+        android:layout_width="match_parent"
+        android:layout_height="0.0dip"
+        android:layout_margin="16dp"
+        custom:layout_constraintBottom_toTopOf="@+id/guideline"
+        custom:layout_constraintLeft_toLeftOf="parent"
+        custom:layout_constraintRight_toRightOf="parent"
+        custom:layout_constraintTop_toBottomOf="@id/confirmToolbar"
+        custom:scv_background_color="@color/white"
+        custom:scv_crop_mode="fit_image"
+        custom:scv_frame_color="@color/color_primary"
+        custom:scv_frame_stroke_weight="1.0dip"
+        custom:scv_guide_color="@color/color_primary"
+        custom:scv_guide_show_mode="show_always"
+        custom:scv_guide_stroke_weight="1.0dip"
+        custom:scv_handle_color="@color/color_primary"
+        custom:scv_handle_show_mode="show_always"
+        custom:scv_handle_size="10.0dip"
+        custom:scv_min_frame_size="100.0dip"
+        custom:scv_overlay_color="#aa1c1c1c"
+        custom:scv_touch_padding="8.0dip" />
+
+    <RelativeLayout
+        android:id="@+id/loadingView"
+        android:layout_width="80.0dip"
+        android:layout_height="80.0dip"
+        android:background="@android:color/transparent"
+        android:elevation="200.0dip"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--        <com.airbnb.lottie.LottieAnimationView-->
+        <!--            android:layout_width="100dp"-->
+        <!--            android:layout_height="100dp"-->
+        <!--            android:elevation="200dp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--            app:layout_constraintRight_toRightOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:lottie_autoPlay="true"-->
+        <!--            app:lottie_loop="true"-->
+        <!--            app:lottie_rawRes="@raw/photo_loader" />-->
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/fixed_ratio_list" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fixed_ratio_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/item_aspect_ratio" />
+</androidx.constraintlayout.widget.ConstraintLayout>

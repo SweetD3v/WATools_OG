@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<defaults>
+    <entry>
+        <key>can_enter</key>
+        <value>
+            false
+        </value>
+    </entry>
+</defaults>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="280dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    android:layout_margin="8dp"
+    android:background="#e5e5e5">
+
+    <ImageView
+        android:id="@+id/ivThumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:scaleType="centerCrop"
+        android:src="#e5e5e5"/>
+
+    <ImageView
+        android:id="@+id/imgPlay"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center"
+        android:elevation="2dp"
+        android:src="@drawable/ic_play_thumb"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/imgDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|top"
+        android:background="@drawable/rounded_bg_tr_white_8"
+        android:elevation="2dp"
+        android:padding="8dp"
+        android:src="@drawable/ic_delete_file"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/imgsave"
+        android:layout_width="62dp"
+        android:layout_height="62dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="36dp"
+        android:elevation="2dp"
+        android:padding="8dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_mycrsave"
+        android:visibility="visible"/>
+
+    <ImageView
+        android:id="@+id/imgshare"
+        android:layout_width="62dp"
+        android:layout_height="62dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="36dp"
+        android:elevation="2dp"
+        android:padding="8dp"
+        android:src="@drawable/ic_mycrshare"
+        android:visibility="visible" />
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_host"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.gbversion.tool.statussaver.ui.fragments.HomeFragment"
+        android:label="Home Fragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_to_tools"
+            app:destination="@id/toolsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeStatusFragment"
+        android:name="com.gbversion.tool.statussaver.ui.fragments.HomeStatusFragment"
+        android:label="Home Status Fragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_status_to_tools"
+            app:destination="@id/toolsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/toolsFragment"
+        android:name="com.gbversion.tool.statussaver.ui.fragments.ToolsFragment"
+        android:label="Tools Fragment"
+        tools:layout="@layout/fragment_tools">
+        <action
+            android:id="@+id/action_tools_to_home_status"
+            app:destination="@id/homeStatusFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
+    </fragment>
+</navigation>

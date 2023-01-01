@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_status"
+        android:icon="@drawable/ic_statuses"
+        android:title="@string/status_saver" />
+
+    <item
+        android:id="@+id/placeholder1"
+        android:title="" />
+
+    <item
+        android:id="@+id/action_tools"
+        android:icon="@drawable/ic_tools"
+        android:title="@string/tools" />
+</menu>

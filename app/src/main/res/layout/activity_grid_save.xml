@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".statussaver.tools.insta_grid.GridSaveActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bannerContainer">
+
+        <RelativeLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/white">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgBack"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:padding="4dp"
+                app:srcCompat="@drawable/ic_back"
+                app:tint="@color/black" />
+
+            <TextView
+                android:id="@+id/app_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/imgBack"
+                android:gravity="center"
+                android:layout_marginEnd="64dp"
+                android:maxLines="1"
+                android:text="@string/save_and_share"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/llCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/imgSave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#ef8800"
+                    android:fontFamily="@font/karla_semibold"
+                    android:text="Save"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:cornerRadius="24dp" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:background="#dedede"
+                android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/rlGrid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/llCropped"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.gbversion.tool.statussaver.widgets.SquareRelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="2dp">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imgBmp1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="#f0545d" />
+
+                                <TextView
+                                    android:id="@+id/txt1"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:layout_centerInParent="true"
+                                    android:background="@drawable/rounded_bg_white_4"
+                                    android:backgroundTint="@color/black_translucent"
+                                    android:gravity="center"
+                                    android:text="9"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp"
+                                    android:visibility="gone" />
+                            </com.gbversion.tool.statussaver.widgets.SquareRelativeLayout>
+
+                            <com.gbversion.tool.statussaver.widgets.SquareRelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="2dp">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imgBmp2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="#f0545d" />
+
+                                <TextView
+                                    android:id="@+id/txt2"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:layout_centerInParent="true"
+                                    android:background="@drawable/rounded_bg_white_4"
+                                    android:backgroundTint="@color/black_translucent"
+                                    android:gravity="center"
+                                    android:text="8"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp"
+                                    android:visibility="gone" />
+                            </com.gbversion.tool.statussaver.widgets.SquareRelativeLayout>
+
+                            <com.gbversion.tool.statussaver.widgets.SquareRelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="2dp">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imgBmp3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="#f0545d" />
+
+                                <TextView
+                                    android:id="@+id/txt3"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:layout_centerInParent="true"
+                                    android:background="@drawable/rounded_bg_white_4"
+                                    android:backgroundTint="@color/black_translucent"
+                                    android:gravity="center"
+                                    android:text="7"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp"
+                                    android:visibility="gone" />
+                            </com.gbversion.tool.statussaver.widgets.SquareRelativeLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.gbversion.tool.statussaver.widgets.SquareRelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="2dp">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imgBmp4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="#f0545d" />
+
+                                <TextView
+                                    android:id="@+id/txt4"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:layout_centerInParent="true"
+                                    android:background="@drawable/rounded_bg_white_4"
+                                    android:backgroundTint="@color/black_translucent"
+                                    android:gravity="center"
+                                    android:text="6"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp"
+                                    android:visibility="gone" />
+
+                            </com.gbversion.tool.statussaver.widgets.SquareRelativeLayout>
+
+                            <com.gbversion.tool.statussaver.widgets.SquareRelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="2dp">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imgBmp5"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="#f0545d" />
+
+                                <TextView
+                                    android:id="@+id/txt5"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:layout_centerInParent="true"
+                                    android:background="@drawable/rounded_bg_white_4"
+                                    android:backgroundTint="@color/black_translucent"
+                                    android:gravity="center"
+                                    android:text="5"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp"
+                                    android:visibility="gone" />
+
+                            </com.gbversion.tool.statussaver.widgets.SquareRelativeLayout>
+
+                            <com.gbversion.tool.statussaver.widgets.SquareRelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="2dp">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imgBmp6"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="#f0545d" />
+
+                                <TextView
+                                    android:id="@+id/txt6"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:layout_centerInParent="true"
+                                    android:background="@drawable/rounded_bg_white_4"
+                                    android:backgroundTint="@color/black_translucent"
+                                    android:gravity="center"
+                                    android:text="4"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp"
+                                    android:visibility="gone" />
+
+                            </com.gbversion.tool.statussaver.widgets.SquareRelativeLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.gbversion.tool.statussaver.widgets.SquareRelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="2dp">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imgBmp7"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="#f0545d" />
+
+                                <TextView
+                                    android:id="@+id/txt7"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:layout_centerInParent="true"
+                                    android:background="@drawable/rounded_bg_white_4"
+                                    android:backgroundTint="@color/black_translucent"
+                                    android:gravity="center"
+                                    android:text="3"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp"
+                                    android:visibility="gone" />
+
+                            </com.gbversion.tool.statussaver.widgets.SquareRelativeLayout>
+
+                            <com.gbversion.tool.statussaver.widgets.SquareRelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="2dp">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imgBmp8"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="#f0545d" />
+
+                                <TextView
+                                    android:id="@+id/txt8"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:layout_centerInParent="true"
+                                    android:background="@drawable/rounded_bg_white_4"
+                                    android:backgroundTint="@color/black_translucent"
+                                    android:gravity="center"
+                                    android:text="2"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp"
+                                    android:visibility="gone" />
+
+                            </com.gbversion.tool.statussaver.widgets.SquareRelativeLayout>
+
+                            <com.gbversion.tool.statussaver.widgets.SquareRelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="2dp">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imgBmp9"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="#f0545d" />
+
+                                <TextView
+                                    android:id="@+id/txt9"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:layout_centerInParent="true"
+                                    android:background="@drawable/rounded_bg_white_4"
+                                    android:backgroundTint="@color/black_translucent"
+                                    android:gravity="center"
+                                    android:text="1"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp"
+                                    android:visibility="gone" />
+                            </com.gbversion.tool.statussaver.widgets.SquareRelativeLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/llBottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rlGrid"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/txtShareInsta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="@font/karla_semibold"
+                        android:gravity="center"
+                        android:paddingHorizontal="16dp"
+                        android:text="Click on the image numbers to share it on Instagram"
+                        android:textColor="@color/textColorPrimary"
+                        android:textSize="16sp"
+                        android:visibility="gone"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/imgShare"
+                            android:layout_width="match_parent"
+                            android:layout_height="64dp"
+                            android:layout_marginHorizontal="16dp"
+                            android:orientation="horizontal"
+                            android:background="@drawable/ic_share_to_instagram"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/adCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/llBottom"
+                    android:layout_marginHorizontal="8dp"
+                    app:cardCornerRadius="4dp"
+                    app:cardElevation="4dp"
+                    app:cardUseCompatPadding="true">
+
+                    <FrameLayout
+                        android:id="@+id/adFrame"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </com.google.android.material.card.MaterialCardView>
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/bannerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:elevation="2dp" />
+</RelativeLayout>

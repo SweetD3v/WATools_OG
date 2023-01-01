@@ -1,0 +1,12 @@
+rootProject.name = "WATools"
+include ':app'
+include ':files_commons'
+include ':guide_view'
+include ':image_lib'
+include ':imagepicker'
+include ':opencv'
+include ':photofilterssdk'
+include ':shapeimageview'
+include ':ucrop'
+include ':wa_stickers'
+include ':speed_meter'

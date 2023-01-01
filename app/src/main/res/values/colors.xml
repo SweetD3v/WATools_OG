@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_accent">#FF9F21</color>
+    <color name="color_primary">#ef8800</color>
+    <color name="color_primary_dark">#8A5004</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="textColorPrimary">#000000</color>
+    <color name="grey_800">#424242</color>
+    <color name="insta_primary">#EF1A5E</color>
+    <color name="text_unselected">#1E1E1E</color>
+    <color name="statusbar">#ffffff</color>
+    <color name="statusbar_primary">#ffffff</color>
+    <color name="age_calc_divider">#82B4FF</color>
+    <color name="cardColorAge">#F4F7FF</color>
+    <color name="black_translucent2">#64000000</color>
+    <color name="photo_placeholder">#DDDDDD</color>
+    <color name="thumb_background_color">#000000</color>
+    <color name="unselected_color">#ff7d7d7d</color>
+    <color name="color_accent_light">#CFD0FF</color>
+    <color name="tool_bg">#F6D5D5</color>
+    <color name="red">#ff0000</color>
+    <color name="fb_primary">#2461BC</color>
+    <color name="tab_unselected">#D3F1FF</color>
+    <color name="textcolor_hint">#797979</color>
+    <color name="progress_bar_bg_light">#ff787878</color>
+    <color name="primary_bg">#ECF4FD</color>
+    <color name="black_50">#80000000</color>
+    <color name="divider2">#b4b4b4</color>
+    <color name="green_light">#A0E8BB</color>
+
+    <item name="textBackgroundColor" type="color">#66000000</item>
+
+    <item name="textColorLow" type="color">#ffdddddd</item>
+    <item name="textColorMiddle" type="color">#ff11dd11</item>
+    <item name="textColorHigh" type="color">#ffff8888</item>
+
+    <item name="textShadowColorLow" type="color">#ff404040</item>
+    <item name="textShadowColorMiddle" type="color">#ff202020</item>
+    <item name="textShadowColorHigh" type="color">#ff101010</item>
+
+    <!--<color name="uploadBackgroundStart">#ccff4444</color>-->
+    <!--<color name="uploadBackgroundEnd">#ccffbbbb</color>-->
+    <color name="uploadBackgroundStart">#ccaa2222</color>
+    <color name="uploadBackgroundEnd">#cccc7777</color>
+    <color name="uploadBorder">#ff555555</color>
+
+    <!--<color name="downloadBackgroundStart">#cc7777ff</color>-->
+    <!--<color name="downloadBackgroundEnd">#ccbbbbff</color>-->
+    <color name="downloadBackgroundStart">#cc4444bb</color>
+    <color name="downloadBackgroundEnd">#cc7777cc</color>
+    <color name="downloadBorder">#ff555555</color>
+    <color name="cp_4">#a5dee5</color>
+    <color name="cp_0">#30E3CA</color>
+    <color name="cp_1">#ffcfdf</color>
+    <color name="hint_color_age_calc">#7f7f7f</color>
+    <color name="agecaltheme">#f3a844</color>
+    <color name="_818181">#818181</color>
+    <color name="progress_bg_tint">#e2e2e2</color>
+    <color name="background_progress_color">#6C6D6D</color>
+    <color name="green_wa">#09aa00</color>
+    <color name="drawer_icon_tint">#7f7f7f</color>
+</resources>

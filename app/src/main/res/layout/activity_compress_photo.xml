@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/white"
+            android:elevation="2dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgBack"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:padding="4dp"
+                app:srcCompat="@drawable/ic_back"
+                app:tint="@color/black" />
+
+            <TextView
+                android:id="@+id/app_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/imgBack"
+                android:layout_marginEnd="44dp"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/photo_compress"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgDownload"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:padding="4dp"
+                app:srcCompat="@drawable/ic_instadownloadhome"
+                android:layout_alignParentEnd="true"
+                app:tint="@color/black" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/llCompressTop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp"
+                            android:layout_margin="8dp"
+                            app:cardBackgroundColor="#e5e5e5"
+                            app:cardCornerRadius="8dp"
+                            app:cardElevation="4dp"
+                            app:cardUseCompatPadding="true">
+
+                            <ImageView
+                                android:id="@+id/imgCompress"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:scaleType="centerCrop" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.gbversion.tool.statussaver.widgets.SquareImageView
+                            android:id="@+id/imgCompressed"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/rounded_bg_white_8"
+                            android:backgroundTint="@color/black"
+                            android:scaleType="centerInside"
+                            android:visibility="gone" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_below="@id/llCompressTop"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.slider.Slider
+                        android:id="@+id/sliderCompress"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:stepSize="1"
+                        android:value="50"
+                        android:valueFrom="5"
+                        android:valueTo="100"
+                        app:labelBehavior="floating"
+                        app:thumbColor="@color/black"
+                        app:tickColor="@android:color/transparent"
+                        app:trackColorActive="@color/black"
+                        app:trackColorInactive="#d4d4d4" />
+
+                    <TextView
+                        android:id="@+id/txtCompressPercent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/karla_semibold"
+                        android:visibility="gone"
+                        android:text="80 %"
+                        android:textColor="@color/textColorPrimary"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtCompressHint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/llSlider"
+                    android:gravity="center_horizontal"
+                    android:visibility="gone"
+                    android:text="Adjust the compress ratio with slider "
+                    android:textColor="@color/textColorPrimary"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:id="@+id/btn_layout"
+                    android:layout_below="@id/txtCompressHint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:paddingBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:paddingTop="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:id="@+id/btnCompress"
+                        android:layout_width="0dp"
+                        android:layout_height="62dp"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/ic_compressbtn"
+                        android:orientation="horizontal" />
+
+                    <TextView
+                        android:id="@+id/txtPhotoSize"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center_vertical"
+                        android:layout_below="@id/llCompressTop"
+                        android:fontFamily="@font/karla_semibold"
+                        android:gravity="end"
+                        android:layout_marginStart="8dp"
+                        android:text="Photo size: 100 KB"
+                        android:textColor="@color/textColorPrimary"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/adCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/btn_layout"
+                    android:layout_marginHorizontal="8dp"
+                    app:cardCornerRadius="4dp"
+                    app:cardElevation="4dp"
+                    app:cardUseCompatPadding="true">
+
+                    <FrameLayout
+                        android:id="@+id/adFrame"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </com.google.android.material.card.MaterialCardView>
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/bannerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:elevation="2dp" />
+</RelativeLayout>

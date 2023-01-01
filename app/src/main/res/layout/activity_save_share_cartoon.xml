@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/white"
+        android:elevation="2dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgBack"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:padding="4dp"
+            app:srcCompat="@drawable/ic_back"
+            app:tint="@color/black" />
+
+        <TextView
+            android:id="@+id/app_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/imgBack"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="@string/save_and_share"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.gbversion.tool.statussaver.widgets.SquareLinearLayout
+                android:id="@+id/llCompressTop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="@color/black"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp"
+                    app:cardUseCompatPadding="true">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imgCartooned"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop" />
+                </com.google.android.material.card.MaterialCardView>
+            </com.gbversion.tool.statussaver.widgets.SquareLinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSaveImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/llCompressTop"
+                android:layout_centerHorizontal="true"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="16dp"
+                android:fontFamily="@font/poppins_medium"
+                android:paddingTop="10dp"
+                android:paddingBottom="8dp"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                app:cornerRadius="8dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/adCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btnSaveImage"
+                android:layout_marginHorizontal="8dp"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true">
+
+                <FrameLayout
+                    android:id="@+id/adFrame"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </com.google.android.material.card.MaterialCardView>
+        </RelativeLayout>
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/bannerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:elevation="2dp" />
+</RelativeLayout>

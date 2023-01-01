@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".statussaver.ui.activities.DirectChatActivity">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/white"
+        android:elevation="2dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgBack"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:padding="4dp"
+            app:srcCompat="@drawable/ic_back"
+            app:tint="@color/black" />
+
+        <TextView
+            android:id="@+id/app_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="9dp"
+            android:layout_toEndOf="@id/imgBack"
+            android:gravity="center"
+            android:fontFamily="@font/gilroy_bold"
+            android:layout_marginEnd="52dp"
+            android:maxLines="1"
+            android:text="@string/empty_msg"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
+
+        <LinearLayout
+            android:id="@+id/ccPicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.ak.ui.CountryCodePicker
+                android:id="@+id/ccpPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginVertical="16dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/bg_rounded_stroke_4"
+                android:backgroundTint="#C7C7C7"
+                android:gravity="center"
+                android:padding="4dp"
+                app:arrowSize="20dp"
+                app:contentColor="@color/black"
+                app:defaultNameCode="in"
+                app:excludedCountries="ad,ae"
+                app:fontFamily="@font/montserrat_medium"
+                app:showArrowDown="true"
+                app:showFlag="true"
+                app:showNameCode="false"
+                app:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/edtNumber"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_rounded_stroke_4"
+                android:backgroundTint="#C7C7C7"
+                android:hint="Phone No"
+                android:inputType="numberSigned|phone"
+                android:maxLines="1"
+                android:paddingHorizontal="16dp" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/edtLines"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/ccPicker"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_rounded_stroke_4"
+            android:backgroundTint="#C7C7C7"
+            android:hint="No. of empty lines"
+            android:inputType="numberSigned|phone"
+            android:maxLines="1"
+            android:paddingHorizontal="16dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btnSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtLines"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="16dp"
+            android:background="@drawable/ripple_bg_white_36"
+            android:elevation="8dp">
+
+            <TextView
+                android:id="@+id/txtSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/karla_semibold"
+                android:gravity="center"
+                android:paddingHorizontal="24dp"
+                android:text="Send Empty"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imgSend"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgSend"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginVertical="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_toEndOf="@id/txtSend"
+                android:background="@drawable/circle_background"
+                android:backgroundTint="@color/color_primary_dark"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="@id/txtSend"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/txtSend"
+                app:layout_constraintTop_toTopOf="@id/txtSend"
+                app:srcCompat="@drawable/ic_send" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

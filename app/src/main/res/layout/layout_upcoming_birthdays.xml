@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/gilroy_semibold"
+        android:paddingHorizontal="16dp"
+        android:text="Upcoming Birthdays"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/rounded_bg_grey_12"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="12dp">
+
+            <TextView
+                android:id="@+id/txtDate1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gilroy_semibold"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="15 Aug 2022"
+                android:textColor="@color/agecaltheme"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtDay1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gilroy_medium"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="Sunday"
+                android:textColor="@color/_818181"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/rounded_bg_grey_12"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="12dp">
+
+            <TextView
+                android:id="@+id/txtDate2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gilroy_semibold"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="15 Aug 2023"
+                android:textColor="@color/agecaltheme"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtDay2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gilroy_medium"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="Sunday"
+                android:textColor="@color/_818181"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/rounded_bg_grey_12"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="12dp">
+
+            <TextView
+                android:id="@+id/txtDate3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gilroy_semibold"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="15 Aug 2024"
+                android:textColor="@color/agecaltheme"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtDay3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gilroy_medium"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="Sunday"
+                android:textColor="@color/_818181"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/rounded_bg_grey_12"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="12dp">
+
+            <TextView
+                android:id="@+id/txtDate4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gilroy_semibold"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="15 Aug 2025"
+                android:textColor="@color/agecaltheme"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtDay4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gilroy_medium"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="Sunday"
+                android:textColor="@color/_818181"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/rounded_bg_grey_12"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="12dp">
+
+            <TextView
+                android:id="@+id/txtDate5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gilroy_semibold"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="15 Aug 2026"
+                android:textColor="@color/agecaltheme"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtDay5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gilroy_medium"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="Sunday"
+                android:textColor="@color/_818181"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/rounded_bg_grey_12"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="12dp">
+
+            <TextView
+                android:id="@+id/txtDate6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gilroy_semibold"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="15 Aug 2027"
+                android:textColor="@color/agecaltheme"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtDay6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gilroy_medium"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="Sunday"
+                android:textColor="@color/_818181"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/rounded_bg_grey_12"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="12dp">
+
+            <TextView
+                android:id="@+id/txtDate7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gilroy_semibold"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="15 Aug 2028"
+                android:textColor="@color/agecaltheme"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtDay7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gilroy_medium"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="Sunday"
+                android:textColor="@color/_818181"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/rounded_bg_grey_12"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="12dp">
+
+            <TextView
+                android:id="@+id/txtDate8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gilroy_semibold"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="15 Aug 2029"
+                android:textColor="@color/agecaltheme"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtDay8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gilroy_medium"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="Sunday"
+                android:textColor="@color/_818181"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/rounded_bg_grey_12"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="12dp">
+
+            <TextView
+                android:id="@+id/txtDate9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gilroy_semibold"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="15 Aug 2030"
+                android:textColor="@color/agecaltheme"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtDay9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gilroy_medium"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="Sunday"
+                android:textColor="@color/_818181"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/rounded_bg_grey_12"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="12dp">
+
+            <TextView
+                android:id="@+id/txtDate10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gilroy_semibold"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="15 Aug 2031"
+                android:textColor="@color/agecaltheme"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtDay10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/gilroy_medium"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="Sunday"
+                android:textColor="@color/_818181"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

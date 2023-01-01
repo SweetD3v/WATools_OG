@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".statussaver.tools.insta_grid.InstaGridActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bannerContainer"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="@color/white">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgBack"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8dp"
+                    android:padding="4dp"
+                    app:srcCompat="@drawable/ic_back"
+                    app:tint="@color/black" />
+
+                <TextView
+                    android:id="@+id/app_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@id/imgBack"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:layout_marginEnd="44dp"
+                    android:text="@string/insta_grid"
+                    android:textColor="@color/textColorPrimary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:background="#dedede"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <com.gbversion.tool.statussaver.widgets.SquareLinearLayout
+                android:id="@+id/rlMain"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/toolbar">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="8dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp"
+                    app:cardUseCompatPadding="true">
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imgCropped"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/black"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/wa_tool_grid_2" />
+                </com.google.android.material.card.MaterialCardView>
+            </com.gbversion.tool.statussaver.widgets.SquareLinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llBottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rlMain"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Level up your profile with Beautiful grids"
+                    android:textColor="@color/textColorPrimary"
+                    android:textSize="14sp"
+                    android:visibility="gone"/>
+
+                <RelativeLayout
+                    android:id="@+id/imgSelectImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:background="@drawable/btn_gradient_drawable"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="8dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Select Image"
+                        android:textAllCaps="false"
+                        android:layout_centerInParent="true"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/poppins_medium"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/adCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/llBottom"
+                android:layout_marginHorizontal="8dp"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true">
+
+                <FrameLayout
+                    android:id="@+id/adFrame"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </com.google.android.material.card.MaterialCardView>
+        </RelativeLayout>
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/bannerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:elevation="2dp" />
+</RelativeLayout>
