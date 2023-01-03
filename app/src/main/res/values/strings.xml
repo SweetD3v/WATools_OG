@@ -179,4 +179,10 @@
     <string name="whatsapp_web">Whatsapp Web</string>
     <string name="did_you_know">Did you know?</string>
     <string name="more">More</string>
+    <string name="phone_booster">Phone Booster</string>
+    <string name="cpu_cooler">CPU Cooler</string>
+    <string name="network_n_optimization">Network\nOptimization</string>
+    <string name="battery_saver">Battery Saver</string>
+    <string name="battery_n_saver">Battery\nSaver</string>
+    <string name="network_optimization">Network Optimization</string>
 </resources>

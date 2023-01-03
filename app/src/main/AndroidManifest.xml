@@ -169,6 +169,26 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".tools.cleaner.CPUCoolerActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tools.cleaner.NetOptimizeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tools.cleaner.PhoneBoosterActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tools.cleaner.BatterySaverActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tools.cleaner.CleanerHomeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".tools.compress.CompressPhotoActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

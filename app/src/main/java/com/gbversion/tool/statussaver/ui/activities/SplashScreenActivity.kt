@@ -55,8 +55,8 @@ class SplashScreenActivity : BaseActivity(), LifecycleObserver {
     }
 
     private fun showErrorDialog() {
-        handler!!.removeCallbacks(runnable)
-        handlerCanEnter!!.removeCallbacks(runnableCanEnter)
+        handler?.removeCallbacks(runnable)
+        handlerCanEnter?.removeCallbacks(runnableCanEnter)
         Toast.makeText(this, "Sorry, You can't enter this app.", Toast.LENGTH_SHORT).show()
     }
 
@@ -69,7 +69,7 @@ class SplashScreenActivity : BaseActivity(), LifecycleObserver {
 
     override fun onResume() {
         super.onResume()
-        handlerCanEnter?.postDelayed(runnableCanEnter, 3000)
+        handlerCanEnter?.postDelayed(runnableCanEnter, 2000)
     }
 
     override fun onPause() {
@@ -126,8 +126,8 @@ class SplashScreenActivity : BaseActivity(), LifecycleObserver {
                         continueExecution()
                     }
                 }
-            appOpenAd!!.fullScreenContentCallback = fullScreenContentCallback
-            appOpenAd!!.show(this)
+            appOpenAd?.fullScreenContentCallback = fullScreenContentCallback
+            appOpenAd?.show(this)
         } else {
             continueExecution()
         }
