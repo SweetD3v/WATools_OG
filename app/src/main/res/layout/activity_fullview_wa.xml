@@ -78,7 +78,7 @@
                     app:layout_constraintBottom_toTopOf="@+id/fabDownload"
                     app:layout_constraintEnd_toEndOf="@+id/fabDownload"
                     app:layout_constraintStart_toStartOf="@+id/fabDownload"
-                    app:srcCompat="@drawable/ic_share"
+                    app:srcCompat="@drawable/ic_share_1"
                     app:tint="@color/white" />
 
                 <TextView
@@ -87,7 +87,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="Share"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="@+id/fabShare"
                     app:layout_constraintEnd_toStartOf="@+id/fabShare"
@@ -111,7 +110,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="Download"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="@+id/fabDownload"
                     app:layout_constraintEnd_toStartOf="@+id/fabDownload"
@@ -135,7 +133,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="Set wallpaper"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="@+id/fabSetWP"
                     app:layout_constraintEnd_toStartOf="@+id/fabSetWP"

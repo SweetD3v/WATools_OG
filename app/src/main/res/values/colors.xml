@@ -60,4 +60,6 @@
     <color name="background_progress_color">#6C6D6D</color>
     <color name="green_wa">#09aa00</color>
     <color name="drawer_icon_tint">#7f7f7f</color>
+    <color name="_929292">#929292</color>
+    <color name="_e5e5e5">#e5e5e5</color>
 </resources>

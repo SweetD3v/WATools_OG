@@ -35,18 +35,18 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="44dp"
                 android:layout_toEndOf="@id/imgBack"
+                android:fontFamily="@font/gilroy_bold"
                 android:gravity="center"
                 android:maxLines="1"
                 android:text="@string/age_calculator"
                 android:textColor="@color/textColorPrimary"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="20sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.8dp"
-                android:background="#dedede"
-                android:layout_alignParentBottom="true"/>
+                android:layout_alignParentBottom="true"
+                android:background="#dedede" />
         </RelativeLayout>
 
         <LinearLayout
@@ -440,8 +440,8 @@
                 android:id="@+id/btnReset"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.4"
                 android:layout_marginEnd="8dp"
+                android:layout_weight="0.4"
                 android:background="@drawable/rounded_bg_white_8"
                 android:backgroundTint="@color/black"
                 android:elevation="4dp"
@@ -461,8 +461,8 @@
                 android:id="@+id/btnCalculate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.6"
                 android:layout_marginStart="8dp"
+                android:layout_weight="0.6"
                 android:background="@drawable/rounded_bg_white_8"
                 android:backgroundTint="@color/agecaltheme"
                 android:elevation="4dp"

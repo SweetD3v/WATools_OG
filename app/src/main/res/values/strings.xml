@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WATools</string>
+    <string name="app_name">GB Version APK Pro Tool 2023</string>
     <string name="send">Send</string>
     <string name="send_empty">Send Empty</string>
     <string name="blank_massage">‎</string>
@@ -174,4 +174,9 @@
     <string name="age_calc">Age Calc.</string>
     <string name="rate">Rate</string>
     <string name="share">Share</string>
+    <string name="share_using">Share using</string>
+    <string name="share_app_text">Hi friends!\nCheck out this GB Whatsapp tools app and enjoy funny videos with your friends.\n\nDownload it here - https://play.google.com/store/apps/details?id=%s</string>
+    <string name="whatsapp_web">Whatsapp Web</string>
+    <string name="did_you_know">Did you know?</string>
+    <string name="more">More</string>
 </resources>

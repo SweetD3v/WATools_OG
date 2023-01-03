@@ -121,6 +121,11 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="ShapeableImageView8" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
     <style name="PlayButton">
         <item name="android:src">@drawable/play</item>
         <item name="android:backgroundTint">#00000000</item>

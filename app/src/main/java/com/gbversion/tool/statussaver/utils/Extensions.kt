@@ -72,7 +72,7 @@ var RootDirectoryInstaDownlaoder = File(
 var RootDirectoryFunny = File(
     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
             + File.separator + WAToolsApp.getInstance()
-        .getString(R.string.app_name) + File.separator + "Funny Videos"
+        .getString(R.string.app_name) + File.separator + "Facts"
 )
 
 var RootDirectoryFBDownlaoder = File(
@@ -91,6 +91,12 @@ var RootDirectoryCompressedPhoto = File(
     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
             + File.separator + WAToolsApp.getInstance()
         .getString(R.string.app_name) + File.separator + "Compressed Photo"
+)
+
+var RootDirectoryFacts = File(
+    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
+            + File.separator + WAToolsApp.getInstance()
+        .getString(R.string.app_name) + File.separator + "Facts"
 )
 
 var RootDirectoryCartoonified = File(

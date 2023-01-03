@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -26,11 +25,11 @@
             android:id="@+id/app_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toEndOf="@id/imgBack"
-            android:gravity="center"
-            android:fontFamily="@font/gilroy_semibold"
-            android:maxLines="1"
             android:layout_marginEnd="44dp"
+            android:layout_toEndOf="@id/imgBack"
+            android:fontFamily="@font/gilroy_bold"
+            android:gravity="center"
+            android:maxLines="1"
             android:text="@string/cleaner"
             android:textColor="@color/black"
             android:textSize="20sp" />
@@ -108,8 +107,8 @@
                     android:enabled="false"
                     android:fontFamily="@font/poppins_bold"
                     android:text="Clean"
-                    android:textColor="@color/white"
                     android:textAllCaps="false"
+                    android:textColor="@color/white"
                     android:textSize="18sp" />
             </RelativeLayout>
 

@@ -29,11 +29,11 @@
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@id/imgBack"
+            android:fontFamily="@font/gilroy_bold"
             android:gravity="center_vertical"
             android:maxLines="1"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <FrameLayout
@@ -78,7 +78,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/fabDelete"
                 app:layout_constraintEnd_toEndOf="@+id/fabDelete"
                 app:layout_constraintStart_toStartOf="@+id/fabDelete"
-                app:srcCompat="@drawable/ic_share"
+                app:srcCompat="@drawable/ic_share_1"
                 app:tint="@color/white" />
 
             <TextView
@@ -87,7 +87,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Share"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/fabShare"
                 app:layout_constraintEnd_toStartOf="@+id/fabShare"
@@ -111,7 +110,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Delete"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/fabDelete"
                 app:layout_constraintEnd_toStartOf="@+id/fabDelete"
@@ -135,7 +133,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Set wallpaper"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/fabSetWP"
                 app:layout_constraintEnd_toStartOf="@+id/fabSetWP"

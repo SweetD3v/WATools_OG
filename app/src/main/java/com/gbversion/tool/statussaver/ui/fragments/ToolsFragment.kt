@@ -1,12 +1,22 @@
 package com.gbversion.tool.statussaver.ui.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.collage_maker.ui.activities.CollageMakerHomeActivity
+import com.gbversion.tool.statussaver.databinding.ItemPopularVideosBinding
 import com.gbversion.tool.statussaver.databinding.MainLayMainBinding
+import com.gbversion.tool.statussaver.models.PopularVids
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.speedtest.SpeedTestActivity
 import com.gbversion.tool.statussaver.tools.age_calc.AgeCalculatorActivity
 import com.gbversion.tool.statussaver.tools.cleaner.CleanerActivity
@@ -25,6 +35,7 @@ import com.gbversion.tool.statussaver.tools.wallpapers.WallpapersActivity
 import com.gbversion.tool.statussaver.ui.activities.DirectChatActivity
 import com.gbversion.tool.statussaver.ui.activities.EmptySendActivity
 import com.gbversion.tool.statussaver.ui.activities.HomeStatus_Activity
+import com.gbversion.tool.statussaver.ui.activities.PrivacyPolicyActivity
 import com.gbversion.tool.statussaver.utils.AdsUtils
 import com.gbversion.tool.statussaver.utils.DeviceUtils
 import com.gbversion.tool.statussaver.utils.NetworkState
@@ -459,7 +470,144 @@ class ToolsFragment : BaseFragment<MainLayMainBinding>() {
                         }
                 }
             }
+
+            imgDrawer.setOnClickListener { drawerLayout.openDrawer(GravityCompat.START) }
+
+            navDrawer.llRate.setOnClickListener {
+                drawerLayout.closeDrawer(GravityCompat.START)
+                openPlayStore()
+            }
+
+            navDrawer.llShare.setOnClickListener {
+                drawerLayout.closeDrawer(GravityCompat.START)
+                openShareIntent()
+            }
+
+            navDrawer.llPrivacyPolicy.setOnClickListener {
+                drawerLayout.closeDrawer(GravityCompat.START)
+                startActivity(Intent(ctx, PrivacyPolicyActivity::class.java))
+            }
+
+            txtMore.setOnClickListener {
+                AdsUtils.clicksCountTools++
+                if (NetworkState.isOnline() && AdsUtils.clicksCountTools == 2) {
+                    AdsUtils.clicksCountTools = 0
+                    AdsUtils.loadInterstitialAd(
+                        requireActivity(),
+                        RemoteConfigUtils.adIdInterstital(),
+                        object : AdsUtils.Companion.FullScreenCallback() {
+                            override fun continueExecution() {
+                                startActivity(Intent(ctx, FunnyVideosActivity::class.java))
+                            }
+                        })
+                } else {
+                    startActivity(Intent(ctx, FunnyVideosActivity::class.java))
+                }
+            }
         }
+
+        initMyPopularVideos()
+    }
+
+    private fun initMyPopularVideos() {
+        binding.run {
+            rvPopularVideos.layoutManager = LinearLayoutManager(ctx).apply {
+                orientation = RecyclerView.HORIZONTAL
+            }
+            val popularAdapter = PopularVideoAdapter(ctx)
+            rvPopularVideos.adapter = popularAdapter
+            rvPopularVideos.isNestedScrollingEnabled = false
+            popularAdapter.popularItemClickListener =
+                object : PopularVideoAdapter.PopularItemClickListener {
+                    override fun onItemClick(url: String) {
+                        openUrl(url)
+                    }
+                }
+            val titleArr = ctx.resources.getStringArray(R.array.myfun_titles_array)
+            val thumbArr = ctx.resources.getStringArray(R.array.status_arr)
+            val videoArr = ctx.resources.getStringArray(R.array.fun_videos)
+            val popularList = mutableListOf<PopularVids>()
+            for (i in videoArr.indices) {
+                popularList.add(PopularVids(titleArr[i], videoArr[i], videoArr[i]))
+            }
+            popularList.shuffle()
+            popularAdapter.popularList = popularList
+
+            popularAdapter.notifyDataSetChanged()
+        }
+    }
+
+    fun openUrl(url: String) {
+        AdsUtils.loadInterstitialAd(requireActivity(),
+            RemoteConfigUtils.adIdInterstital(),
+            object : AdsUtils.Companion.FullScreenCallback() {
+                override fun continueExecution() {
+                    startActivity(
+                        Intent(ctx, FunnyVideosActivity::class.java)
+                            .putExtra("customUrl", url)
+                    )
+                }
+            })
+    }
+
+    class PopularVideoAdapter(var ctx: Context) :
+        RecyclerView.Adapter<PopularVideoAdapter.VH>() {
+
+        var popularList = mutableListOf<PopularVids>()
+        var popularItemClickListener: PopularItemClickListener? = null
+
+        inner class VH(var binding: ItemPopularVideosBinding) :
+            RecyclerView.ViewHolder(binding.root)
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+            return VH(ItemPopularVideosBinding.inflate(LayoutInflater.from(ctx), parent, false))
+        }
+
+        override fun onBindViewHolder(holder: VH, position: Int) {
+            holder.binding.run {
+                val popularVid = popularList[holder.bindingAdapterPosition]
+
+                Glide.with(ctx).load(popularVid.thumbUrl)
+                    .centerCrop()
+                    .into(imgMyFun)
+
+                txtFunny.text = popularVid.title
+
+                root.setOnClickListener {
+                    popularItemClickListener?.onItemClick(popularVid.videoUrl)
+                }
+            }
+        }
+
+        override fun getItemCount(): Int {
+            return popularList.size
+        }
+
+        interface PopularItemClickListener {
+            fun onItemClick(url: String)
+        }
+    }
+
+    private fun openShareIntent() {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name))
+        intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_app_text, ctx.packageName))
+        startActivity(Intent.createChooser(intent, getString(R.string.share_using)))
+    }
+
+    private fun openPlayStore() {
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(
+                    getString(
+                        R.string.playstore_url,
+                        ctx.packageName
+                    )
+                )
+            )
+        )
     }
 
     private fun launchCollage() {

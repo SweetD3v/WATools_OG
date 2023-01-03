@@ -4,14 +4,14 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 
 fun DrawerLayout.close() {
-    if (isOpen()) {
+    if (isOpen) {
         closeDrawer(GravityCompat.START)
     }
 }
 
 
 fun DrawerLayout.open() {
-    if (!isOpen()) {
+    if (!isOpen) {
         openDrawer(GravityCompat.START)
     }
 }
@@ -19,7 +19,7 @@ fun DrawerLayout.open() {
 fun DrawerLayout.isOpen() = isDrawerOpen(GravityCompat.START)
 
 fun DrawerLayout.toggle() {
-    if (isOpen()) {
+    if (isOpen) {
         close()
     } else {
         open()

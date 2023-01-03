@@ -4,21 +4,59 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <RelativeLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="?actionBarSize">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-    </com.google.android.material.appbar.AppBarLayout>
+            android:layout_height="?actionBarSize"
+            android:background="@color/white"
+            android:elevation="2dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgBack"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:padding="8dp"
+                android:rotation="180"
+                app:srcCompat="@drawable/ic_drawer"
+                app:tint="@color/black" />
+
+            <TextView
+                android:id="@+id/app_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@id/imgBack"
+                android:fontFamily="@font/gilroy_bold"
+                android:gravity="center_vertical"
+                android:text="@string/whatsapp_web"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="20sp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgMore"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"
+                android:padding="8dp"
+                app:srcCompat="@drawable/ic_more_vert"
+                app:tint="@color/black" />
+        </RelativeLayout>
+
+    </RelativeLayout>
 
     <include
         android:id="@+id/contentMain"
-        layout="@layout/content_main" />
+        layout="@layout/content_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

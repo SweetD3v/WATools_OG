@@ -24,17 +24,19 @@ import android.webkit.*
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityWaWebBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import gun0912.tedimagepicker.extenstion.toggle
 import java.util.*
 
 open class WebviewActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -89,245 +91,280 @@ open class WebviewActivity : AppCompatActivity(), NavigationView.OnNavigationIte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        setSupportActionBar(binding.appBarMain.toolbar)
-        val toggle = ActionBarDrawerToggle(
-            this,
-            binding.drawer,
-            binding.appBarMain.toolbar,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close
-        )
-        binding.drawer.addDrawerListener(toggle)
-        toggle.syncState()
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
-        navigationView.setNavigationItemSelectedListener(this)
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        mSharedPrefs = getSharedPreferences(this.packageName, MODE_PRIVATE)
-        mDarkMode = mSharedPrefs.getBoolean("darkMode", false)
 
-        // webview stuff
-        binding.appBarMain.contentMain.webview.setDownloadListener { url, userAgent, contentDisposition, mimeType, contentLength ->
-            mCurrentDownloadRequest = url
-            if (checkPermission(STORAGE_PERMISSION)) {
-                binding.appBarMain.contentMain.webview.loadUrl(
-                    BlobDownloader.getBase64StringFromBlobUrl(
-                        url
+        binding.run {
+            drawer.addDrawerListener(object : DrawerListener {
+                override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+                }
+
+                override fun onDrawerOpened(drawerView: View) {
+                }
+
+                override fun onDrawerClosed(drawerView: View) {
+                }
+
+                override fun onDrawerStateChanged(newState: Int) {
+                }
+            })
+
+            val navigationView = findViewById<NavigationView>(R.id.nav_view)
+            navigationView.setNavigationItemSelectedListener(this@WebviewActivity)
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+            mSharedPrefs = getSharedPreferences(this@WebviewActivity.packageName, MODE_PRIVATE)
+            mDarkMode = mSharedPrefs.getBoolean("darkMode", false)
+
+            appBarMain.imgBack.setOnClickListener { drawer.toggle() }
+            appBarMain.imgMore.setOnClickListener {
+                showMorePopup(it)
+            }
+
+            // webview stuff
+            appBarMain.contentMain.webview.setDownloadListener { url, userAgent, contentDisposition, mimeType, contentLength ->
+                mCurrentDownloadRequest = url
+                if (checkPermission(STORAGE_PERMISSION)) {
+                    appBarMain.contentMain.webview.loadUrl(
+                        BlobDownloader.getBase64StringFromBlobUrl(
+                            url
+                        )
                     )
-                )
-                triggerDownload()
-            } else {
-                requestPermission(STORAGE_PERMISSION)
-            }
-        }
-        binding.appBarMain.contentMain.webview.addJavascriptInterface(
-            BlobDownloader(applicationContext),
-            BlobDownloader.JsInstance
-        )
-        binding.appBarMain.contentMain.webview.settings.javaScriptEnabled = true //for wa web
-        binding.appBarMain.contentMain.webview.settings.allowContentAccess = true // for camera
-        binding.appBarMain.contentMain.webview.settings.allowFileAccess = true
-        binding.appBarMain.contentMain.webview.settings.allowFileAccessFromFileURLs = true
-        binding.appBarMain.contentMain.webview.settings.allowUniversalAccessFromFileURLs = true
-        binding.appBarMain.contentMain.webview.settings.mediaPlaybackRequiresUserGesture =
-            false //for audio messages
-        binding.appBarMain.contentMain.webview.settings.domStorageEnabled =
-            true //for html5 app
-        binding.appBarMain.contentMain.webview.settings.databaseEnabled = true
-        binding.appBarMain.contentMain.webview.settings.cacheMode = WebSettings.LOAD_DEFAULT
-        binding.appBarMain.contentMain.webview.settings.loadWithOverviewMode = true
-        binding.appBarMain.contentMain.webview.settings.useWideViewPort = true
-        binding.appBarMain.contentMain.webview.settings.setSupportZoom(true)
-        binding.appBarMain.contentMain.webview.settings.builtInZoomControls = true
-        binding.appBarMain.contentMain.webview.settings.displayZoomControls = false
-        binding.appBarMain.contentMain.webview.settings.saveFormData = true
-        binding.appBarMain.contentMain.webview.settings.loadsImagesAutomatically = true
-        binding.appBarMain.contentMain.webview.settings.blockNetworkImage = false
-        binding.appBarMain.contentMain.webview.settings.blockNetworkLoads = false
-        binding.appBarMain.contentMain.webview.settings.javaScriptCanOpenWindowsAutomatically =
-            true
-        binding.appBarMain.contentMain.webview.settings.setNeedInitialFocus(false)
-        binding.appBarMain.contentMain.webview.settings.setGeolocationEnabled(true)
-        binding.appBarMain.contentMain.webview.settings.layoutAlgorithm =
-            WebSettings.LayoutAlgorithm.SINGLE_COLUMN
-        binding.appBarMain.contentMain.webview.scrollBarStyle = View.SCROLLBARS_INSIDE_OVERLAY
-        binding.appBarMain.contentMain.webview.isScrollbarFadingEnabled = true
-        binding.appBarMain.contentMain.webview.webChromeClient = object : WebChromeClient() {
-            override fun onCreateWindow(
-                view: WebView,
-                dialog: Boolean,
-                userGesture: Boolean,
-                resultMsg: Message
-            ): Boolean {
-                Toast.makeText(applicationContext, "OnCreateWindow", Toast.LENGTH_LONG).show()
-                return true
-            }
-
-            override fun onPermissionRequest(request: PermissionRequest) {
-                if (request.resources[0] == PermissionRequest.RESOURCE_VIDEO_CAPTURE) {
-                    if (ContextCompat.checkSelfPermission(
-                            activity,
-                            CAMERA_PERMISSION
-                        ) == PackageManager.PERMISSION_DENIED
-                        && ContextCompat.checkSelfPermission(
-                            activity,
-                            AUDIO_PERMISSION
-                        ) == PackageManager.PERMISSION_DENIED
-                    ) {
-                        ActivityCompat.requestPermissions(
-                            activity,
-                            VIDEO_PERMISSION,
-                            VIDEO_PERMISSION_RESULTCODE
-                        )
-                        mCurrentPermissionRequest = request
-                    } else if (ContextCompat.checkSelfPermission(
-                            activity,
-                            CAMERA_PERMISSION
-                        ) == PackageManager.PERMISSION_DENIED
-                    ) {
-                        ActivityCompat.requestPermissions(
-                            activity,
-                            arrayOf(CAMERA_PERMISSION),
-                            CAMERA_PERMISSION_RESULTCODE
-                        )
-                        mCurrentPermissionRequest = request
-                    } else if (ContextCompat.checkSelfPermission(
-                            activity,
-                            AUDIO_PERMISSION
-                        ) == PackageManager.PERMISSION_DENIED
-                    ) {
-                        ActivityCompat.requestPermissions(
-                            activity,
-                            arrayOf(AUDIO_PERMISSION),
-                            AUDIO_PERMISSION_RESULTCODE
-                        )
-                        mCurrentPermissionRequest = request
-                    } else {
-                        request.grant(request.resources)
-                    }
-                } else if (request.resources[0] == PermissionRequest.RESOURCE_AUDIO_CAPTURE) {
-                    if (ContextCompat.checkSelfPermission(
-                            activity,
-                            AUDIO_PERMISSION
-                        ) == PackageManager.PERMISSION_GRANTED
-                    ) {
-                        request.grant(request.resources)
-                    } else {
-                        ActivityCompat.requestPermissions(
-                            activity,
-                            arrayOf(AUDIO_PERMISSION),
-                            AUDIO_PERMISSION_RESULTCODE
-                        )
-                        mCurrentPermissionRequest = request
-                    }
+                    triggerDownload()
                 } else {
-                    try {
-                        request.grant(request.resources)
-                    } catch (e: RuntimeException) {
-                        Log.d(DEBUG_TAG, "Granting permissions failed", e)
-                    }
+                    requestPermission(STORAGE_PERMISSION)
                 }
             }
-
-            override fun onConsoleMessage(cm: ConsoleMessage): Boolean {
-                Log.d(DEBUG_TAG, "WebView console message: " + cm.message())
-                return super.onConsoleMessage(cm)
-            }
-
-            override fun onShowFileChooser(
-                webView: WebView,
-                filePathCallback: ValueCallback<Array<Uri>>,
-                fileChooserParams: FileChooserParams
-            ): Boolean {
-                mUploadMessage = filePathCallback
-                val chooserIntent = fileChooserParams.createIntent()
-                this@WebviewActivity.startActivityForResult(chooserIntent, FILECHOOSER_RESULTCODE)
-                return true
-            }
-        }
-        binding.appBarMain.contentMain.webview.webViewClient = object : WebViewClient() {
-            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                super.onPageStarted(view, url, favicon)
-
-                view?.let {
-                    setContentSize(it)
-                    if (mDarkMode) {
-                        addDarkMode(it)
-                    }
+            appBarMain.contentMain.webview.addJavascriptInterface(
+                BlobDownloader(applicationContext),
+                BlobDownloader.JsInstance
+            )
+            appBarMain.contentMain.webview.settings.javaScriptEnabled = true //for wa web
+            appBarMain.contentMain.webview.settings.allowContentAccess = true // for camera
+            appBarMain.contentMain.webview.settings.allowFileAccess = true
+            appBarMain.contentMain.webview.settings.allowFileAccessFromFileURLs = true
+            appBarMain.contentMain.webview.settings.allowUniversalAccessFromFileURLs = true
+            appBarMain.contentMain.webview.settings.mediaPlaybackRequiresUserGesture =
+                false //for audio messages
+            appBarMain.contentMain.webview.settings.domStorageEnabled =
+                true //for html5 app
+            appBarMain.contentMain.webview.settings.databaseEnabled = true
+            appBarMain.contentMain.webview.settings.cacheMode = WebSettings.LOAD_DEFAULT
+            appBarMain.contentMain.webview.settings.loadWithOverviewMode = true
+            appBarMain.contentMain.webview.settings.useWideViewPort = true
+            appBarMain.contentMain.webview.settings.setSupportZoom(true)
+            appBarMain.contentMain.webview.settings.builtInZoomControls = true
+            appBarMain.contentMain.webview.settings.displayZoomControls = false
+            appBarMain.contentMain.webview.settings.saveFormData = true
+            appBarMain.contentMain.webview.settings.loadsImagesAutomatically = true
+            appBarMain.contentMain.webview.settings.blockNetworkImage = false
+            appBarMain.contentMain.webview.settings.blockNetworkLoads = false
+            appBarMain.contentMain.webview.settings.javaScriptCanOpenWindowsAutomatically =
+                true
+            appBarMain.contentMain.webview.settings.setNeedInitialFocus(false)
+            appBarMain.contentMain.webview.settings.setGeolocationEnabled(true)
+            appBarMain.contentMain.webview.settings.layoutAlgorithm =
+                WebSettings.LayoutAlgorithm.SINGLE_COLUMN
+            appBarMain.contentMain.webview.scrollBarStyle = View.SCROLLBARS_INSIDE_OVERLAY
+            appBarMain.contentMain.webview.isScrollbarFadingEnabled = true
+            appBarMain.contentMain.webview.webChromeClient = object : WebChromeClient() {
+                override fun onCreateWindow(
+                    view: WebView,
+                    dialog: Boolean,
+                    userGesture: Boolean,
+                    resultMsg: Message
+                ): Boolean {
+                    Toast.makeText(applicationContext, "OnCreateWindow", Toast.LENGTH_LONG).show()
+                    return true
                 }
-            }
 
-            override fun onPageCommitVisible(view: WebView?, url: String?) {
-                super.onPageCommitVisible(view, url)
-
-                view?.let {
-                    setContentSize(it)
-                    if (mDarkMode) {
-                        addDarkMode(it)
-                    }
-                }
-            }
-
-            override fun onPageFinished(view: WebView?, url: String?) {
-                super.onPageFinished(view, url)
-
-                view?.let {
-                    it.scrollTo(0, 0)
-                    setContentSize(it)
-                    if (mDarkMode) {
-                        addDarkMode(it)
-                    }
-                }
-            }
-
-            override fun shouldOverrideUrlLoading(
-                view: WebView?,
-                request: WebResourceRequest?
-            ): Boolean {
-                request?.let {
-                    val url = it.url
-                    Log.d(DEBUG_TAG, url.toString())
-                    if (url.toString() == WHATSAPP_HOMEPAGE_URL) {
-                        // when whatsapp somehow detects that waweb is running on a phone (e.g. trough
-                        // the user agent, but apparently somehow else), it automatically redicts to the
-                        // WHATSAPP_HOMEPAGE_URL. It's higly unlikely that a user wants to visit the
-                        // WHATSAPP_HOMEPAGE_URL from within waweb.
-                        // -> block the request and reload waweb
-                        showToast("WA Web has to be reloaded to keep the app running")
-                        loadWhatsapp()
-                        return true
-                    } else if (url.host == WHATSAPP_WEB_BASE_URL) {
-                        // whatsapp web request -> fine
-                        return super.shouldOverrideUrlLoading(view, request)
+                override fun onPermissionRequest(request: PermissionRequest) {
+                    if (request.resources[0] == PermissionRequest.RESOURCE_VIDEO_CAPTURE) {
+                        if (ContextCompat.checkSelfPermission(
+                                activity,
+                                CAMERA_PERMISSION
+                            ) == PackageManager.PERMISSION_DENIED
+                            && ContextCompat.checkSelfPermission(
+                                activity,
+                                AUDIO_PERMISSION
+                            ) == PackageManager.PERMISSION_DENIED
+                        ) {
+                            ActivityCompat.requestPermissions(
+                                activity,
+                                VIDEO_PERMISSION,
+                                VIDEO_PERMISSION_RESULTCODE
+                            )
+                            mCurrentPermissionRequest = request
+                        } else if (ContextCompat.checkSelfPermission(
+                                activity,
+                                CAMERA_PERMISSION
+                            ) == PackageManager.PERMISSION_DENIED
+                        ) {
+                            ActivityCompat.requestPermissions(
+                                activity,
+                                arrayOf(CAMERA_PERMISSION),
+                                CAMERA_PERMISSION_RESULTCODE
+                            )
+                            mCurrentPermissionRequest = request
+                        } else if (ContextCompat.checkSelfPermission(
+                                activity,
+                                AUDIO_PERMISSION
+                            ) == PackageManager.PERMISSION_DENIED
+                        ) {
+                            ActivityCompat.requestPermissions(
+                                activity,
+                                arrayOf(AUDIO_PERMISSION),
+                                AUDIO_PERMISSION_RESULTCODE
+                            )
+                            mCurrentPermissionRequest = request
+                        } else {
+                            request.grant(request.resources)
+                        }
+                    } else if (request.resources[0] == PermissionRequest.RESOURCE_AUDIO_CAPTURE) {
+                        if (ContextCompat.checkSelfPermission(
+                                activity,
+                                AUDIO_PERMISSION
+                            ) == PackageManager.PERMISSION_GRANTED
+                        ) {
+                            request.grant(request.resources)
+                        } else {
+                            ActivityCompat.requestPermissions(
+                                activity,
+                                arrayOf(AUDIO_PERMISSION),
+                                AUDIO_PERMISSION_RESULTCODE
+                            )
+                            mCurrentPermissionRequest = request
+                        }
                     } else {
-                        val intent = Intent(Intent.ACTION_VIEW, url)
-                        startActivity(intent)
-                        return true
+                        try {
+                            request.grant(request.resources)
+                        } catch (e: RuntimeException) {
+                            Log.d(DEBUG_TAG, "Granting permissions failed", e)
+                        }
                     }
                 }
 
-                return super.shouldOverrideUrlLoading(view, request)
-            }
+                override fun onConsoleMessage(cm: ConsoleMessage): Boolean {
+                    Log.d(DEBUG_TAG, "WebView console message: " + cm.message())
+                    return super.onConsoleMessage(cm)
+                }
 
-            @RequiresApi(api = Build.VERSION_CODES.M)
-            override fun onReceivedError(
-                view: WebView?,
-                request: WebResourceRequest?,
-                error: WebResourceError?
-            ) {
-                val msg = String.format("Error: %s - %s", error?.errorCode, error?.description)
-                Log.d(DEBUG_TAG, msg)
+                override fun onShowFileChooser(
+                    webView: WebView,
+                    filePathCallback: ValueCallback<Array<Uri>>,
+                    fileChooserParams: FileChooserParams
+                ): Boolean {
+                    mUploadMessage = filePathCallback
+                    val chooserIntent = fileChooserParams.createIntent()
+                    this@WebviewActivity.startActivityForResult(
+                        chooserIntent,
+                        FILECHOOSER_RESULTCODE
+                    )
+                    return true
+                }
             }
+            appBarMain.contentMain.webview.webViewClient = object : WebViewClient() {
+                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                    super.onPageStarted(view, url, favicon)
 
-            override fun onUnhandledKeyEvent(view: WebView?, event: KeyEvent?) {
-                Log.d(DEBUG_TAG, "Unhandled key event: $event")
+                    view?.let {
+                        setContentSize(it)
+                        if (mDarkMode) {
+                            addDarkMode(it)
+                        }
+                    }
+                }
+
+                override fun onPageCommitVisible(view: WebView?, url: String?) {
+                    super.onPageCommitVisible(view, url)
+
+                    view?.let {
+                        setContentSize(it)
+                        if (mDarkMode) {
+                            addDarkMode(it)
+                        }
+                    }
+                }
+
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    super.onPageFinished(view, url)
+
+                    view?.let {
+                        it.scrollTo(0, 0)
+                        setContentSize(it)
+                        if (mDarkMode) {
+                            addDarkMode(it)
+                        }
+                    }
+                }
+
+                override fun shouldOverrideUrlLoading(
+                    view: WebView?,
+                    request: WebResourceRequest?
+                ): Boolean {
+                    request?.let {
+                        val url = it.url
+                        Log.d(DEBUG_TAG, url.toString())
+                        if (url.toString() == WHATSAPP_HOMEPAGE_URL) {
+                            // when whatsapp somehow detects that waweb is running on a phone (e.g. trough
+                            // the user agent, but apparently somehow else), it automatically redicts to the
+                            // WHATSAPP_HOMEPAGE_URL. It's higly unlikely that a user wants to visit the
+                            // WHATSAPP_HOMEPAGE_URL from within waweb.
+                            // -> block the request and reload waweb
+                            showToast("WA Web has to be reloaded to keep the app running")
+                            loadWhatsapp()
+                            return true
+                        } else if (url.host == WHATSAPP_WEB_BASE_URL) {
+                            // whatsapp web request -> fine
+                            return super.shouldOverrideUrlLoading(view, request)
+                        } else {
+                            val intent = Intent(Intent.ACTION_VIEW, url)
+                            startActivity(intent)
+                            return true
+                        }
+                    }
+
+                    return super.shouldOverrideUrlLoading(view, request)
+                }
+
+                @RequiresApi(api = Build.VERSION_CODES.M)
+                override fun onReceivedError(
+                    view: WebView?,
+                    request: WebResourceRequest?,
+                    error: WebResourceError?
+                ) {
+                    val msg = String.format("Error: %s - %s", error?.errorCode, error?.description)
+                    Log.d(DEBUG_TAG, msg)
+                }
+
+                override fun onUnhandledKeyEvent(view: WebView?, event: KeyEvent?) {
+                    Log.d(DEBUG_TAG, "Unhandled key event: $event")
+                }
             }
+            if (savedInstanceState == null) {
+                loadWhatsapp()
+            } else {
+                Log.d(DEBUG_TAG, "savedInstanceState is present")
+            }
+            appBarMain.contentMain.webview.settings.userAgentString = USER_AGENT
         }
-        if (savedInstanceState == null) {
-            loadWhatsapp()
-        } else {
-            Log.d(DEBUG_TAG, "savedInstanceState is present")
+    }
+
+    private fun showMorePopup(v: View) {
+        val popupMenu = PopupMenu(this, v)
+        popupMenu.menuInflater.inflate(R.menu.action_bar, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.toggle_keyboard -> toggleKeyboard()
+                R.id.scroll_left -> {
+                    showToast("scroll left")
+                    runOnUiThread { binding.appBarMain.contentMain.webview.scrollTo(0, 0) }
+                }
+                R.id.scroll_right -> {
+                    showToast("scroll right")
+                    runOnUiThread { binding.appBarMain.contentMain.webview.scrollTo(2000, 0) }
+                }
+            }
+            return@setOnMenuItemClickListener true
         }
-        binding.appBarMain.contentMain.webview.settings.userAgentString = USER_AGENT
+        popupMenu.show()
     }
 
     override fun onResume() {
@@ -341,27 +378,6 @@ open class WebviewActivity : AppCompatActivity(), NavigationView.OnNavigationIte
     override fun onPause() {
         super.onPause()
         binding.appBarMain.contentMain.webview.onPause()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.action_bar, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.toggle_keyboard -> toggleKeyboard()
-            R.id.scroll_left -> {
-                showToast("scroll left")
-                runOnUiThread({ binding.appBarMain.contentMain.webview.scrollTo(0, 0) })
-            }
-            R.id.scroll_right -> {
-                showToast("scroll right")
-                runOnUiThread({ binding.appBarMain.contentMain.webview.scrollTo(2000, 0) })
-            }
-        }
-        return true
     }
 
     private fun checkPermission(permission: String): Boolean {
@@ -549,17 +565,16 @@ open class WebviewActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         //close binding.drawer if open and impl. press back again to leave
         if (binding.drawer.isDrawerOpen(GravityCompat.START)) {
             binding.drawer.closeDrawer(GravityCompat.START)
-        } else if (System.currentTimeMillis() - mLastBackClick < 1100) {
-            finishAffinity()
         } else {
-            binding.appBarMain.contentMain.webview.dispatchKeyEvent(
-                KeyEvent(
-                    KeyEvent.ACTION_DOWN,
-                    KeyEvent.KEYCODE_ESCAPE
-                )
-            )
-            showToast("Click back again to close")
-            mLastBackClick = System.currentTimeMillis()
+//            binding.appBarMain.contentMain.webview.dispatchKeyEvent(
+//                KeyEvent(
+//                    KeyEvent.ACTION_DOWN,
+//                    KeyEvent.KEYCODE_ESCAPE
+//                )
+//            )
+//            showToast("Click back again to close")
+//            mLastBackClick = System.currentTimeMillis()
+            finishAffinity()
         }
     }
 

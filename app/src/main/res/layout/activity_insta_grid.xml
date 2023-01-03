@@ -37,19 +37,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="44dp"
                     android:layout_toEndOf="@id/imgBack"
+                    android:fontFamily="@font/gilroy_bold"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:layout_marginEnd="44dp"
                     android:text="@string/insta_grid"
                     android:textColor="@color/textColorPrimary"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textSize="20sp" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.8dp"
-                    android:background="#dedede"
-                    android:layout_alignParentBottom="true"/>
+                    android:layout_alignParentBottom="true"
+                    android:background="#dedede" />
             </RelativeLayout>
 
             <com.gbversion.tool.statussaver.widgets.SquareLinearLayout
@@ -65,6 +66,7 @@
                     app:cardCornerRadius="8dp"
                     app:cardElevation="8dp"
                     app:cardUseCompatPadding="true">
+
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/imgCropped"
                         android:layout_width="match_parent"
@@ -91,27 +93,28 @@
                     android:text="Level up your profile with Beautiful grids"
                     android:textColor="@color/textColorPrimary"
                     android:textSize="14sp"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <RelativeLayout
                     android:id="@+id/imgSelectImage"
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
-                    android:layout_marginTop="16dp"
                     android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
                     android:background="@drawable/btn_gradient_drawable"
+                    android:orientation="horizontal"
                     android:paddingTop="10dp"
-                    android:paddingBottom="8dp"
-                    android:orientation="horizontal">
+                    android:paddingBottom="8dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/poppins_medium"
                         android:text="Select Image"
                         android:textAllCaps="false"
-                        android:layout_centerInParent="true"
                         android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:fontFamily="@font/poppins_medium"/>
+                        android:textSize="18sp" />
 
                 </RelativeLayout>
             </LinearLayout>

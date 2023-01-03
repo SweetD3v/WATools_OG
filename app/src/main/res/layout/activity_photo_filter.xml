@@ -30,25 +30,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="64dp"
                 android:layout_toEndOf="@id/imgBack"
+                android:fontFamily="@font/gilroy_bold"
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:text="@string/photo_filters"
                 android:textColor="@color/black"
-                android:layout_marginEnd="64dp"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="20sp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
                 android:backgroundTint="#ef8800"
                 android:fontFamily="@font/karla_semibold"
                 android:text="Save"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="16dp"
-                android:layout_centerVertical="true"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -57,8 +57,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.8dp"
-                android:background="#dedede"
-                android:layout_alignParentBottom="true"/>
+                android:layout_alignParentBottom="true"
+                android:background="#dedede" />
         </RelativeLayout>
 
         <ImageView
@@ -76,8 +76,8 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:orientation="horizontal"
-            tools:listitem="@layout/list_thumbnail_item"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/list_thumbnail_item" />
     </RelativeLayout>
 
     <FrameLayout

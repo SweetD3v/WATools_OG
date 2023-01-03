@@ -30,24 +30,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
-                android:layout_toEndOf="@id/imgBack"
                 android:layout_marginEnd="44dp"
+                android:layout_toEndOf="@id/imgBack"
+                android:fontFamily="@font/gilroy_bold"
                 android:gravity="center"
                 android:maxLines="1"
                 android:text="@string/photo_compress"
                 android:textColor="@color/textColorPrimary"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imgDownload"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="8dp"
                 android:padding="4dp"
                 app:srcCompat="@drawable/ic_instadownloadhome"
-                android:layout_alignParentEnd="true"
                 app:tint="@color/black" />
         </RelativeLayout>
 
@@ -110,8 +110,8 @@
                     android:id="@+id/llSlider"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
                     android:layout_below="@id/llCompressTop"
+                    android:layout_marginHorizontal="8dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -135,10 +135,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/karla_semibold"
-                        android:visibility="gone"
                         android:text="80 %"
                         android:textColor="@color/textColorPrimary"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <TextView
@@ -147,29 +147,29 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/llSlider"
                     android:gravity="center_horizontal"
-                    android:visibility="gone"
                     android:text="Adjust the compress ratio with slider "
                     android:textColor="@color/textColorPrimary"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/btn_layout"
-                    android:layout_below="@id/txtCompressHint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/txtCompressHint"
                     android:layout_marginHorizontal="8dp"
-                    android:paddingBottom="8dp"
                     android:layout_marginTop="8dp"
-                    android:paddingTop="10dp"
                     android:orientation="horizontal"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="8dp"
                     android:weightSum="1">
 
                     <LinearLayout
                         android:id="@+id/btnCompress"
                         android:layout_width="0dp"
                         android:layout_height="62dp"
-                        android:layout_weight="0.5"
                         android:layout_gravity="center_horizontal"
+                        android:layout_weight="0.5"
                         android:background="@drawable/ic_compressbtn"
                         android:orientation="horizontal" />
 
@@ -177,12 +177,12 @@
                         android:id="@+id/txtPhotoSize"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:layout_gravity="center_vertical"
                         android:layout_below="@id/llCompressTop"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="0.5"
                         android:fontFamily="@font/karla_semibold"
                         android:gravity="end"
-                        android:layout_marginStart="8dp"
                         android:text="Photo size: 100 KB"
                         android:textColor="@color/textColorPrimary"
                         android:textSize="16sp" />

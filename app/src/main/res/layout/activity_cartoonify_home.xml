@@ -27,12 +27,12 @@
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@id/imgBack"
+            android:fontFamily="@font/gilroy_bold"
             android:gravity="center_vertical"
             android:maxLines="1"
             android:text="@string/cartoonify"
             android:textColor="@color/textColorPrimary"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <RelativeLayout
