@@ -1,23 +1,29 @@
 package com.gbversion.tool.statussaver.speedtest
 
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.location.Location
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.view.View.*
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.gbversion.tool.statussaver.databinding.ActivitySpeedTestBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.speedtest.test.HttpDownloadTest
 import com.gbversion.tool.statussaver.speedtest.test.HttpUploadTest
 import com.gbversion.tool.statussaver.speedtest.test.PingTest
 import com.gbversion.tool.statussaver.utils.AdsUtils
 import com.gbversion.tool.statussaver.utils.NetworkState
-import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import java.text.DecimalFormat
 import kotlin.math.roundToInt
 
@@ -80,7 +86,23 @@ class SpeedTestActivity : AppCompatActivity() {
     private var i = 0f
     private var j: Float = 0f
     private var k: Float = 0f
-    private var testing = false
+
+    var cachePercentage: Int = 0
+    var handlerConnecting: Handler? = Handler(Looper.getMainLooper())
+    val runnableConnecting = object : Runnable {
+        override fun run() {
+            cachePercentage += 1
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                binding.progressConnecting.setProgress(cachePercentage, true)
+            else binding.progressConnecting.progress = cachePercentage
+            handlerConnecting?.postDelayed(this, 65)
+
+            if (cachePercentage == 100) {
+                handlerConnecting?.removeCallbacks(this)
+                cachePercentage = 0
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,48 +117,60 @@ class SpeedTestActivity : AppCompatActivity() {
                 AdsUtils.loadBanner(
                     this@SpeedTestActivity,
                     RemoteConfigUtils.adIdBanner(),
-                            bannerContainer
+                    bannerContainer
                 )
             }
 
+            txtDownloadSpeed.setColors(Color.parseColor("#0E9300"), Color.parseColor("#11B200"))
+            txtUploadSpeed.setColors(Color.parseColor("#A58E07"), Color.parseColor("#C1A502"))
+
+            imgBack.setOnClickListener { onBackPressed() }
+
             startSpeedTest.setOnClickListener {
                 if (NetworkState.isOnline()) {
+                    llConnecting.visibility = VISIBLE
+                    handlerConnecting?.post(runnableConnecting)
                     AdsUtils.loadInterstitialAd(this@SpeedTestActivity,
                         RemoteConfigUtils.adIdInterstital(),
                         object : AdsUtils.Companion.FullScreenCallback() {
                             override fun continueExecution() {
-                                animConnecting.visibility = VISIBLE
-                                llPingText.visibility = INVISIBLE
-                                txtPing.text = "Connecting..."
+                                txtPing.text = "-"
                                 startSpeedTest.visibility = GONE
-                                imgSpeedMeter.visibility = VISIBLE
-                                imgSpeedMeterHande.visibility = VISIBLE
                                 testSpeed()
                             }
                         })
                 } else {
-                    animConnecting.visibility = VISIBLE
-                    llPingText.visibility = INVISIBLE
-                    txtPing.text = "Connecting..."
-                    startSpeedTest.visibility = GONE
-                    imgSpeedMeter.visibility = VISIBLE
-                    imgSpeedMeterHande.visibility = VISIBLE
-                    testSpeed()
+                    Toast.makeText(
+                        this@SpeedTestActivity,
+                        "Please connect to the Internet.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
+            seekbarStrength.setOnTouchListener { v, event -> return@setOnTouchListener true }
+
             startSpeedTestAgain.setOnClickListener {
-//                txtPing.text = "Connecting..."
-//
-//                imgSpeedMeter.visible()
-//                imgSpeedMeterHande.visible()
-//                startSpeedTestAgain.gone()
-//
-//                txtDownloadSpeed.text = "- mbps"
-//                txtUploadSpeed.text = "- mbps"
-//
-//                testSpeed()
-                onBackPressed()
+                if (NetworkState.isOnline()) {
+                    handlerConnecting?.post(runnableConnecting)
+                    llConnecting.visibility = VISIBLE
+                    llStrength.visibility = GONE
+                    clStartSpeedTestAgain.visibility = GONE
+                    imgSpeedMeter.visibility = View.VISIBLE
+                    binding.imgSpeedMeter.setSpeed(0, 0)
+                    txtPing.text = "-"
+
+                    txtDownloadSpeed.text = "-"
+                    txtUploadSpeed.text = "-"
+
+                    testSpeed()
+                } else {
+                    Toast.makeText(
+                        this@SpeedTestActivity,
+                        "Please connect to the Internet.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
 
@@ -304,8 +338,10 @@ class SpeedTestActivity : AppCompatActivity() {
                                             }"
                                         )
 
-                                        binding.animConnecting.visibility = INVISIBLE
-                                        binding.llPingText.visibility = VISIBLE
+                                        binding.llConnecting.visibility = GONE
+                                        handlerConnecting?.removeCallbacks(runnableConnecting)
+                                        cachePercentage = 0
+                                        binding.progressConnecting.progress = 0
                                         binding.txtPing.text =
                                             "${dec.format(pingTest.avgRtt)} ms"
                                     }
@@ -559,7 +595,13 @@ class SpeedTestActivity : AppCompatActivity() {
                                         j++
 
                                         binding.txtDownloadSpeed.text =
-                                            "$downloadSpeedInstant Mbps"
+                                            "$downloadSpeedInstant"
+                                        binding.txtDownloadPS.text = "Mbps"
+
+                                        binding.seekbarStrength.post {
+                                            binding.seekbarStrength.progress =
+                                                downloadTest.instantDownloadRate.roundToInt()
+                                        }
                                     }
                                     lastPosition = position
 
@@ -581,7 +623,6 @@ class SpeedTestActivity : AppCompatActivity() {
                                         } catch (e: Exception) {
                                         }
                                     }
-//                                    binding.imgSpeedMeterHande.startAnimation(rotate)
 
                                 } catch (e: Exception) {
                                     e.printStackTrace()
@@ -773,7 +814,8 @@ class SpeedTestActivity : AppCompatActivity() {
 //                                        }
                                         k++
 
-                                        binding.txtUploadSpeed.text = "$uploadSpeedInstant Mbps"
+                                        binding.txtUploadSpeed.text = "$uploadSpeedInstant"
+                                        binding.txtUploadPS.text = "Mbps"
                                     }
                                 } catch (e: Exception) {
                                     e.printStackTrace()
@@ -791,7 +833,6 @@ class SpeedTestActivity : AppCompatActivity() {
                                     interpolator = LinearInterpolator()
                                     duration = 100
                                 }
-//                                binding.imgSpeedMeterHande.startAnimation(rotate)
 
                                 binding.imgSpeedMeter.post {
                                     try {
@@ -805,9 +846,9 @@ class SpeedTestActivity : AppCompatActivity() {
                         if (pingTestFinished && downloadTestFinished && uploadTest.isFinished) {
                             binding.run {
                                 imgSpeedMeter.post {
-//                                    imgSpeedMeter.gone()
-//                                    imgSpeedMeterHande.gone()
-                                    startSpeedTestAgain.visibility = VISIBLE
+                                    imgSpeedMeter.visibility = GONE
+                                    llStrength.visibility = View.VISIBLE
+                                    clStartSpeedTestAgain.visibility = View.VISIBLE
                                 }
                             }
                             break
