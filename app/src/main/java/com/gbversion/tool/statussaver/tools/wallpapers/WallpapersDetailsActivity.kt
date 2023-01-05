@@ -11,6 +11,7 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityWallpaperDetailsBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.BaseActivity
 import com.gbversion.tool.statussaver.tools.downloader.BasicImageDownloader
 import com.gbversion.tool.statussaver.utils.AdsUtils
@@ -24,6 +25,7 @@ class WallpapersDetailsActivity : BaseActivity() {
     var isAllVisible: Boolean = false
     var imageUrl: String? = null
     var downloadUrl = ""
+    val walpType by lazy { intent.getStringExtra("walpType") }
 
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +40,7 @@ class WallpapersDetailsActivity : BaseActivity() {
 
             if (NetworkState.isOnline())
                 AdsUtils.loadBanner(
-                    this@WallpapersDetailsActivity, getString(R.string.banner_id_details),
+                    this@WallpapersDetailsActivity, RemoteConfigUtils.adIdBanner(),
                     binding.bannerContainer
                 )
 
@@ -80,13 +82,23 @@ class WallpapersDetailsActivity : BaseActivity() {
             fabDownload.setOnClickListener {
                 AdsUtils.loadInterstitialAd(
                     this@WallpapersDetailsActivity,
-                    getString(R.string.interstitial_id),
+                    RemoteConfigUtils.adIdInterstital(),
                     object : AdsUtils.Companion.FullScreenCallback() {
                         override fun continueExecution() {
                             imageUrl = downloadUrl
                             imageUrl?.let { url ->
                                 BasicImageDownloader(this@WallpapersDetailsActivity)
-                                    .saveImageToExternal(url, File(originalPath, "Wallpapers"))
+                                    .saveImageToExternal(
+                                        url,
+                                        File(
+                                            originalPath,
+                                            if (walpType == "wallpapers") {
+                                                "Wallpapers"
+                                            } else {
+                                                "Status"
+                                            }
+                                        )
+                                    )
                             }
                         }
                     })
@@ -170,7 +182,7 @@ class WallpapersDetailsActivity : BaseActivity() {
 
             AdsUtils.loadInterstitialAd(
                 this,
-                getString(R.string.interstitial_id),
+                RemoteConfigUtils.adIdInterstital(),
                 object : AdsUtils.Companion.FullScreenCallback() {
                     override fun continueExecution() {
                         finish()

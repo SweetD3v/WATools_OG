@@ -63,6 +63,7 @@ import com.gbversion.tool.statussaver.collage_maker.utils.FileUtils;
 import com.gbversion.tool.statussaver.collage_maker.utils.SystemUtils;
 import com.gbversion.tool.statussaver.collage_maker.utils.UtilsFilter;
 import com.gbversion.tool.statussaver.databinding.ActivityPicEditBinding;
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils;
 import com.gbversion.tool.statussaver.tools.photo_filters.PhotoFiltersUtils;
 import com.gbversion.tool.statussaver.utils.DisplayUtilsKt;
 import com.gbversion.tool.statussaver.utils.ExtensionsKt;
@@ -164,7 +165,7 @@ public class PicEditActivity extends AppCompatActivity implements OnPhotoEditorL
         DisplayUtilsKt.setDarkStatusBar(this);
 
         if (NetworkState.Companion.isOnline())
-            AdsUtils.Companion.loadBanner(this, getString(R.string.banner_id_details),
+            AdsUtils.Companion.loadBanner(this, RemoteConfigUtils.Companion.adIdBanner(),
                     binding.bannerContainer);
         setContentView(binding.getRoot());
         initViews();
@@ -1091,7 +1092,7 @@ public class PicEditActivity extends AppCompatActivity implements OnPhotoEditorL
                 return;
             }
 
-            AdsUtils.Companion.loadInterstitialAd(PicEditActivity.this, getString(R.string.interstitial_id),
+            AdsUtils.Companion.loadInterstitialAd(PicEditActivity.this, RemoteConfigUtils.Companion.adIdInterstital(),
                     new AdsUtils.Companion.FullScreenCallback() {
                         @Override
                         public void continueExecution() {

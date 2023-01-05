@@ -127,6 +127,12 @@
         <item name="cornerSizeBottomLeft">50%</item>
     </style>
 
+    <style name="ShapeableImageView36Top" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">36dp</item>
+        <item name="cornerSizeTopRight">36dp</item>
+    </style>
+
     <style name="ShapeableImageView8" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">8dp</item>

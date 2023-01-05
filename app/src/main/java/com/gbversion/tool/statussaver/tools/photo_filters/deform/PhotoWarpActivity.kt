@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.core.net.toUri
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityPhotoWarpBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.cartoonify.CartoonActivity
 import com.gbversion.tool.statussaver.tools.photo_filters.PhotoFiltersSaveActivity
 import com.gbversion.tool.statussaver.tools.photo_filters.PhotoFiltersUtils
@@ -138,7 +139,7 @@ class PhotoWarpActivity : AppCompatActivity() {
 
         if (NetworkState.isOnline())
             AdsUtils.loadBanner(
-                this, getString(R.string.banner_id_details),
+                this, RemoteConfigUtils.adIdBanner(),
                 binding.bannerContainer
             )
 
@@ -215,7 +216,7 @@ class PhotoWarpActivity : AppCompatActivity() {
                                 ).show()
 
                                 AdsUtils.loadInterstitialAd(this@PhotoWarpActivity,
-                                    getString(R.string.interstitial_id),
+                                    RemoteConfigUtils.adIdInterstital(),
                                     object : AdsUtils.Companion.FullScreenCallback() {
                                         override fun continueExecution() {
                                             PhotoFiltersUtils.photoFilterBmp = it

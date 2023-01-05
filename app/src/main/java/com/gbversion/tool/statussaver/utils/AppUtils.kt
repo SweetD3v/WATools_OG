@@ -18,6 +18,7 @@ import java.util.*
 class AppUtils {
     companion object {
         val USER_AGENT = "User-Agent"
+        var CLEANER_TYPE = 0
         var APP_DIR: String? = null
         val MICRO_KIND = 3
         val MINI_KIND = 1

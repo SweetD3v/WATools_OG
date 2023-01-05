@@ -33,7 +33,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class WAImagesFragment : BaseFragment<FragmentWaimagesBinding>(), WATypeChangeListener {
+class WAVideosFragment : BaseFragment<FragmentWaimagesBinding>(), WATypeChangeListener {
     override fun getLayout(): FragmentWaimagesBinding {
         return FragmentWaimagesBinding.inflate(layoutInflater)
     }
@@ -94,8 +94,8 @@ class WAImagesFragment : BaseFragment<FragmentWaimagesBinding>(), WATypeChangeLi
         waType = type
         Log.e("TAG", "onTypeChanged: $waType")
         if (waType == 0)
-            loadImages()
-        else loadImagesWB()
+            loadVideos()
+        else loadVideosWB()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -158,14 +158,14 @@ class WAImagesFragment : BaseFragment<FragmentWaimagesBinding>(), WATypeChangeLi
                     }
                 } else {
                     if (waType == 0)
-                        loadImages()
-                    else loadImagesWB()
+                        loadVideos()
+                    else loadVideosWB()
                 }
             }
         } else {
             if (waType == 0)
-                loadImages()
-            else loadImagesWB()
+                loadVideos()
+            else loadVideosWB()
         }
     }
 
@@ -230,7 +230,7 @@ class WAImagesFragment : BaseFragment<FragmentWaimagesBinding>(), WATypeChangeLi
 //        loadImages()
     }
 
-    private fun loadImages() {
+    private fun loadVideos() {
         if (isAdded) {
             binding.apply {
                 val imageListNew = mutableListOf<Media>()
@@ -243,17 +243,19 @@ class WAImagesFragment : BaseFragment<FragmentWaimagesBinding>(), WATypeChangeLi
                     getMediaWACoroutine(ctx) { list ->
                         for (media in list) {
                             if (!media.path.contains(".nomedia", true)
+                                && ctx.contentResolver.getType(media.uri).toString()
+                                    .contains("video", true)
                             ) {
                                 imageListNew.add(media)
                             }
 //                            Log.e("TAG", "loadImagesWA: ${media.path}")
                         }
                         uiScope.launch {
-                            imagesList = imageListNew
+                            videosList = imageListNew
                             uiScope.launch {
-                                val waMediaAdapter = WAMediaAdapter(ctx, imagesList)
+                                val waMediaAdapter = WAMediaAdapter(ctx, videosList)
                                 binding.rvWAImages.adapter = waMediaAdapter
-                                waMediaAdapter.notifyItemRangeChanged(0, imagesList.size)
+                                waMediaAdapter.notifyItemRangeChanged(0, videosList.size)
                             }
                         }
                     }
@@ -262,7 +264,7 @@ class WAImagesFragment : BaseFragment<FragmentWaimagesBinding>(), WATypeChangeLi
         }
     }
 
-    private fun loadImagesWB() {
+    private fun loadVideosWB() {
         if (isAdded) {
             binding.apply {
                 val imageListNew = mutableListOf<Media>()
@@ -281,11 +283,11 @@ class WAImagesFragment : BaseFragment<FragmentWaimagesBinding>(), WATypeChangeLi
 //                            Log.e("TAG", "loadImagesWA: ${media.path}")
                         }
                         uiScope.launch {
-                            imagesList = imageListNew
+                            videosList = imageListNew
                             uiScope.launch {
-                                val waMediaAdapter = WAMediaAdapter(ctx, imagesList)
+                                val waMediaAdapter = WAMediaAdapter(ctx, videosList)
                                 binding.rvWAImages.adapter = waMediaAdapter
-                                waMediaAdapter.notifyItemRangeChanged(0, imagesList.size)
+                                waMediaAdapter.notifyItemRangeChanged(0, videosList.size)
                             }
                         }
                     }
@@ -298,15 +300,15 @@ class WAImagesFragment : BaseFragment<FragmentWaimagesBinding>(), WATypeChangeLi
     }
 
     companion object {
-        var imagesList: MutableList<Media> = mutableListOf()
-        fun newInstance(): WAImagesFragment {
-            val fragment = WAImagesFragment()
+        var videosList: MutableList<Media> = mutableListOf()
+        fun newInstance(): WAVideosFragment {
+            val fragment = WAVideosFragment()
             fragment.waTypeChangeListener = fragment
             return fragment
         }
 
-        fun newInstance(waTypeChangeListener: WATypeChangeListener): WAImagesFragment {
-            val fragment = WAImagesFragment()
+        fun newInstance(waTypeChangeListener: WATypeChangeListener): WAVideosFragment {
+            val fragment = WAVideosFragment()
             fragment.waTypeChangeListener = waTypeChangeListener
             return fragment
         }

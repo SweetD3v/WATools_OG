@@ -47,6 +47,7 @@ import com.gbversion.tool.statussaver.collage_maker.utils.FileUtils.saveBitmapAs
 import com.gbversion.tool.statussaver.collage_maker.utils.SystemUtils
 import com.gbversion.tool.statussaver.collage_maker.utils.UtilsFilter
 import com.gbversion.tool.statussaver.databinding.ActivityPuzzleBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.utils.setLightStatusBar
 import com.gbversion.tool.statussaver.tools.photo_filters.PhotoFiltersUtils
 import com.gbversion.tool.statussaver.ui.activities.MainActivity
@@ -235,7 +236,7 @@ class CollageViewActivity : AppCompatActivity(), BottomToolsAdapter.OnItemSelect
         setContentView(binding.root)
         setLightStatusBar(this)
         if (NetworkState.isOnline()) AdsUtils.loadBanner(
-            this, getString(R.string.banner_id_details),
+            this, RemoteConfigUtils.adIdBanner(),
             binding.bannerContainer
         )
 
@@ -1120,7 +1121,7 @@ class CollageViewActivity : AppCompatActivity(), BottomToolsAdapter.OnItemSelect
                 null as Array<String?>?
             ) { str: String?, uri: Uri? -> }
             AdsUtils.loadInterstitialAd(this@CollageViewActivity,
-                getString(R.string.interstitial_id),
+                RemoteConfigUtils.adIdInterstital(),
                 object : AdsUtils.Companion.FullScreenCallback() {
                     override fun continueExecution() {
                         val intent = Intent(

@@ -2,14 +2,11 @@ package com.gbversion.tool.statussaver.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import com.gbversion.tool.statussaver.databinding.ActivityMainBinding
 import com.gbversion.tool.statussaver.phone_booster.app_utils.batteryPerms
 import com.gbversion.tool.statussaver.phone_booster.app_utils.getAllAppsPermissions
-import com.google.android.material.snackbar.Snackbar
 import com.internet.speed_meter.SpeedMeterService
 
 class MainActivity : BaseActivity() {
@@ -39,9 +36,9 @@ class MainActivity : BaseActivity() {
 //                startService(speedMeterIntent)
 //            }
 //        } else {
-            val speedMeterIntent =
-                Intent(this@MainActivity, SpeedMeterService::class.java)
-            startService(speedMeterIntent)
+        val speedMeterIntent =
+            Intent(this@MainActivity, SpeedMeterService::class.java)
+        startService(speedMeterIntent)
 //        }
 
         var permissions = getAllAppsPermissions(this)
@@ -59,18 +56,23 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    var doubleBackToExitPressedOnce = false
+//    var doubleBackToExitPressedOnce = false
+//    override fun onBackPressed() {
+//        if (doubleBackToExitPressedOnce) {
+//            finish()
+//            return
+//        }
+//
+//        this.doubleBackToExitPressedOnce = true
+//        Snackbar.make(binding.root, "Press BACK again to exit", Snackbar.LENGTH_SHORT).show()
+//
+//        Handler(Looper.getMainLooper()).postDelayed({
+//            doubleBackToExitPressedOnce = false
+//        }, 2000)
+//    }
+
     override fun onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            finish()
-            return
-        }
-
-        this.doubleBackToExitPressedOnce = true
-        Snackbar.make(binding.root, "Press BACK again to exit", Snackbar.LENGTH_SHORT).show()
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            doubleBackToExitPressedOnce = false
-        }, 2000)
+        startActivity(Intent(this, ExitActivity::class.java))
+        finish()
     }
 }

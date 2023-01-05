@@ -35,7 +35,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/gilroy_bold"
-                android:text="All Status Saver"
+                android:text="GB Version Pro"
                 android:textColor="@color/black"
                 android:textSize="24dp" />
         </RelativeLayout>
@@ -64,6 +64,7 @@
                         android:id="@+id/ll_toplay"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:weightSum="4">
 
                         <LinearLayout
@@ -271,13 +272,25 @@
                     android:layout_below="@id/ll_top_lay"
                     android:paddingVertical="16dp">
 
+                    <TextView
+                        android:id="@+id/txtEditing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/gilroy_bold"
+                        android:text="Editing Tools"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/llInstaGrid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/txtEditing"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="28dp"
                         app:cardCornerRadius="12dp"
                         app:rippleColor="#33FF6F9D">
 
@@ -317,7 +330,7 @@
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:id="@+id/ll_toollay"
                         android:layout_width="wrap_content"
-                        android:layout_height="72dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@id/llInstaGrid"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="32dp"
@@ -344,7 +357,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
+                                    android:layout_marginTop="12dp"
                                     android:fontFamily="@font/gilroy_medium"
                                     android:gravity="center"
                                     android:text="Video Player"
@@ -374,7 +387,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
+                                    android:layout_marginTop="12dp"
                                     android:fontFamily="@font/gilroy_medium"
                                     android:gravity="center"
                                     android:text="WA Stickers"
@@ -404,7 +417,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
+                                    android:layout_marginTop="12dp"
                                     android:fontFamily="@font/gilroy_medium"
                                     android:gravity="center"
                                     android:text="Internet speed\nmeter"
@@ -583,7 +596,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/main_font_img_2"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="24dp"
                     android:orientation="horizontal"
                     android:weightSum="1">
 
@@ -710,21 +723,121 @@
                     android:id="@+id/rlPopularVids"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:layout_below="@id/ll_wp_card_gra_2"
+                    android:layout_marginTop="24dp"
                     android:layout_marginBottom="48dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/txtPopularVideos"
                         android:layout_width="match_parent"
-                        android:layout_height="?actionBarSize"
-                        android:layout_marginStart="16dp"
-                        android:fontFamily="@font/gilroy_semibold"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:fontFamily="@font/gilroy_bold"
                         android:gravity="center_vertical"
-                        android:text="@string/did_you_know"
+                        android:text="@string/entertainment"
                         android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:textSize="18sp" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/llQuiz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txtPopularVideos"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="24dp"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:id="@+id/llGame1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="24dp"
+                            app:rippleColor="#33E6F5FF">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:src="@drawable/ic_game1" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:fontFamily="@font/gilroy_medium"
+                                    android:gravity="center"
+                                    android:text="Quiz"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/llGame2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="24dp"
+                            app:rippleColor="#33E6F5FF">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:src="@drawable/ic_game2" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:fontFamily="@font/gilroy_medium"
+                                    android:gravity="center"
+                                    android:text="Cricket"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/llGame3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="24dp"
+                            app:rippleColor="#33E6F5FF">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:src="@drawable/ic_game3" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="12dp"
+                                    android:fontFamily="@font/gilroy_medium"
+                                    android:gravity="center"
+                                    android:text="Game"
+                                    android:textColor="@color/black"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </RelativeLayout>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <TextView
                         android:id="@+id/txtMore"
@@ -736,7 +849,8 @@
                         android:gravity="center_vertical"
                         android:text="@string/more"
                         android:textColor="@color/_929292"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:visibility="gone" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvPopularVideos"
@@ -746,6 +860,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:orientation="horizontal"
+                        android:visibility="gone"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/item_popular_videos" />
                 </RelativeLayout>
@@ -913,7 +1028,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_gravity="center_horizontal"
-                            app:srcCompat="@drawable/ic_main_story_saver"
+                            app:srcCompat="@drawable/ic_status_maker"
                             app:tint="#FF000000" />
 
                         <TextView

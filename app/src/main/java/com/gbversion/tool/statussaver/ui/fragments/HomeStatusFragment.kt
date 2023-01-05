@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayoutMediator
+import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.FragmentHomeStatusBinding
 import com.gbversion.tool.statussaver.interfaces.WATypeChangeListener
+import com.gbversion.tool.statussaver.utils.AdsUtils
+import com.gbversion.tool.statussaver.utils.NetworkState
 
 class HomeStatusFragment : BaseFragment<FragmentHomeStatusBinding>(), WATypeChangeListener {
     override fun getLayout(): FragmentHomeStatusBinding {
@@ -22,13 +24,24 @@ class HomeStatusFragment : BaseFragment<FragmentHomeStatusBinding>(), WATypeChan
         }
     }
 
-    private val tabTitles = arrayOf("Status", "Downloads")
+    private val tabTitles = arrayOf("Photos", "Videos")
 
     lateinit var imgFragment: WAImagesFragment
-    lateinit var savedFragment: WADownloadsFragment
+//    lateinit var vidFragment: WAVideosFragment
+//    lateinit var savedFragment: WADownloadsFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.run {
+            if (NetworkState.isOnline()) {
+                AdsUtils.loadNative(
+                    ctx,
+                    getString(R.string.admob_native_id),
+                    adFrame
+                )
+            }
+        }
 
         setupViewPager()
     }
@@ -36,15 +49,16 @@ class HomeStatusFragment : BaseFragment<FragmentHomeStatusBinding>(), WATypeChan
     private fun setupViewPager() {
         binding.apply {
             imgFragment = WAImagesFragment.newInstance()
-            savedFragment = WADownloadsFragment.newInstance()
+//            vidFragment = WAVideosFragment.newInstance()
+//            savedFragment = WADownloadsFragment.newInstance()
 
             try {
                 viewPagerStatus.orientation = ViewPager2.ORIENTATION_HORIZONTAL
                 viewPagerStatus.adapter = FragmentsAdapter(requireActivity())
 
-                TabLayoutMediator(tabLayout, viewPagerStatus) { tab, position ->
-                    tab.text = tabTitles[position]
-                }.attach()
+//                TabLayoutMediator(tabLayout, viewPagerStatus) { tab, position ->
+//                    tab.text = tabTitles[position]
+//                }.attach()
             } catch (e: Exception) {
             }
         }
@@ -52,16 +66,13 @@ class HomeStatusFragment : BaseFragment<FragmentHomeStatusBinding>(), WATypeChan
 
     inner class FragmentsAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
         override fun getItemCount(): Int {
-            return 2
+            return 1
         }
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
                 0 -> {
                     imgFragment
-                }
-                1 -> {
-                    savedFragment
                 }
                 else -> imgFragment
             }

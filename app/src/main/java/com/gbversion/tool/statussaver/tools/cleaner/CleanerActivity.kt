@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityCacheCleanerBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.BaseActivity
 import com.gbversion.tool.statussaver.utils.*
 import com.gbversion.tool.statussaver.utils.AdsUtils.Companion.loadInterstitialAd
@@ -182,7 +183,7 @@ class CleanerActivity : BaseActivity() {
                 if (btnCleanCache.text.equals("Done")) {
                     loadInterstitialAd(
                         this@CleanerActivity,
-                        getString(R.string.interstitial_id),
+                        RemoteConfigUtils.adIdInterstital(),
                         object : AdsUtils.Companion.FullScreenCallback() {
 
                             override fun onAdFailed() {
@@ -243,7 +244,7 @@ class CleanerActivity : BaseActivity() {
         if (!showedAd) {
             loadInterstitialAd(
                 this,
-                getString(R.string.interstitial_id),
+                RemoteConfigUtils.adIdInterstital(),
                 object : AdsUtils.Companion.FullScreenCallback() {
                     override fun continueExecution() {
                         finish()

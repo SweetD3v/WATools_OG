@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityPhotoFilterBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.cartoonify.CartoonActivity
 import com.gbversion.tool.statussaver.utils.*
 import com.zomato.photofilters.SampleFilters
@@ -38,7 +39,7 @@ class PhotoFilterActivity : AppCompatActivity() {
 
         if (NetworkState.isOnline())
             AdsUtils.loadBanner(
-                this, getString(R.string.banner_id_details),
+                this, RemoteConfigUtils.adIdBanner(),
                 binding.bannerContainer
             )
 
@@ -98,7 +99,7 @@ class PhotoFilterActivity : AppCompatActivity() {
                             ).show()
 
                             AdsUtils.loadInterstitialAd(this@PhotoFilterActivity,
-                                getString(R.string.interstitial_id),
+                                RemoteConfigUtils.adIdInterstital(),
                                 object : AdsUtils.Companion.FullScreenCallback() {
                                     override fun continueExecution() {
                                         PhotoFiltersUtils.photoFilterBmp = filterBmp

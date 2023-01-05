@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityCleanerHomeBinding
 import com.gbversion.tool.statussaver.tools.BaseActivity
+import com.gbversion.tool.statussaver.utils.AppUtils
 
 class CleanerHomeActivity : BaseActivity() {
     val binding by lazy { ActivityCleanerHomeBinding.inflate(layoutInflater) }
@@ -14,19 +15,32 @@ class CleanerHomeActivity : BaseActivity() {
 
         binding.run {
             toolbar.appTitle.text = getString(R.string.cleaner)
-            clCpuCooler.setOnClickListener {
-                startActivity(Intent(this@CleanerHomeActivity, CPUCoolerActivity::class.java))
+            toolbar.imgBack.setOnClickListener { onBackPressed() }
+            animCleaner.setOnClickListener {
+                AppUtils.CLEANER_TYPE = 0
+                startActivity(Intent(this@CleanerHomeActivity, PhoneBoosterActivity::class.java))
             }
-            clPhoneBooster.setOnClickListener {
+            clBatterySaver.setOnClickListener {
+                AppUtils.CLEANER_TYPE = 1
                 startActivity(Intent(this@CleanerHomeActivity, PhoneBoosterActivity::class.java))
             }
             clNetOptimization.setOnClickListener {
-                startActivity(Intent(this@CleanerHomeActivity, NetOptimizeActivity::class.java))
+                AppUtils.CLEANER_TYPE = 2
+                startActivity(Intent(this@CleanerHomeActivity, PhoneBoosterActivity::class.java))
             }
-            clBatterySaver.setOnClickListener {
-                startActivity(Intent(this@CleanerHomeActivity, BatterySaverActivity::class.java))
+            clPhoneBooster.setOnClickListener {
+                AppUtils.CLEANER_TYPE = 3
+                startActivity(Intent(this@CleanerHomeActivity, PhoneBoosterActivity::class.java))
+            }
+            clCpuCooler.setOnClickListener {
+                AppUtils.CLEANER_TYPE = 4
+                startActivity(Intent(this@CleanerHomeActivity, PhoneBoosterActivity::class.java))
             }
         }
+    }
+
+    override fun onBackPressed() {
+        finish()
     }
 }
 

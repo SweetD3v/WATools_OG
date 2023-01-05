@@ -10,6 +10,7 @@ import androidx.core.net.toUri
 //import com.demo.bitmapops.JniBitmapHolder
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivitySketchifyBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.BaseActivity
 import com.gbversion.tool.statussaver.utils.*
 import java.io.ByteArrayOutputStream
@@ -96,7 +97,7 @@ class SketchifyActivity : BaseActivity() {
                             override fun onPostExecute(result: Void?) {
                                 super.onPostExecute(result)
                                 AdsUtils.loadInterstitialAd(this@SketchifyActivity,
-                                    getString(R.string.interstitial_id),
+                                    RemoteConfigUtils.adIdInterstital(),
                                     object : AdsUtils.Companion.FullScreenCallback() {
                                         override fun continueExecution() {
                                             SaveShareCartoonActivity.finalBitmapImage =

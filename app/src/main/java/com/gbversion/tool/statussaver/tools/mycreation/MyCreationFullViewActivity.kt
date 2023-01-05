@@ -24,6 +24,7 @@ import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityMyCreationFullViewBinding
 import com.gbversion.tool.statussaver.databinding.ItemFullViewBinding
 import com.gbversion.tool.statussaver.models.Media
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.VideoViewActivity
 import com.gbversion.tool.statussaver.utils.*
 import java.io.File
@@ -50,7 +51,7 @@ class MyCreationFullViewActivity : AppCompatActivity() {
 
             if (NetworkState.isOnline()) AdsUtils.loadBanner(
                 this@MyCreationFullViewActivity,
-                getString(R.string.banner_id_details),
+                RemoteConfigUtils.adIdBanner(),
                 bannerContainer
             )
 
@@ -186,6 +187,12 @@ class MyCreationFullViewActivity : AppCompatActivity() {
             file = RootDirectoryInstaDownlaoder
         } else if (type.equals("fb_downloader")) {
             file = RootDirectoryFBDownlaoder
+        } else if (type.equals("wa_status")) {
+            file = RootDirectoryWhatsappShow
+        } else if (type.equals("wallpapers")) {
+            file = RootDirectoryWallpapers
+        } else if (type.equals("status")) {
+            file = RootDirectoryStatus
         } else if (type.equals("all")) {
             file = originalPath
         }
@@ -212,7 +219,7 @@ class MyCreationFullViewActivity : AppCompatActivity() {
     }
 
     private fun refreshAdapter() {
-        this.imagesList?.sortByDescending { item-> item.date }
+        this.imagesList?.sortByDescending { item -> item.date }
 
         imagesList.let {
             binding.run {

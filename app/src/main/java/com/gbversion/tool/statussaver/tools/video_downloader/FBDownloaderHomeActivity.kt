@@ -13,6 +13,7 @@ import com.google.gson.Gson
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityFbdownloaderHomeBinding
 import com.gbversion.tool.statussaver.databinding.DialogServerDownBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.BaseActivity
 import com.gbversion.tool.statussaver.tools.apis.FBModel
 import com.gbversion.tool.statussaver.tools.downloader.BasicImageDownloader
@@ -80,7 +81,7 @@ class FBDownloaderHomeActivity : BaseActivity() {
                 if (etText.text.isNotEmpty()) {
                     if (NetworkState.isOnline()) {
                         AdsUtils.loadInterstitialAd(this@FBDownloaderHomeActivity,
-                            getString(R.string.interstitial_id),
+                            RemoteConfigUtils.adIdInterstital(),
                             object : AdsUtils.Companion.FullScreenCallback() {
                                 override fun continueExecution() {
                                     startDownloadVolley(etText.text.trim().toString())

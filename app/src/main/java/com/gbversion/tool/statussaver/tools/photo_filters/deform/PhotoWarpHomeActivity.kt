@@ -34,6 +34,8 @@ class PhotoWarpHomeActivity : BaseActivity() {
                 )
             }
 
+            imgBack.setOnClickListener { onBackPressed() }
+
             llPhotoFilters.setOnClickListener {
                 TedImagePicker.with(this@PhotoWarpHomeActivity)
                     .dropDownAlbum()

@@ -15,6 +15,7 @@ import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityMyCreationToolsBinding
 import com.gbversion.tool.statussaver.databinding.ItemMyCreationBinding
 import com.gbversion.tool.statussaver.models.Media
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.BaseActivity
 import com.gbversion.tool.statussaver.utils.*
 import java.io.File
@@ -107,6 +108,12 @@ class MyCreationToolsActivity : BaseActivity() {
             file = RootDirectoryInstaDownlaoder
         } else if (type.equals("fb_downloader")) {
             file = RootDirectoryFBDownlaoder
+        } else if (type.equals("wa_status")) {
+            file = RootDirectoryWhatsappShow
+        } else if (type.equals("wallpapers")) {
+            file = RootDirectoryWallpapers
+        } else if (type.equals("status")) {
+            file = RootDirectoryStatus
         } else if (type.equals("all")) {
             file = originalPath
         }
@@ -126,7 +133,7 @@ class MyCreationToolsActivity : BaseActivity() {
                             !mediaItem.path.contains("Insta Grid", true)
                         } ?: arrayListOf())
 
-                    this.mediaList?.sortByDescending { item-> item.date }
+                    this.mediaList?.sortByDescending { item -> item.date }
                     val myCreationAdapter =
                         MyCreationAdapter(this, this.mediaList ?: mutableListOf())
                     binding.rvMyCreation.adapter = myCreationAdapter
@@ -175,7 +182,7 @@ class MyCreationToolsActivity : BaseActivity() {
     override fun onBackPressed() {
         AdsUtils.loadInterstitialAd(
             this,
-            getString(R.string.interstitial_id),
+            RemoteConfigUtils.adIdInterstital(),
             object : AdsUtils.Companion.FullScreenCallback() {
                 override fun continueExecution() {
                     finish()

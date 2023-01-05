@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.whats.stickers">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:supportsRtl="true"
         android:theme="@style/AppTheme"

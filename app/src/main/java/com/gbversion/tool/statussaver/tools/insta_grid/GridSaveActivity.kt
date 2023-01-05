@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityGridSaveBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.insta_grid.GridUtils.Companion.saveImageTemp
 import com.gbversion.tool.statussaver.ui.activities.BaseActivity
 import com.gbversion.tool.statussaver.utils.*
@@ -55,7 +56,7 @@ class GridSaveActivity : BaseActivity() {
 
             imgSave.setOnClickListener {
                 AdsUtils.loadInterstitialAd(this@GridSaveActivity,
-                    getString(R.string.interstitial_id),
+                    RemoteConfigUtils.adIdInterstital(),
                     object : AdsUtils.Companion.FullScreenCallback() {
                         override fun continueExecution() {
                             object : AsyncTaskRunner<Void?, Void?>(this@GridSaveActivity) {

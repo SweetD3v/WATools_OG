@@ -14,6 +14,7 @@ import com.gbversion.tool.statussaver.databinding.ActivityWallpapersBinding
 import com.gbversion.tool.statussaver.databinding.ItemWallpapersBinding
 import com.gbversion.tool.statussaver.models.WallModelPixabay
 import com.gbversion.tool.statussaver.tools.BaseActivity
+import com.gbversion.tool.statussaver.tools.mycreation.MyCreationToolsActivity
 import com.gbversion.tool.statussaver.utils.AdsUtils
 import com.gbversion.tool.statussaver.utils.NetworkState
 import com.gbversion.tool.statussaver.widgets.MarginItemDecoration
@@ -30,6 +31,8 @@ class WallpapersActivity : BaseActivity() {
     var category: String? = "nature"
     var catSelected = 0
     var reset = true
+
+    val walpType by lazy { intent.getStringExtra("walpType") }
 
     companion object {
         var pageIndex = 1
@@ -57,6 +60,21 @@ class WallpapersActivity : BaseActivity() {
             )
 
             loadWallpapers()
+
+            binding.imgDownloads.setOnClickListener {
+                startActivity(
+                    Intent(
+                        this@WallpapersActivity,
+                        MyCreationToolsActivity::class.java
+                    ).apply {
+                        if (walpType == "wallpapers") {
+                            putExtra(MyCreationToolsActivity.CREATION_TYPE, "wallpapers")
+                        } else {
+                            putExtra(MyCreationToolsActivity.CREATION_TYPE, "status")
+                        }
+                    }
+                )
+            }
         }
     }
 
@@ -78,11 +96,13 @@ class WallpapersActivity : BaseActivity() {
             )
 
             wallpapersList = mutableListOf()
-            wallpapersAdapter = WallpapersAdapter(this@WallpapersActivity)
+            wallpapersAdapter = WallpapersAdapter(this@WallpapersActivity).apply {
+                walpType = this@WallpapersActivity.walpType.toString()
+            }
             binding.rvWallpapers.adapter = wallpapersAdapter
 
             val arr: Array<String>
-            if (intent.getStringExtra("walpType") == "wallpapers")
+            if (walpType == "wallpapers")
                 arr = resources.getStringArray(R.array.wallp_arr)
             else arr = resources.getStringArray(R.array.status_arr)
 
@@ -103,6 +123,7 @@ class WallpapersActivity : BaseActivity() {
     ) :
         RecyclerView.Adapter<WallpapersAdapter.VH>() {
         lateinit var wallpapers: MutableList<WallModelPixabay.PhotoDetails>
+        var walpType = "wallpapers"
 
         fun updateList(wallpapers: MutableList<WallModelPixabay.PhotoDetails>) {
             this.wallpapers = wallpapers
@@ -126,7 +147,7 @@ class WallpapersActivity : BaseActivity() {
         }
 
         override fun onBindViewHolder(holder: VH, position: Int) {
-            val wallpaper = wallpapers[holder.adapterPosition]
+            val wallpaper = wallpapers[holder.bindingAdapterPosition]
             Log.e("TAG", "onBindViewHolder: ${wallpaper.largeImageURL}")
             Glide.with(ctx).load(wallpaper.largeImageURL)
                 .centerCrop()
@@ -135,11 +156,12 @@ class WallpapersActivity : BaseActivity() {
             holder.itemView.setOnClickListener {
                 ctx.startActivity(
                     Intent(ctx, WallpapersDetailsActivity::class.java)
-                        .putExtra("position", holder.adapterPosition)
+                        .putExtra("position", holder.bindingAdapterPosition)
                         .putExtra(
                             WALLPAPER_ORIGINAL_URL,
-                            wallpapers[holder.adapterPosition].largeImageURL
+                            wallpapers[holder.bindingAdapterPosition].largeImageURL
                         )
+                        .putExtra("walpType", walpType)
                 )
             }
         }

@@ -13,6 +13,7 @@ import android.provider.MediaStore
 import android.util.DisplayMetrics
 import android.util.Log
 import android.util.Size
+import android.view.View
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
@@ -62,6 +63,16 @@ var RootDirectoryWhatsappShow = File(
     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
             + File.separator + WAToolsApp.getInstance()
         .getString(R.string.app_name) + File.separator + "Whatsapp"
+)
+var RootDirectoryWallpapers = File(
+    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
+            + File.separator + WAToolsApp.getInstance()
+        .getString(R.string.app_name) + File.separator + "Wallpapers"
+)
+var RootDirectoryStatus = File(
+    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
+            + File.separator + WAToolsApp.getInstance()
+        .getString(R.string.app_name) + File.separator + "Status"
 )
 var RootDirectoryInstaDownlaoder = File(
     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
@@ -959,4 +970,16 @@ fun getRealPathFromUri(context: Context, contentUri: Uri?): String? {
     } finally {
         cursor?.close()
     }
+}
+
+fun View.visible() {
+    this.visibility = View.VISIBLE
+}
+
+fun View.invisible() {
+    this.visibility = View.INVISIBLE
+}
+
+fun View.gone() {
+    this.visibility = View.GONE
 }

@@ -35,11 +35,14 @@ public class StickerPackListActivity extends AddStickerPackActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sticker_pack_list);
         packRecyclerView = findViewById(R.id.sticker_pack_list);
+        packRecyclerView.setNestedScrollingEnabled(false);
         stickerPackList = getIntent().getParcelableArrayListExtra(EXTRA_STICKER_PACK_LIST_DATA);
         showStickerPackList(stickerPackList);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(getResources().getQuantityString(R.plurals.title_activity_sticker_packs_list, stickerPackList.size()));
         }
+
+        AdsUtils.Companion.loadNative(this, "ca-app-pub-3940256099942544/2247696110", findViewById(R.id.adFrame));
 
         findViewById(R.id.imgBack).setOnClickListener(v -> {
             onBackPressed();

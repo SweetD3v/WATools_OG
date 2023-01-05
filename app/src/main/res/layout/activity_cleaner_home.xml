@@ -20,6 +20,7 @@
             android:layout_weight="1">
 
             <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animCleaner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"

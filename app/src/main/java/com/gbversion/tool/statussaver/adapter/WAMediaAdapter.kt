@@ -25,7 +25,7 @@ class WAMediaAdapter(
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        val media = mediaList[holder.adapterPosition]
+        val media = mediaList[holder.bindingAdapterPosition]
         if (media.isVideo) {
             Glide.with(ctx).load(media.uri)
                 .into(holder.binding.ivThumbnail)
@@ -40,10 +40,10 @@ class WAMediaAdapter(
         holder.itemView.setOnClickListener {
             ctx.startActivity(
                 Intent(ctx, FullViewWhatsappActivity::class.java)
-                    .putExtra("position", holder.adapterPosition)
+                    .putExtra("position", holder.bindingAdapterPosition)
                     .putExtra(
                         "type",
-                        if (mediaList[holder.adapterPosition].isVideo) "video"
+                        if (mediaList[holder.bindingAdapterPosition].isVideo) "video"
                         else "photo"
                     )
             )

@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityAgeCalculatorBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.BaseActivity
 import com.gbversion.tool.statussaver.utils.AdsUtils
 import com.gbversion.tool.statussaver.utils.NetworkState
@@ -245,7 +246,7 @@ class AgeCalculatorActivity : BaseActivity() {
             val nextDays = (calNext[Calendar.DAY_OF_MONTH]).toString()
 
             AdsUtils.loadInterstitialAd(this@AgeCalculatorActivity,
-                getString(R.string.interstitial_id),
+                RemoteConfigUtils.adIdInterstital(),
                 object : AdsUtils.Companion.FullScreenCallback() {
                     override fun continueExecution() {
                         startActivity(

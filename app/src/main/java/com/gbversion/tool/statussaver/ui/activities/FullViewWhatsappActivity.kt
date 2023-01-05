@@ -27,6 +27,7 @@ import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityFullviewWaBinding
 import com.gbversion.tool.statussaver.databinding.ItemFullViewBinding
 import com.gbversion.tool.statussaver.models.Media
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.VideoViewActivity
 import com.gbversion.tool.statussaver.utils.*
 import com.gbversion.tool.statussaver.ui.fragments.WAImagesFragment.Companion.imagesList
@@ -49,7 +50,7 @@ class FullViewWhatsappActivity : AppCompatActivity() {
 
             if (NetworkState.isOnline())
                 AdsUtils.loadBanner(
-                    this@FullViewWhatsappActivity, getString(R.string.banner_id_details),
+                    this@FullViewWhatsappActivity, RemoteConfigUtils.adIdBanner(),
                     bannerContainer
                 )
 
@@ -142,7 +143,7 @@ class FullViewWhatsappActivity : AppCompatActivity() {
             fabDownload.setOnClickListener {
                 AdsUtils.loadInterstitialAd(
                     this@FullViewWhatsappActivity,
-                    getString(R.string.interstitial_id),
+                    RemoteConfigUtils.adIdInterstital(),
                     object : AdsUtils.Companion.FullScreenCallback() {
                         override fun continueExecution() {
                             val image = imagesList[binding.viewPagerMedia.currentItem]

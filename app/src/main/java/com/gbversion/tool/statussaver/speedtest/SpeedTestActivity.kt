@@ -127,6 +127,7 @@ class SpeedTestActivity : AppCompatActivity() {
             imgBack.setOnClickListener { onBackPressed() }
 
             startSpeedTest.setOnClickListener {
+                imgSpeedMeter.fillColor = Color.parseColor("#0E9300")
                 if (NetworkState.isOnline()) {
                     llConnecting.visibility = VISIBLE
                     handlerConnecting?.post(runnableConnecting)
@@ -151,6 +152,7 @@ class SpeedTestActivity : AppCompatActivity() {
             seekbarStrength.setOnTouchListener { v, event -> return@setOnTouchListener true }
 
             startSpeedTestAgain.setOnClickListener {
+                imgSpeedMeter.fillColor = Color.parseColor("#0E9300")
                 if (NetworkState.isOnline()) {
                     handlerConnecting?.post(runnableConnecting)
                     llConnecting.visibility = VISIBLE
@@ -814,6 +816,7 @@ class SpeedTestActivity : AppCompatActivity() {
 //                                        }
                                         k++
 
+                                        binding.imgSpeedMeter.fillColor = Color.parseColor("#A58E07")
                                         binding.txtUploadSpeed.text = "$uploadSpeedInstant"
                                         binding.txtUploadPS.text = "Mbps"
                                     }

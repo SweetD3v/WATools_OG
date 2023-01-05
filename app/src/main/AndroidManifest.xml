@@ -67,6 +67,10 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.activities.ExitActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".speedtest.SpeedTestActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

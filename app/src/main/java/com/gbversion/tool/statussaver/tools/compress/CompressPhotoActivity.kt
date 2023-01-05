@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityCompressPhotoBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.utils.*
 import id.zelory.compressor.Compressor
 import io.reactivex.disposables.Disposable
@@ -77,7 +78,7 @@ class CompressPhotoActivity : AppCompatActivity() {
         binding.btnCompress.setOnClickListener { v ->
             AdsUtils.loadInterstitialAd(
                 this,
-                getString(R.string.interstitial_id),
+                RemoteConfigUtils.adIdInterstital(),
                 object : AdsUtils.Companion.FullScreenCallback() {
                     override fun continueExecution() {
                         startCompressingPhoto()

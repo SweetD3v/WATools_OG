@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityInstaDownloaderHomeBinding
 import com.gbversion.tool.statussaver.databinding.DialogServerDownBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.BaseActivity
 import com.gbversion.tool.statussaver.tools.apis.InstaModel
 import com.gbversion.tool.statussaver.tools.apis.POST_TYPE
@@ -65,7 +66,7 @@ class InstaDownloaderHomeActivity : BaseActivity() {
                 if (etText.text.isNotEmpty()) {
                     if (NetworkState.isOnline()) {
                         AdsUtils.loadInterstitialAd(this@InstaDownloaderHomeActivity,
-                            getString(R.string.interstitial_id),
+                            RemoteConfigUtils.adIdInterstital(),
                             object : AdsUtils.Companion.FullScreenCallback() {
                                 override fun continueExecution() {
                                     startDownload(etText.text.trim().toString())

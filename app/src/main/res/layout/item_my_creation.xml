@@ -35,28 +35,28 @@
         android:src="@drawable/ic_delete_file"
         android:visibility="gone" />
 
-    <ImageView
-        android:id="@+id/imgsave"
-        android:layout_width="62dp"
-        android:layout_height="62dp"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="36dp"
-        android:elevation="2dp"
-        android:padding="8dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_mycrsave"
-        android:visibility="visible"/>
+<!--    <ImageView-->
+<!--        android:id="@+id/imgsave"-->
+<!--        android:layout_width="62dp"-->
+<!--        android:layout_height="62dp"-->
+<!--        android:layout_gravity="center_horizontal|bottom"-->
+<!--        android:layout_marginBottom="24dp"-->
+<!--        android:layout_marginEnd="36dp"-->
+<!--        android:elevation="2dp"-->
+<!--        android:padding="8dp"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        android:src="@drawable/ic_mycrsave"-->
+<!--        android:visibility="visible"/>-->
 
-    <ImageView
-        android:id="@+id/imgshare"
-        android:layout_width="62dp"
-        android:layout_height="62dp"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="24dp"
-        android:layout_marginStart="36dp"
-        android:elevation="2dp"
-        android:padding="8dp"
-        android:src="@drawable/ic_mycrshare"
-        android:visibility="visible" />
+<!--    <ImageView-->
+<!--        android:id="@+id/imgshare"-->
+<!--        android:layout_width="62dp"-->
+<!--        android:layout_height="62dp"-->
+<!--        android:layout_gravity="center_horizontal|bottom"-->
+<!--        android:layout_marginBottom="24dp"-->
+<!--        android:layout_marginStart="36dp"-->
+<!--        android:elevation="2dp"-->
+<!--        android:padding="8dp"-->
+<!--        android:src="@drawable/ic_mycrshare"-->
+<!--        android:visibility="visible" />-->
 </com.google.android.material.card.MaterialCardView>

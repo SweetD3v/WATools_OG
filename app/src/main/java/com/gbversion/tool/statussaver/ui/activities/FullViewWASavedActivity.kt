@@ -27,6 +27,7 @@ import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityFullviewWaSavedBinding
 import com.gbversion.tool.statussaver.databinding.ItemFullViewBinding
 import com.gbversion.tool.statussaver.models.Media
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.VideoViewActivity
 import com.gbversion.tool.statussaver.utils.*
 import java.io.File
@@ -48,7 +49,7 @@ class FullViewWASavedActivity : AppCompatActivity() {
 
             if (NetworkState.isOnline())
                 AdsUtils.loadBanner(
-                    this@FullViewWASavedActivity, getString(R.string.banner_id_details),
+                    this@FullViewWASavedActivity, RemoteConfigUtils.adIdBanner(),
                     bannerContainer
                 )
 
@@ -375,7 +376,7 @@ class FullViewWASavedActivity : AppCompatActivity() {
 
             AdsUtils.loadInterstitialAd(
                 this,
-                getString(R.string.interstitial_id),
+                RemoteConfigUtils.adIdInterstital(),
                 object : AdsUtils.Companion.FullScreenCallback() {
                     override fun continueExecution() {
                         finish()
