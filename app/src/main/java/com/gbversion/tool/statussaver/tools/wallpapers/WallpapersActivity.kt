@@ -102,9 +102,14 @@ class WallpapersActivity : BaseActivity() {
             binding.rvWallpapers.adapter = wallpapersAdapter
 
             val arr: Array<String>
-            if (walpType == "wallpapers")
+            if (walpType == "wallpapers") {
                 arr = resources.getStringArray(R.array.wallp_arr)
-            else arr = resources.getStringArray(R.array.status_arr)
+                appTitle.text = getString(R.string.wallpapers)
+            }
+            else {
+                arr = resources.getStringArray(R.array.status_arr)
+                appTitle.text = getString(R.string.status_maker)
+            }
 
             for (photo in arr) {
                 val photoDetails = WallModelPixabay.PhotoDetails()

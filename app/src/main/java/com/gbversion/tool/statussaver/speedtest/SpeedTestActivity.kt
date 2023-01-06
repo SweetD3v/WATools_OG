@@ -24,6 +24,8 @@ import com.gbversion.tool.statussaver.speedtest.test.HttpUploadTest
 import com.gbversion.tool.statussaver.speedtest.test.PingTest
 import com.gbversion.tool.statussaver.utils.AdsUtils
 import com.gbversion.tool.statussaver.utils.NetworkState
+import com.gbversion.tool.statussaver.utils.gone
+import com.gbversion.tool.statussaver.utils.visible
 import java.text.DecimalFormat
 import kotlin.math.roundToInt
 
@@ -129,12 +131,12 @@ class SpeedTestActivity : AppCompatActivity() {
             startSpeedTest.setOnClickListener {
                 imgSpeedMeter.fillColor = Color.parseColor("#0E9300")
                 if (NetworkState.isOnline()) {
-                    llConnecting.visibility = VISIBLE
-                    handlerConnecting?.post(runnableConnecting)
                     AdsUtils.loadInterstitialAd(this@SpeedTestActivity,
                         RemoteConfigUtils.adIdInterstital(),
                         object : AdsUtils.Companion.FullScreenCallback() {
                             override fun continueExecution() {
+                                llConnecting.visibility = VISIBLE
+                                handlerConnecting?.post(runnableConnecting)
                                 txtPing.text = "-"
                                 startSpeedTest.visibility = GONE
                                 testSpeed()
@@ -153,17 +155,25 @@ class SpeedTestActivity : AppCompatActivity() {
 
             startSpeedTestAgain.setOnClickListener {
                 imgSpeedMeter.fillColor = Color.parseColor("#0E9300")
+                adCard.gone()
                 if (NetworkState.isOnline()) {
                     handlerConnecting?.post(runnableConnecting)
                     llConnecting.visibility = VISIBLE
                     llStrength.visibility = GONE
                     clStartSpeedTestAgain.visibility = GONE
-                    imgSpeedMeter.visibility = View.VISIBLE
+                    imgSpeedMeter.visibility = VISIBLE
                     binding.imgSpeedMeter.setSpeed(0, 0)
                     txtPing.text = "-"
 
                     txtDownloadSpeed.text = "-"
                     txtUploadSpeed.text = "-"
+
+                    bannerContainer.visible()
+                    AdsUtils.loadBanner(
+                        this@SpeedTestActivity,
+                        RemoteConfigUtils.adIdBanner(),
+                        bannerContainer
+                    )
 
                     testSpeed()
                 } else {
@@ -816,7 +826,8 @@ class SpeedTestActivity : AppCompatActivity() {
 //                                        }
                                         k++
 
-                                        binding.imgSpeedMeter.fillColor = Color.parseColor("#A58E07")
+                                        binding.imgSpeedMeter.fillColor =
+                                            Color.parseColor("#A58E07")
                                         binding.txtUploadSpeed.text = "$uploadSpeedInstant"
                                         binding.txtUploadPS.text = "Mbps"
                                     }
@@ -850,8 +861,17 @@ class SpeedTestActivity : AppCompatActivity() {
                             binding.run {
                                 imgSpeedMeter.post {
                                     imgSpeedMeter.visibility = GONE
-                                    llStrength.visibility = View.VISIBLE
-                                    clStartSpeedTestAgain.visibility = View.VISIBLE
+                                    llStrength.visibility = VISIBLE
+                                    clStartSpeedTestAgain.visibility = VISIBLE
+                                    adCard.visible()
+
+                                    AdsUtils.destroyBanner()
+                                    bannerContainer.gone()
+
+                                    AdsUtils.loadNative(
+                                        this@SpeedTestActivity, RemoteConfigUtils.adIdNative(),
+                                        adFrame
+                                    )
                                 }
                             }
                             break

@@ -7,6 +7,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.gbversion.tool.statussaver.databinding.ActivityMainBinding
 import com.gbversion.tool.statussaver.phone_booster.app_utils.batteryPerms
 import com.gbversion.tool.statussaver.phone_booster.app_utils.getAllAppsPermissions
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
+import com.gbversion.tool.statussaver.utils.AdsUtils
+import com.gbversion.tool.statussaver.utils.NetworkState
 import com.internet.speed_meter.SpeedMeterService
 
 class MainActivity : BaseActivity() {
@@ -72,7 +75,19 @@ class MainActivity : BaseActivity() {
 //    }
 
     override fun onBackPressed() {
-        startActivity(Intent(this, ExitActivity::class.java))
-        finish()
+        if (NetworkState.isOnline()) {
+            AdsUtils.loadInterstitialAd(
+                this,
+                RemoteConfigUtils.adIdInterstital(),
+                object : AdsUtils.Companion.FullScreenCallback() {
+                    override fun continueExecution() {
+                        startActivity(Intent(this@MainActivity, ExitActivity::class.java))
+                        finish()
+                    }
+                })
+        } else {
+            startActivity(Intent(this, ExitActivity::class.java))
+            finish()
+        }
     }
 }

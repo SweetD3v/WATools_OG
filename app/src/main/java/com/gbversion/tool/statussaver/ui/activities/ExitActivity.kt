@@ -50,7 +50,7 @@ class ExitActivity : BaseActivity() {
                     RemoteConfigUtils.adIdInterstital(),
                     object : AdsUtils.Companion.FullScreenCallback() {
                         override fun continueExecution() {
-                            customtabs.launchUrl(this@ExitActivity, getString(R.string.link_game1).toUri())
+                            customtabs.launchUrl(this@ExitActivity, getString(R.string.link_game2).toUri())
                         }
                     })
             }
@@ -72,7 +72,7 @@ class ExitActivity : BaseActivity() {
                     RemoteConfigUtils.adIdInterstital(),
                     object : AdsUtils.Companion.FullScreenCallback() {
                         override fun continueExecution() {
-                            customtabs.launchUrl(this@ExitActivity, getString(R.string.link_game3).toUri())
+                            customtabs.launchUrl(this@ExitActivity, getString(R.string.link_game2).toUri())
                         }
                     })
             }

@@ -1,6 +1,7 @@
 package com.gbversion.tool.statussaver.ui.activities
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,6 +13,7 @@ import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivitySplashBinding
 import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.utils.NetworkState
+import com.gbversion.tool.statussaver.utils.gone
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
@@ -47,8 +49,26 @@ class SplashScreenActivity : BaseActivity(), LifecycleObserver {
         }
     }
 
+    var cachePercentage: Int = 0
+    var handlerConnecting: Handler? = Handler(Looper.getMainLooper())
+    val runnableConnecting = object : Runnable {
+        override fun run() {
+            cachePercentage += 1
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                binding.progressLoading.setProgress(cachePercentage, true)
+            else binding.progressLoading.progress = cachePercentage
+            handlerConnecting?.postDelayed(this, 50)
+
+            if (cachePercentage == 100) {
+                handlerConnecting?.removeCallbacks(this)
+                cachePercentage = 0
+            }
+        }
+    }
+
     fun continueExecution() {
         handler?.removeCallbacks(runnable)
+        handlerConnecting?.removeCallbacks(runnableConnecting)
         handlerCanEnter?.removeCallbacks(runnableCanEnter)
         startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
         finish()
@@ -69,12 +89,15 @@ class SplashScreenActivity : BaseActivity(), LifecycleObserver {
 
     override fun onResume() {
         super.onResume()
+        handlerConnecting?.post(runnableConnecting)
         handlerCanEnter?.postDelayed(runnableCanEnter, 2000)
     }
 
     override fun onPause() {
         handler?.removeCallbacks(runnable)
         handler = Handler(Looper.getMainLooper())
+        handlerConnecting?.removeCallbacks(runnableConnecting)
+        handlerConnecting = Handler(Looper.getMainLooper())
         handlerCanEnter?.removeCallbacks(runnableCanEnter)
         super.onPause()
     }
@@ -82,6 +105,8 @@ class SplashScreenActivity : BaseActivity(), LifecycleObserver {
     override fun onDestroy() {
         handler?.removeCallbacks(runnable)
         handler = null
+        handlerConnecting?.removeCallbacks(runnableConnecting)
+        handlerConnecting = null
         super.onDestroy()
     }
 
@@ -117,6 +142,7 @@ class SplashScreenActivity : BaseActivity(), LifecycleObserver {
                     }
 
                     override fun onAdShowedFullScreenContent() {
+                        binding.llLoading.gone()
                         isShowingAd = true
                     }
 

@@ -1,15 +1,17 @@
 package com.gbversion.tool.statussaver.tools.cleaner
 
+import android.animation.Animator
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.constraintlayout.motion.widget.MotionLayout
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityPhoneBoosterBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.BaseActivity
+import com.gbversion.tool.statussaver.utils.*
 import com.gbversion.tool.statussaver.utils.AppUtils.Companion.CLEANER_TYPE
-import com.gbversion.tool.statussaver.utils.gone
-import com.gbversion.tool.statussaver.utils.visible
 
 class PhoneBoosterActivity : BaseActivity() {
     val binding by lazy { ActivityPhoneBoosterBinding.inflate(layoutInflater) }
@@ -80,8 +82,93 @@ class PhoneBoosterActivity : BaseActivity() {
                 startActivity(Intent(this@PhoneBoosterActivity, PhoneBoosterActivity::class.java))
             }
 
+            motionLayout.addTransitionListener(object : MotionLayout.TransitionListener {
+                override fun onTransitionStarted(
+                    motionLayout: MotionLayout?,
+                    startId: Int,
+                    endId: Int
+                ) {
+
+                }
+
+                override fun onTransitionChange(
+                    motionLayout: MotionLayout?,
+                    startId: Int,
+                    endId: Int,
+                    progress: Float
+                ) {
+                }
+
+                override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
+                    if (currentId == R.id.end) {
+                        if (NetworkState.isOnline()
+                            && RemoteConfigUtils.canEnter
+                        ) {
+                            AdsUtils.loadNative(
+                                this@PhoneBoosterActivity, RemoteConfigUtils.adIdNative(),
+                                adFrame
+                            )
+                        }
+                    }
+                }
+
+                override fun onTransitionTrigger(
+                    motionLayout: MotionLayout?,
+                    triggerId: Int,
+                    positive: Boolean,
+                    progress: Float
+                ) {
+                }
+
+            })
+
             handler?.postDelayed({
-                motionLayout.transitionToEnd()
+                animMain.gone()
+                animDone.visible()
+                animDone.playAnimation()
+
+                if (CLEANER_TYPE == 0) {
+                    toastShort(this@PhoneBoosterActivity, "RAM Cleaned!")
+                } else if (CLEANER_TYPE == 1) {
+                    toastShort(this@PhoneBoosterActivity, "Battery Optimized!")
+                } else if (CLEANER_TYPE == 2) {
+                    toastShort(this@PhoneBoosterActivity, "Network Optimized!")
+                } else if (CLEANER_TYPE == 3) {
+                    toastShort(this@PhoneBoosterActivity, "Memory Freed!")
+                } else if (CLEANER_TYPE == 4) {
+                    toastShort(this@PhoneBoosterActivity, "CPU Optimized!")
+                }
+
+                animDone.addAnimatorListener(object : Animator.AnimatorListener {
+                    override fun onAnimationStart(animation: Animator?) {
+
+                    }
+
+                    override fun onAnimationEnd(animation: Animator?) {
+                        if (NetworkState.isOnline()
+                            && RemoteConfigUtils.canEnter
+                        ) {
+                            AdsUtils.loadInterstitialAd(this@PhoneBoosterActivity,
+                                RemoteConfigUtils.adIdInterstital(),
+                                object : AdsUtils.Companion.FullScreenCallback() {
+                                    override fun continueExecution() {
+                                        motionLayout.transitionToEnd()
+                                    }
+                                })
+                        } else {
+                            motionLayout.transitionToEnd()
+                        }
+                    }
+
+                    override fun onAnimationCancel(animation: Animator?) {
+
+                    }
+
+                    override fun onAnimationRepeat(animation: Animator?) {
+
+                    }
+
+                })
             }, 5000)
         }
     }

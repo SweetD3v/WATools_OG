@@ -4,8 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityCleanerHomeBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.BaseActivity
+import com.gbversion.tool.statussaver.utils.AdsUtils
 import com.gbversion.tool.statussaver.utils.AppUtils
+import com.gbversion.tool.statussaver.utils.NetworkState
 
 class CleanerHomeActivity : BaseActivity() {
     val binding by lazy { ActivityCleanerHomeBinding.inflate(layoutInflater) }
@@ -14,6 +17,16 @@ class CleanerHomeActivity : BaseActivity() {
         setContentView(binding.root)
 
         binding.run {
+
+            if (NetworkState.isOnline()
+                && RemoteConfigUtils.canEnter
+            ) {
+                AdsUtils.loadBanner(
+                    this@CleanerHomeActivity, RemoteConfigUtils.adIdBanner(),
+                    bannerContainer
+                )
+            }
+
             toolbar.appTitle.text = getString(R.string.cleaner)
             toolbar.imgBack.setOnClickListener { onBackPressed() }
             animCleaner.setOnClickListener {

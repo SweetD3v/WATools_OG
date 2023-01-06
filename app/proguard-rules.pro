@@ -19,3 +19,21 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# keep everything in this package from being removed or renamed
+-keep class com.gbversion.tool.statussaver.speedtest.** { *; }
+
+# keep everything in this package from being renamed only
+-keepnames class com.gbversion.tool.statussaver.speedtest.** { *; }
+
+# keep everything in this package from being removed or renamed
+-keep class com.gbversion.tool.statussaver.models.** { *; }
+
+# keep everything in this package from being renamed only
+-keepnames class com.gbversion.tool.statussaver.models.** { *; }
+
+# keep everything in this package from being removed or renamed
+-keep class com.gbversion.tool.statussaver.remote_config.** { *; }
+
+# keep everything in this package from being renamed only
+-keepnames class com.gbversion.tool.statussaver.remote_config.** { *; }
