@@ -194,11 +194,11 @@
     {
       "identifier": "2",
       "name": "PokeMon",
-      "publisher": "",
+      "publisher": "Beyond Limit",
       "tray_image_file": "pokeeet_mon.png",
       "image_data_version": "1",
       "avoid_cache": false,
-      "publisher_email": "dev4life@gmail.com",
+      "publisher_email": "",
       "publisher_website": "",
       "privacy_policy_website": "",
       "license_agreement_website": "",
