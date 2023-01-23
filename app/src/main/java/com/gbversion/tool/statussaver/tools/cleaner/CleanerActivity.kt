@@ -166,6 +166,9 @@ class CleanerActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        handler = Handler(Looper.getMainLooper())
+        handler?.post(runnable)
+
         binding.run {
 
             if (NetworkState.isOnline()) {
@@ -229,9 +232,6 @@ class CleanerActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-
-        handler = Handler(Looper.getMainLooper())
-        handler?.post(runnable)
     }
 
     override fun onPause() {

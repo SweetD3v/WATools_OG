@@ -145,4 +145,6 @@
     <string name="test_again">Test Again</string>
     <string name="exit">Exit</string>
     <string name="entertainment">Entertainment</string>
+    <string name="insta_dp">Insta DP</string>
+    <string name="paste_instagram_username_here">Paste Instagram User Name here</string>
 </resources>

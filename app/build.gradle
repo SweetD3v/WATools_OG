@@ -41,6 +41,7 @@ android {
             resValue("string", "rapid_api_host_insta", "instagram-downloader-download-instagram-videos-stories.p.rapidapi.com")
             resValue("string", "rapid_api_host_fb", "facebook-story-saver-and-video-downloader.p.rapidapi.com")
             resValue("string", "base_url_insta", "https://instagram-downloader-download-instagram-videos-stories.p.rapidapi.com/")
+            resValue("string", "base_url_insta_new", "https://instagram-media-downloader.p.rapidapi.com/rapid/post.php")
             resValue("string", "base_url_fb", "https://facebook-story-saver-and-video-downloader.p.rapidapi.com/")
 
             resValue("string", "admob_app_id", "ca-app-pub-3940256099942544~3347511713")
@@ -60,6 +61,7 @@ android {
             resValue("string", "rapid_api_host_insta", "instagram-downloader-download-instagram-videos-stories.p.rapidapi.com")
             resValue("string", "rapid_api_host_fb", "facebook-story-saver-and-video-downloader.p.rapidapi.com")
             resValue("string", "base_url_insta", "https://instagram-downloader-download-instagram-videos-stories.p.rapidapi.com/")
+            resValue("string", "base_url_insta_new", "https://instagram-media-downloader.p.rapidapi.com/rapid/post.php")
             resValue("string", "base_url_fb", "https://facebook-story-saver-and-video-downloader.p.rapidapi.com/")
 
             resValue("string", "link_game1", "http://858.set.qureka.com/")
