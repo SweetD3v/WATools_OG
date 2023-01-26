@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -54,13 +53,37 @@
             android:background="#dedede" />
     </RelativeLayout>
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/adCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="8dp"
+        android:minHeight="230dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <ProgressBar
+            android:id="@+id/adProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <FrameLayout
+            android:id="@+id/adFrame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.card.MaterialCardView>
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:name="com.gbversion.tool.statussaver.ui.fragments.HomeStatusFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bannerContainer"
-        android:layout_below="@id/toolbar" />
+        android:layout_below="@id/adCard" />
 
     <FrameLayout
         android:id="@+id/bannerContainer"

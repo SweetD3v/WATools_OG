@@ -5,14 +5,12 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivitySplashBinding
 import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
-import com.gbversion.tool.statussaver.utils.NetworkState
 import com.gbversion.tool.statussaver.utils.gone
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
@@ -23,7 +21,7 @@ import com.google.android.gms.ads.appopen.AppOpenAd.AppOpenAdLoadCallback
 
 class SplashScreenActivity : BaseActivity(), LifecycleObserver {
     val binding by lazy { ActivitySplashBinding.inflate(layoutInflater) }
-    private val SPLASH_TIME_OUT: Long = 3000
+    private val SPLASH_TIME_OUT: Long = 5500
     var isShowingAd = false
     private var appOpenAd: AppOpenAd? = null
     private var loadCallback: AppOpenAdLoadCallback? = null
@@ -31,23 +29,6 @@ class SplashScreenActivity : BaseActivity(), LifecycleObserver {
 
     var handler: Handler? = Handler(Looper.getMainLooper())
     var runnable = Runnable { showAdIfAvailable() }
-
-    var handlerCanEnter: Handler? = Handler(Looper.getMainLooper())
-    var runnableCanEnter: Runnable = object : Runnable {
-        override fun run() {
-            if (NetworkState.isOnline()) {
-                if (RemoteConfigUtils.canEnter) {
-                    Log.e("TAG", "runEnter: " + RemoteConfigUtils.canEnter)
-                    handler?.removeCallbacks(runnable)
-                    handlerCanEnter?.removeCallbacks(this)
-                    fetchAd()
-                    handler?.postDelayed(runnable, SPLASH_TIME_OUT)
-                } else {
-                    showErrorDialog()
-                }
-            } else continueExecution()
-        }
-    }
 
     var cachePercentage: Int = 0
     var handlerConnecting: Handler? = Handler(Looper.getMainLooper())
@@ -69,14 +50,12 @@ class SplashScreenActivity : BaseActivity(), LifecycleObserver {
     fun continueExecution() {
         handler?.removeCallbacks(runnable)
         handlerConnecting?.removeCallbacks(runnableConnecting)
-        handlerCanEnter?.removeCallbacks(runnableCanEnter)
         startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
         finish()
     }
 
     private fun showErrorDialog() {
         handler?.removeCallbacks(runnable)
-        handlerCanEnter?.removeCallbacks(runnableCanEnter)
         Toast.makeText(this, "Sorry, You can't enter this app.", Toast.LENGTH_SHORT).show()
     }
 
@@ -85,12 +64,17 @@ class SplashScreenActivity : BaseActivity(), LifecycleObserver {
         setContentView(binding.root)
 
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+        fetchAd()
+        handlerConnecting?.post(runnableConnecting)
+
+        handler?.postDelayed({
+            showAdIfAvailable()
+        }, SPLASH_TIME_OUT)
+
     }
 
     override fun onResume() {
         super.onResume()
-        handlerConnecting?.post(runnableConnecting)
-        handlerCanEnter?.postDelayed(runnableCanEnter, 2000)
     }
 
     override fun onPause() {
@@ -98,7 +82,6 @@ class SplashScreenActivity : BaseActivity(), LifecycleObserver {
         handler = Handler(Looper.getMainLooper())
         handlerConnecting?.removeCallbacks(runnableConnecting)
         handlerConnecting = Handler(Looper.getMainLooper())
-        handlerCanEnter?.removeCallbacks(runnableCanEnter)
         super.onPause()
     }
 
@@ -124,13 +107,11 @@ class SplashScreenActivity : BaseActivity(), LifecycleObserver {
                 super.onAdFailedToLoad(loadAdError)
             }
         }
-        if (RemoteConfigUtils.isAdmobEnabled() && RemoteConfigUtils.canEnter) {
-            val request: AdRequest = getAdRequest()
-            AppOpenAd.load(
-                this, getString(R.string.app_open_id), request,
-                AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback!!
-            )
-        }
+        val request: AdRequest = getAdRequest()
+        AppOpenAd.load(
+            this, RemoteConfigUtils.adIdAppOpen(), request,
+            AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, loadCallback!!
+        )
     }
 
     private fun showAdIfAvailable() {

@@ -179,6 +179,76 @@ class FileUtilsss {
         }
 
         @Throws(IOException::class)
+        fun saveBitmapAsFileDirFile(
+            context: Context,
+            bitmap: Bitmap?,
+            dir: File,
+            ext: String
+        ): File {
+            val executor =
+                Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())
+            val handler = Handler(Looper.getMainLooper())
+            val fileOutputStream: FileOutputStream
+            val file = dir
+            if (!file.exists()) {
+                file.mkdirs()
+            }
+            val name = "IMG_${System.currentTimeMillis()}"
+            var file1 = File(file.absolutePath + File.separator + name + ext)
+            file1.createNewFile()
+            fileOutputStream = FileOutputStream(file1)
+            executor.execute {
+                bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream)
+                handler.post {
+                    try {
+                        fileOutputStream.flush()
+                        fileOutputStream.close()
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+            return file1
+        }
+
+        @Throws(IOException::class)
+        fun saveBitmapAsFileDir(
+            context: Context,
+            bitmap: Bitmap?,
+            dirName: String,
+            ext: String
+        ): File {
+            val executor =
+                Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())
+            val handler = Handler(Looper.getMainLooper())
+            val fileOutputStream: FileOutputStream
+            val file = File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
+                        + File.separator + context.getString(R.string.app_name)
+                        + File.separator + dirName
+            )
+            if (!file.exists()) {
+                file.mkdirs()
+            }
+            val name = "IMG_${System.currentTimeMillis()}"
+            var file1 = File(file.absolutePath + File.separator + name + ext)
+            file1.createNewFile()
+            fileOutputStream = FileOutputStream(file1)
+            executor.execute {
+                bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream)
+                handler.post {
+                    try {
+                        fileOutputStream.flush()
+                        fileOutputStream.close()
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+            return file1
+        }
+
+        @Throws(IOException::class)
         fun saveBitmapAsFileDir(context: Context, bitmap: Bitmap?, dirName: String): File {
             val executor =
                 Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())

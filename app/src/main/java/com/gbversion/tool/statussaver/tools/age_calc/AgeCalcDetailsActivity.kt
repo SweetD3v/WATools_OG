@@ -46,9 +46,10 @@ class AgeCalcDetailsActivity : BaseActivity() {
 //                    getString(R.string.banner_id_details)
 //                )
 
-                AdsUtils.loadNativeSmall(
+                AdsUtils.loadNativeSmallProgress(
                     this@AgeCalcDetailsActivity, getString(R.string.admob_native_id),
-                    adFrame
+                    adFrame,
+                    adProgress
                 )
             }
 

@@ -57,11 +57,6 @@ class WAToolsApp : MultiDexApplication(), Application.ActivityLifecycleCallbacks
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onMoveToForeground() {
-        Log.e("TAG", "onMoveToForeground: ")
-
-        RemoteConfigUtils.fetchDataFromRemoteConfig(this)
-        RemoteConfigUtils.fetchCanEnter(this)
-
         currentActivity?.let {
             appOpenAdManager.showAdIfAvailable(it, object : OnShowAdCompleteListener {
                 override fun onShowAdComplete() {
@@ -88,7 +83,7 @@ class WAToolsApp : MultiDexApplication(), Application.ActivityLifecycleCallbacks
             isLoadingAd = true
             val request = AdRequest.Builder().build()
             AppOpenAd.load(
-                context, getString(R.string.app_open_id), request,
+                context, RemoteConfigUtils.adIdAppOpen(), request,
                 AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
                 object : AppOpenAdLoadCallback() {
 

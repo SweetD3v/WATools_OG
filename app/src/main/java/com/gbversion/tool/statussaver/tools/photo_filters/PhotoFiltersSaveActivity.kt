@@ -22,11 +22,11 @@ class PhotoFiltersSaveActivity : BaseActivity() {
 //                getString(R.string.banner_id_details)
 //            )
 
-            AdsUtils.loadNative(
-                this@PhotoFiltersSaveActivity,
-                getString(R.string.admob_native_id),
-                binding.adFrame
-            )
+//            AdsUtils.loadNative(
+//                this@PhotoFiltersSaveActivity,
+//                getString(R.string.admob_native_id),
+//                binding.adFrame
+//            )
         }
 
         binding.imgBack.setOnClickListener {

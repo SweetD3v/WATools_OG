@@ -143,16 +143,13 @@ class HomeStatusFragment : BaseFragment<FragmentHomeStatusBinding>(), WATypeChan
 
     inner class FragmentsAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
         override fun getItemCount(): Int {
-            return 2
+            return 1
         }
 
         override fun createFragment(position: Int): Fragment {
             when (position) {
                 0 -> {
                     return WAImagesFragment.newInstance()
-                }
-                1 -> {
-                    return WAVideosFragment.newInstance()
                 }
             }
             return WAImagesFragment.newInstance()

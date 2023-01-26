@@ -51,10 +51,11 @@ class FBDownloaderHomeActivity : BaseActivity() {
 //                    bannerContainer
 //                )
 
-                AdsUtils.loadNative(
+                AdsUtils.loadNativeProgress(
                     this@FBDownloaderHomeActivity,
                     getString(R.string.admob_native_id),
-                    adFrame
+                    adFrame,
+                    adProgress
                 )
             }
 

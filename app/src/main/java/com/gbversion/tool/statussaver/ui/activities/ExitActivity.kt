@@ -44,38 +44,38 @@ class ExitActivity : BaseActivity() {
                 .setDefaultColorSchemeParams(colorScheme)
                 .build()
 
-            binding.clGame1.setOnClickListener {
-                AdsUtils.loadInterstitialAd(
-                    this@ExitActivity,
-                    RemoteConfigUtils.adIdInterstital(),
-                    object : AdsUtils.Companion.FullScreenCallback() {
-                        override fun continueExecution() {
-                            customtabs.launchUrl(this@ExitActivity, getString(R.string.link_game2).toUri())
-                        }
-                    })
-            }
-
-            binding.clGame2.setOnClickListener {
-                AdsUtils.loadInterstitialAd(
-                    this@ExitActivity,
-                    RemoteConfigUtils.adIdInterstital(),
-                    object : AdsUtils.Companion.FullScreenCallback() {
-                        override fun continueExecution() {
-                            customtabs.launchUrl(this@ExitActivity, getString(R.string.link_game2).toUri())
-                        }
-                    })
-            }
-
-            binding.clGame3.setOnClickListener {
-                AdsUtils.loadInterstitialAd(
-                    this@ExitActivity,
-                    RemoteConfigUtils.adIdInterstital(),
-                    object : AdsUtils.Companion.FullScreenCallback() {
-                        override fun continueExecution() {
-                            customtabs.launchUrl(this@ExitActivity, getString(R.string.link_game2).toUri())
-                        }
-                    })
-            }
+//            binding.clGame1.setOnClickListener {
+//                AdsUtils.loadInterstitialAd(
+//                    this@ExitActivity,
+//                    RemoteConfigUtils.adIdInterstital(),
+//                    object : AdsUtils.Companion.FullScreenCallback() {
+//                        override fun continueExecution() {
+//                            customtabs.launchUrl(this@ExitActivity, getString(R.string.link_game2).toUri())
+//                        }
+//                    })
+//            }
+//
+//            binding.clGame2.setOnClickListener {
+//                AdsUtils.loadInterstitialAd(
+//                    this@ExitActivity,
+//                    RemoteConfigUtils.adIdInterstital(),
+//                    object : AdsUtils.Companion.FullScreenCallback() {
+//                        override fun continueExecution() {
+//                            customtabs.launchUrl(this@ExitActivity, getString(R.string.link_game2).toUri())
+//                        }
+//                    })
+//            }
+//
+//            binding.clGame3.setOnClickListener {
+//                AdsUtils.loadInterstitialAd(
+//                    this@ExitActivity,
+//                    RemoteConfigUtils.adIdInterstital(),
+//                    object : AdsUtils.Companion.FullScreenCallback() {
+//                        override fun continueExecution() {
+//                            customtabs.launchUrl(this@ExitActivity, getString(R.string.link_game2).toUri())
+//                        }
+//                    })
+//            }
         }
     }
 

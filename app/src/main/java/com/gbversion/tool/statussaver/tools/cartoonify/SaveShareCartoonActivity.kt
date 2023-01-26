@@ -33,11 +33,11 @@ class SaveShareCartoonActivity : BaseActivity() {
 //                    getString(R.string.banner_id_details)
 //                )
 
-                AdsUtils.loadNativeSmall(
-                    this@SaveShareCartoonActivity,
-                    getString(R.string.admob_native_id),
-                    adFrame
-                )
+//                AdsUtils.loadNativeSmall(
+//                    this@SaveShareCartoonActivity,
+//                    getString(R.string.admob_native_id),
+//                    adFrame
+//                )
             }
 
             imgBack.setOnClickListener {

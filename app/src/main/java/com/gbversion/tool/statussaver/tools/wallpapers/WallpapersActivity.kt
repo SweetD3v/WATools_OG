@@ -18,10 +18,12 @@ import com.gbversion.tool.statussaver.tools.mycreation.MyCreationToolsActivity
 import com.gbversion.tool.statussaver.utils.AdsUtils
 import com.gbversion.tool.statussaver.utils.NetworkState
 import com.gbversion.tool.statussaver.widgets.MarginItemDecoration
+import java.io.IOException
 
 class WallpapersActivity : BaseActivity() {
     val binding by lazy { ActivityWallpapersBinding.inflate(layoutInflater) }
     lateinit var wallpapersList: MutableList<WallModelPixabay.PhotoDetails>
+    lateinit var wallpapersListOff: MutableList<String>
     var lastVisiblesItems = 0
     var visibleItemCount: Int = 0
     var totalItemCount: Int = 0
@@ -46,6 +48,8 @@ class WallpapersActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        loadWallpapers()
+
         if (NetworkState.isOnline()) {
 
 //            AdsUtils.loadBanner(
@@ -53,13 +57,12 @@ class WallpapersActivity : BaseActivity() {
 //                getString(R.string.banner_id_details)
 //            )
 
-            AdsUtils.loadNative(
+            AdsUtils.loadNativeProgress(
                 this@WallpapersActivity,
                 getString(R.string.admob_native_id),
-                binding.adFrame
+                binding.adFrame,
+                binding.adProgress
             )
-
-            loadWallpapers()
 
             binding.imgDownloads.setOnClickListener {
                 startActivity(
@@ -111,16 +114,45 @@ class WallpapersActivity : BaseActivity() {
                 appTitle.text = getString(R.string.status_maker)
             }
 
+            val wallOn = mutableListOf<WallModelPixabay.PhotoDetails>()
             for (photo in arr) {
                 val photoDetails = WallModelPixabay.PhotoDetails()
                 photoDetails.largeImageURL = photo
+                wallOn.add(photoDetails)
+            }
+            wallOn.shuffle()
+
+            wallpapersListOff = mutableListOf()
+            listAssetFiles("wallpapers")
+
+            for (wall in wallpapersListOff) {
+                val photoDetails = WallModelPixabay.PhotoDetails()
+                photoDetails.largeImageURL = "file:///android_asset/wallpapers/$wall"
                 wallpapersList.add(photoDetails)
             }
 
-            wallpapersList.shuffle()
+            wallpapersList.addAll(wallOn)
             wallpapersAdapter.setList(wallpapersList)
-
         }
+    }
+
+    private fun listAssetFiles(path: String): Boolean {
+        val list: Array<String>?
+        try {
+            list = assets.list(path)
+            if (list?.isNotEmpty() == true) {
+                // This is a folder
+                for (file in list) {
+                    if (!listAssetFiles("$path/$file")) return false else {
+                        // This is a file
+                        wallpapersListOff.add(file)
+                    }
+                }
+            }
+        } catch (e: IOException) {
+            return false
+        }
+        return true
     }
 
     class WallpapersAdapter(

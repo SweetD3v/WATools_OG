@@ -29,10 +29,11 @@ class CollageMakerHomeActivity : BaseActivity() {
 //                    this@CollageMakerHomeActivity, bannerContainer,
 //                    getString(R.string.banner_id_details)
 //                )
-                AdsUtils.loadNative(
+                AdsUtils.loadNativeProgress(
                     this@CollageMakerHomeActivity,
                     getString(R.string.admob_native_id),
-                    adFrame
+                    adFrame,
+                    adProgress
                 )
             }
 

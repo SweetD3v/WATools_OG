@@ -17,7 +17,6 @@ import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.WAToolsApp
 import com.gbversion.tool.statussaver.databinding.ProgressDialogBinding
 import com.gbversion.tool.statussaver.utils.*
-import com.gbversion.tool.statussaver.utils.*
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
@@ -89,6 +88,44 @@ class BasicImageDownloader(var ctx: Context) {
     }
 
     @Throws(IOException::class)
+    fun saveImageBmpToTemp(ctx: Context, bmp: Bitmap, uri: (Uri) -> Unit) {
+
+        val path = ctx.getExternalFilesDir("walltemp") //Creates app specific folder
+        path?.mkdirs()
+        val imgName = "IMG_${System.currentTimeMillis()}"
+        val imageFile = File(path, "$imgName.png") // Imagename.png
+
+        object : AsyncTaskRunner<Void?, String>(ctx) {
+            override fun doInBackground(params: Void?): String {
+                val out = FileOutputStream(imageFile)
+                try {
+                    bmp.compress(Bitmap.CompressFormat.PNG, 100, out) // Compress Image
+                    out.flush()
+                    out.close()
+
+                    // Tell the media scanner about the new file so that it is
+                    // immediately available to the user.
+
+                    return imageFile.absolutePath
+                } catch (e: java.lang.Exception) {
+                    throw IOException()
+                }
+            }
+
+            override fun onPostExecute(result: String?) {
+                super.onPostExecute(result)
+
+                uri(FileProvider.getUriForFile(ctx, "${ctx.packageName}.provider", imageFile))
+
+                result?.let {
+                    Toast.makeText(ctx, "Photo saved!", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        }.execute(null, true)
+    }
+
+    @Throws(IOException::class)
     fun saveImageToExternalInsta(imgUrl: String, action: () -> Unit) {
         if (!NetworkState.isOnline()) {
             Toast.makeText(
@@ -137,7 +174,12 @@ class BasicImageDownloader(var ctx: Context) {
                         Toast.makeText(ctx, "Photo saved!", Toast.LENGTH_SHORT).show()
                         MediaScannerConnection.scanFile(
                             ctx,
-                            arrayOf(File(RootDirectoryInstaDownlaoder, imageFile.name).absolutePath),
+                            arrayOf(
+                                File(
+                                    RootDirectoryInstaDownlaoder,
+                                    imageFile.name
+                                ).absolutePath
+                            ),
                             null
                         ) { path, uri ->
                             Log.i("ExternalStorage", "Scanned $path:")
@@ -145,6 +187,82 @@ class BasicImageDownloader(var ctx: Context) {
                         }
 
                         action()
+                    }
+                }
+            }
+
+        }.execute(imgUrl, true)
+    }
+
+    @Throws(IOException::class)
+    fun saveImageToExternalInstaDP(imgUrl: String, action: () -> Unit) {
+        if (!NetworkState.isOnline()) {
+            Toast.makeText(
+                WAToolsApp.getInstance(),
+                "Please check your connection",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+        val dirName = WAToolsApp.getInstance().getExternalFilesDir("insta")!!
+        if (!dirName.exists())
+            dirName.mkdirs()
+
+        val path = dirName //Creates app specific folder
+        path.mkdirs()
+
+        var displayName = ""
+        displayName = "IMG_${System.currentTimeMillis()}"
+        val imageFile = File(path, "$displayName.png")
+
+        object : AsyncTaskRunner<String, Bitmap>(ctx) {
+
+            override fun doInBackground(params: String?): Bitmap? {
+                Log.e("TAG", "saveImageToExternal: ${imgUrl}")
+                val url = URL(imgUrl)
+                val connection = url.openConnection()
+                val image = BitmapFactory.decodeStream(connection.getInputStream())
+
+                //Create Path to save Image
+                // Imagename.png
+                val out = FileOutputStream(imageFile)
+                if (!imageFile.exists())
+                    imageFile.createNewFile()
+
+                try {
+                    image.compress(Bitmap.CompressFormat.PNG, 100, out) // Compress Image
+                    return image
+                } catch (e: java.lang.Exception) {
+                    throw IOException()
+                }
+            }
+
+            override fun onPostExecute(result: Bitmap?) {
+                super.onPostExecute(result)
+                result?.let { bmp ->
+
+                    if (!RootDirectoryInstaDP.exists())
+                        RootDirectoryInstaDP.mkdirs()
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                        saveBitmapImage(
+                            ctx, bmp,
+                            displayName,
+                            RootDirectoryInstaDP.name
+                        ) {
+                            Toast.makeText(ctx, "Photo saved!", Toast.LENGTH_SHORT).show()
+                            MediaScannerConnection.scanFile(
+                                ctx,
+                                arrayOf(it),
+                                null
+                            ) { path, uri ->
+                                Log.i("ExternalStorage", "Scanned $path:")
+                                Log.i("ExternalStorage", "-> uri=$uri")
+                            }
+
+                            action()
+                        }
+                    } else {
+                        imageFile.copyTo(File(RootDirectoryInstaDownlaoder, imageFile.name), true)
                     }
                 }
             }

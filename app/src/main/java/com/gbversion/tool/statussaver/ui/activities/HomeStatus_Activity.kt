@@ -17,10 +17,17 @@ class HomeStatus_Activity : AppCompatActivity() {
         binding.run {
 
             if (NetworkState.isOnline()) {
-                AdsUtils.loadBanner(
+//                AdsUtils.loadBanner(
+//                    this@HomeStatus_Activity,
+//                    RemoteConfigUtils.adIdBanner(),
+//                    bannerContainer
+//                )
+
+                AdsUtils.loadNativeSmallProgress(
                     this@HomeStatus_Activity,
-                    RemoteConfigUtils.adIdBanner(),
-                    bannerContainer
+                    RemoteConfigUtils.adIdNative(),
+                    binding.adFrame,
+                    binding.adProgress
                 )
             }
 

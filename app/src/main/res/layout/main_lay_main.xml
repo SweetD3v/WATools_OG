@@ -54,9 +54,41 @@
                 android:layout_height="match_parent">
 
                 <RelativeLayout
+                    android:id="@+id/rlNative"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_centerInParent="true"
+                        android:paddingBottom="16dp"
+                        android:src="@drawable/home_svg" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/adCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginHorizontal="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        app:cardCornerRadius="4dp"
+                        app:cardElevation="4dp"
+                        app:cardUseCompatPadding="true">
+
+                        <FrameLayout
+                            android:id="@+id/adFrame"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </com.google.android.material.card.MaterialCardView>
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/ll_top_lay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/rlNative"
                     android:background="@color/white"
                     android:paddingBottom="24dp">
 
@@ -64,7 +96,7 @@
                         android:id="@+id/ll_toplay"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:weightSum="4">
 
                         <LinearLayout
@@ -77,8 +109,8 @@
                             app:rippleColor="#33E6F5FF">
 
                             <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
+                                android:layout_width="72dp"
+                                android:layout_height="72dp"
                                 android:src="@drawable/wt" />
 
                             <TextView
@@ -102,8 +134,8 @@
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/iv_instadownload"
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
+                                android:layout_width="72dp"
+                                android:layout_height="72dp"
                                 android:src="@drawable/insta" />
 
                             <TextView
@@ -127,8 +159,8 @@
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/iv_fbdownload"
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
+                                android:layout_width="72dp"
+                                android:layout_height="72dp"
                                 android:src="@drawable/facebook" />
 
                             <TextView
@@ -152,8 +184,8 @@
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/iv_alldownload"
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
+                                android:layout_width="72dp"
+                                android:layout_height="72dp"
                                 android:src="@drawable/ic_main_new_download" />
 
                             <TextView
@@ -176,7 +208,7 @@
                         android:weightSum="2">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/llCollageMaker"
+                            android:id="@+id/llWallpaper"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
@@ -197,30 +229,33 @@
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/img1"
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
+                                android:layout_width="36dp"
+                                android:layout_height="42dp"
                                 android:layout_marginVertical="12dp"
                                 android:layout_marginStart="16dp"
+                                android:padding="4dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_collage_home" />
+                                app:srcCompat="@drawable/ic_wallpaper1"
+                                app:tint="@color/white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
                                 android:fontFamily="@font/gilroy_semibold"
-                                android:text="Collage"
+                                android:text="@string/wallpapers"
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 app:layout_constraintBottom_toBottomOf="@id/img1"
+                                app:layout_constraintHorizontal_bias="0"
                                 app:layout_constraintStart_toEndOf="@id/img1"
                                 app:layout_constraintTop_toTopOf="@id/img1" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/llPhotoEditor"
+                            android:id="@+id/llInstaDP"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -241,21 +276,23 @@
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/img2"
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
+                                android:layout_width="36dp"
+                                android:layout_height="42dp"
                                 android:layout_marginVertical="12dp"
                                 android:layout_marginStart="16dp"
+                                android:padding="4dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_pic_edit_home" />
+                                app:srcCompat="@drawable/ic_insta_dp1"
+                                app:tint="@color/white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
+                                android:layout_marginStart="24dp"
                                 android:fontFamily="@font/gilroy_semibold"
-                                android:text="Editor"
+                                android:text="Insta DP"
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 app:layout_constraintBottom_toBottomOf="@id/img2"
@@ -263,169 +300,6 @@
                                 app:layout_constraintTop_toTopOf="@id/img2" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </LinearLayout>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/rl_middle_lay"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/ll_top_lay"
-                    android:paddingVertical="16dp">
-
-                    <TextView
-                        android:id="@+id/txtEditing"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/gilroy_bold"
-                        android:text="Editing Tools"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/llInstaGrid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/txtEditing"
-                        android:layout_centerHorizontal="true"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="28dp"
-                        app:cardCornerRadius="12dp"
-                        app:rippleColor="#33FF6F9D">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingHorizontal="48dp"
-                            android:paddingVertical="16dp">
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/imgGrid"
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:layout_gravity="center_horizontal"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/ic_new_insta_grid" />
-
-                            <TextView
-                                android:id="@+id/txtGrid"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginStart="24dp"
-                                android:fontFamily="@font/poppins_regular"
-                                android:text="@string/instagram_grid"
-                                android:textColor="@color/black"
-                                android:textSize="14sp"
-                                app:layout_constraintBottom_toBottomOf="@id/imgGrid"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toEndOf="@id/imgGrid"
-                                app:layout_constraintTop_toTopOf="@id/imgGrid" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:id="@+id/ll_toollay"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/llInstaGrid"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="32dp"
-                        android:orientation="horizontal">
-
-                        <RelativeLayout
-                            android:id="@+id/llVideoPlayer"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginEnd="16dp"
-                            app:rippleColor="#33E6F5FF">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:gravity="center_horizontal"
-                                android:orientation="vertical">
-
-                                <androidx.appcompat.widget.AppCompatImageView
-                                    android:layout_width="32dp"
-                                    android:layout_height="32dp"
-                                    android:src="@drawable/ic_main_new_video_player" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="12dp"
-                                    android:fontFamily="@font/gilroy_medium"
-                                    android:gravity="center"
-                                    android:text="Video Player"
-                                    android:textColor="@color/black"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/llSticker"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginHorizontal="16dp"
-                            app:rippleColor="#33E6F5FF">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:gravity="center_horizontal"
-                                android:orientation="vertical">
-
-                                <androidx.appcompat.widget.AppCompatImageView
-                                    android:layout_width="32dp"
-                                    android:layout_height="32dp"
-                                    android:src="@drawable/laughing" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="12dp"
-                                    android:fontFamily="@font/gilroy_medium"
-                                    android:gravity="center"
-                                    android:text="WA Stickers"
-                                    android:textColor="@color/black"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/ll_intspeedtracker"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="16dp"
-                            app:rippleColor="#33E6F5FF">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:gravity="center_horizontal"
-                                android:orientation="vertical">
-
-                                <androidx.appcompat.widget.AppCompatImageView
-                                    android:layout_width="32dp"
-                                    android:layout_height="32dp"
-                                    android:src="@drawable/ic_main_new_internet_tracker" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="12dp"
-                                    android:fontFamily="@font/gilroy_medium"
-                                    android:gravity="center"
-                                    android:text="Internet speed\nmeter"
-                                    android:textColor="@color/black"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
-                        </RelativeLayout>
-                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </RelativeLayout>
 
@@ -433,7 +307,7 @@
                     android:id="@+id/ll_centre_rect"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/rl_middle_lay"
+                    android:layout_below="@id/ll_top_lay"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/ic_main_rect_bg"
                     android:orientation="horizontal"
@@ -444,6 +318,102 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.1" />
+
+                    <RelativeLayout
+                        android:id="@+id/llInstaGrid"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginVertical="16dp"
+                        android:layout_weight="0.20"
+                        android:gravity="center"
+                        app:rippleColor="#33E6F5FF">
+
+                        <LinearLayout
+                            android:layout_width="64dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="56dp"
+                                android:layout_height="56dp"
+                                android:src="@drawable/ic_insta_grid1" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:fontFamily="@font/gilroy_medium"
+                                android:gravity="center"
+                                android:text="Insta Grid"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/llPhotoEditor"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginVertical="16dp"
+                        android:layout_weight="0.20"
+                        android:gravity="center"
+                        app:rippleColor="#33E6F5FF">
+
+                        <LinearLayout
+                            android:layout_width="64dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="56dp"
+                                android:layout_height="56dp"
+                                android:src="@drawable/ic_photo_editor" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:fontFamily="@font/gilroy_medium"
+                                android:gravity="center"
+                                android:text="Editor"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llCollageMaker"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginVertical="16dp"
+                        android:layout_weight="0.20"
+                        android:gravity="center"
+                        app:rippleColor="#33E6F5FF">
+
+                        <LinearLayout
+                            android:layout_width="64dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="56dp"
+                                android:layout_height="56dp"
+                                android:src="@drawable/ic_collage1" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:fontFamily="@font/gilroy_medium"
+                                android:gravity="center"
+                                android:text="Collage"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/llFunny"
@@ -477,256 +447,168 @@
                         </LinearLayout>
                     </LinearLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/llPhotoWarp"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginVertical="16dp"
-                        android:layout_weight="0.20"
-                        android:gravity="center"
-                        app:rippleColor="#33E6F5FF">
-
-                        <LinearLayout
-                            android:layout_width="64dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="56dp"
-                                android:layout_height="56dp"
-                                android:src="@drawable/ic_main_warp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="12dp"
-                                android:fontFamily="@font/gilroy_medium"
-                                android:gravity="center"
-                                android:text="Warp"
-                                android:textColor="@color/white"
-                                android:textSize="12dp" />
-                        </LinearLayout>
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/llPhotoFilter"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginVertical="16dp"
-                        android:layout_weight="0.20"
-                        android:gravity="center"
-                        app:rippleColor="#33E6F5FF">
-
-                        <LinearLayout
-                            android:layout_width="64dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="56dp"
-                                android:layout_height="56dp"
-                                android:src="@drawable/ic_main_filter" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="12dp"
-                                android:fontFamily="@font/gilroy_medium"
-                                android:gravity="center"
-                                android:text="Filter"
-                                android:textColor="@color/white"
-                                android:textSize="12dp" />
-                        </LinearLayout>
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:id="@+id/llPhotoCompress"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginVertical="16dp"
-                        android:layout_weight="0.20"
-                        android:gravity="center"
-                        app:rippleColor="#33E6F5FF">
-
-                        <LinearLayout
-                            android:layout_width="64dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="56dp"
-                                android:layout_height="56dp"
-                                android:src="@drawable/ic_main_compress" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="12dp"
-                                android:fontFamily="@font/gilroy_medium"
-                                android:gravity="center"
-                                android:text="Compress"
-                                android:textColor="@color/white"
-                                android:textSize="12dp" />
-                        </LinearLayout>
-                    </LinearLayout>
-
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.1" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/main_font_img_2"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:id="@+id/rl_middle_lay"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/ll_centre_rect"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/gilroy_bold"
-                    android:text="Whatsapp Tools"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:layout_marginBottom="48dp"
+                    android:paddingVertical="16dp">
 
-                <LinearLayout
-                    android:id="@+id/ll_wp_card_gra_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/main_font_img_2"
-                    android:layout_marginTop="24dp"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                    <TextView
+                        android:id="@+id/main_font_img_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:fontFamily="@font/gilroy_bold"
+                        android:text="Whatsapp Tools"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
 
-                    <RelativeLayout
-                        android:id="@+id/rl_whatsapp_web"
-                        android:layout_width="0dp"
-                        android:layout_height="64dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_weight="0.5"
-                        android:background="@drawable/gradient_wp_web"
-                        app:rippleColor="#33E6F5FF">
+                    <LinearLayout
+                        android:id="@+id/ll_wp_card_gra_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/main_font_img_2"
+                        android:layout_marginTop="24dp"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="28dp"
-                            android:fontFamily="@font/gilroy_semibold"
-                            android:text="Whatsapp \nWeb"
-                            android:textColor="@color/white"
-                            android:textSize="12dp" />
+                        <RelativeLayout
+                            android:id="@+id/rl_whatsapp_web"
+                            android:layout_width="0dp"
+                            android:layout_height="64dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/gradient_wp_web"
+                            app:rippleColor="#33E6F5FF">
 
-                        <ImageView
-                            android:layout_width="64dp"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentEnd="true"
-                            android:src="@drawable/wt_web" />
-                    </RelativeLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="28dp"
+                                android:fontFamily="@font/gilroy_semibold"
+                                android:text="Whatsapp \nWeb"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
 
-                    <RelativeLayout
-                        android:id="@+id/rl_whatsapp_sticker"
-                        android:layout_width="0dp"
-                        android:layout_height="64dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_weight="0.5"
-                        android:background="@drawable/gradient_wp_sticker"
-                        app:rippleColor="#33E6F5FF">
+                            <ImageView
+                                android:layout_width="64dp"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentEnd="true"
+                                android:src="@drawable/wt_web" />
+                        </RelativeLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="28dp"
-                            android:fontFamily="@font/gilroy_semibold"
-                            android:text="Whatsapp \nSticker"
-                            android:textColor="@color/white"
-                            android:textSize="12dp" />
+                        <RelativeLayout
+                            android:id="@+id/rl_whatsapp_sticker"
+                            android:layout_width="0dp"
+                            android:layout_height="64dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/gradient_wp_sticker"
+                            app:rippleColor="#33E6F5FF">
 
-                        <ImageView
-                            android:layout_width="64dp"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentEnd="true"
-                            android:src="@drawable/wt_sticker" />
-                    </RelativeLayout>
-                </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="28dp"
+                                android:fontFamily="@font/gilroy_semibold"
+                                android:text="Whatsapp \nSticker"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
 
-                <LinearLayout
-                    android:id="@+id/ll_wp_card_gra_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/ll_wp_card_gra_1"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
+                            <ImageView
+                                android:layout_width="64dp"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentEnd="true"
+                                android:src="@drawable/wt_sticker" />
+                        </RelativeLayout>
+                    </LinearLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/rl_whatsapp_chat"
-                        android:layout_width="0dp"
-                        android:layout_height="64dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_weight="0.5"
-                        android:background="@drawable/gradient_direct_chat"
-                        app:rippleColor="#33E6F5FF">
+                    <LinearLayout
+                        android:id="@+id/ll_wp_card_gra_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ll_wp_card_gra_1"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="28dp"
-                            android:fontFamily="@font/gilroy_semibold"
-                            android:text="Whatsapp \nChat"
-                            android:textColor="@color/white"
-                            android:textSize="12dp" />
+                        <RelativeLayout
+                            android:id="@+id/rl_whatsapp_chat"
+                            android:layout_width="0dp"
+                            android:layout_height="64dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/gradient_direct_chat"
+                            app:rippleColor="#33E6F5FF">
 
-                        <ImageView
-                            android:layout_width="64dp"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentEnd="true"
-                            android:src="@drawable/wt_chate" />
-                    </RelativeLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="28dp"
+                                android:fontFamily="@font/gilroy_semibold"
+                                android:text="Whatsapp \nChat"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
 
-                    <RelativeLayout
-                        android:id="@+id/rl_empty_msgs"
-                        android:layout_width="0dp"
-                        android:layout_height="64dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_weight="0.5"
-                        android:background="@drawable/gradient_empty_msg"
-                        app:rippleColor="#33E6F5FF">
+                            <ImageView
+                                android:layout_width="64dp"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentEnd="true"
+                                android:src="@drawable/wt_chate" />
+                        </RelativeLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="28dp"
-                            android:fontFamily="@font/gilroy_semibold"
-                            android:text="Empty \nMessage"
-                            android:textColor="@color/white"
-                            android:textSize="12dp" />
+                        <RelativeLayout
+                            android:id="@+id/rl_empty_msgs"
+                            android:layout_width="0dp"
+                            android:layout_height="64dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/gradient_empty_msg"
+                            app:rippleColor="#33E6F5FF">
 
-                        <ImageView
-                            android:layout_width="64dp"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentEnd="true"
-                            android:src="@drawable/wt_msg" />
-                    </RelativeLayout>
-                </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="28dp"
+                                android:fontFamily="@font/gilroy_semibold"
+                                android:text="Empty \nMessage"
+                                android:textColor="@color/white"
+                                android:textSize="12dp" />
+
+                            <ImageView
+                                android:layout_width="64dp"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentEnd="true"
+                                android:src="@drawable/wt_msg" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/rlPopularVids"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/ll_wp_card_gra_2"
+                    android:layout_below="@id/ll_centre_rect"
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="48dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/txtPopularVideos"
@@ -897,53 +779,66 @@
                 app:layout_constraintStart_toStartOf="@id/cardViewBottom" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imgCleaner"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"
                 android:elevation="2dp"
+                android:padding="8dp"
+                android:rotation="-45"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="@id/viewRef"
                 app:layout_constraintEnd_toEndOf="@id/viewRef"
                 app:layout_constraintStart_toStartOf="@id/viewRef"
                 app:layout_constraintTop_toTopOf="@id/viewRef"
-                app:srcCompat="@drawable/ic_cleaner" />
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/home_cleaner"
+                app:srcCompat="@drawable/bg_circle_pink" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/imgCleaner"
+                android:layout_width="108dp"
+                android:layout_height="108dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="4dp"
                 android:elevation="2dp"
-                android:fontFamily="@font/poppins_regular"
-                android:gravity="center_horizontal"
-                android:text="@string/cleaner"
-                android:textColor="@color/black"
-                android:textSize="10sp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@id/imgCleaner"
-                app:layout_constraintStart_toStartOf="@id/imgCleaner"
-                app:layout_constraintTop_toBottomOf="@id/imgCleaner" />
+                android:rotation="-45"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@id/viewRef"
+                app:layout_constraintEnd_toEndOf="@id/viewRef"
+                app:layout_constraintStart_toStartOf="@id/viewRef"
+                app:layout_constraintTop_toTopOf="@id/viewRef"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/home_cleaner" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center_horizontal"
+                android:elevation="2dp"
+                android:paddingVertical="24dp"
+                android:paddingStart="24dp"
+                android:paddingEnd="20dp"
+                android:rotation="-45"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@id/viewRef"
+                app:layout_constraintEnd_toEndOf="@id/viewRef"
+                app:layout_constraintStart_toStartOf="@id/viewRef"
+                app:layout_constraintTop_toTopOf="@id/viewRef"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/rocket_booster1" />
+
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardViewBottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="56dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_margin="4dp"
-                    android:elevation="2dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:shapeAppearance="@style/ShapeableImageView50"
-                    app:srcCompat="@color/white" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -957,7 +852,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <LinearLayout
-                        android:id="@+id/llWallpaper"
+                        android:id="@+id/llSpeedTest"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -967,10 +862,10 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
                             android:layout_gravity="center_horizontal"
-                            app:srcCompat="@drawable/ic_main_wallpaper"
+                            app:srcCompat="@drawable/ic_speedometer"
                             app:tint="#FF000000" />
 
                         <TextView
@@ -980,9 +875,9 @@
                             android:layout_marginTop="4dp"
                             android:fontFamily="@font/poppins_regular"
                             android:gravity="center_horizontal"
-                            android:text="@string/wallpapers"
+                            android:text="Speed test"
                             android:textColor="@color/black"
-                            android:textSize="10sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -991,15 +886,15 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/llStatusMaker"
-                        app:layout_constraintStart_toEndOf="@id/llWallpaper"
+                        app:layout_constraintEnd_toStartOf="@id/llMyCreation"
+                        app:layout_constraintStart_toEndOf="@id/llSpeedTest"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
                             android:layout_gravity="center_horizontal"
-                            app:srcCompat="@drawable/ic_main_age_calc"
+                            app:srcCompat="@drawable/ic_age_calc_new"
                             app:tint="#FF000000" />
 
                         <TextView
@@ -1011,11 +906,11 @@
                             android:gravity="center_horizontal"
                             android:text="@string/age_calc"
                             android:textColor="@color/black"
-                            android:textSize="10sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/llStatusMaker"
+                        android:id="@+id/llMyCreation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -1025,10 +920,10 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
                             android:layout_gravity="center_horizontal"
-                            app:srcCompat="@drawable/ic_status_maker"
+                            app:srcCompat="@drawable/ic_downloads1"
                             app:tint="#FF000000" />
 
                         <TextView
@@ -1038,9 +933,9 @@
                             android:layout_marginTop="4dp"
                             android:fontFamily="@font/poppins_regular"
                             android:gravity="center_horizontal"
-                            android:text="@string/status_maker"
+                            android:text="Creation"
                             android:textColor="@color/black"
-                            android:textSize="10sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -1050,7 +945,7 @@
                         android:orientation="vertical"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/llStatusMaker"
+                        app:layout_constraintStart_toEndOf="@id/llMyCreation"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -1069,10 +964,10 @@
                             android:gravity="center_horizontal"
                             android:text="@string/cleaner"
                             android:textColor="@color/black"
-                            android:textSize="10sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

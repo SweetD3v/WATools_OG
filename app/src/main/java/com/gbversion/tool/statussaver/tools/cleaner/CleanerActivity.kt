@@ -172,9 +172,10 @@ class CleanerActivity : BaseActivity() {
         binding.run {
 
             if (NetworkState.isOnline()) {
-                AdsUtils.loadNativeSmall(
+                AdsUtils.loadNativeSmallProgress(
                     this@CleanerActivity, getString(R.string.admob_native_id),
-                    adFrame
+                    adFrame,
+                    adProgress
                 )
             }
 

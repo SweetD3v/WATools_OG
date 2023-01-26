@@ -43,10 +43,11 @@ class MyCreationToolsActivity : BaseActivity() {
 //                    getString(R.string.banner_id_details)
 //                )
 
-                AdsUtils.loadNative(
+                AdsUtils.loadNativeProgress(
                     this@MyCreationToolsActivity,
                     getString(R.string.admob_native_id),
-                    adFrame
+                    adFrame,
+                    adProgress
                 )
             }
 

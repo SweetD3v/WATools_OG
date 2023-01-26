@@ -5,19 +5,28 @@ import android.app.WallpaperManager
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
+import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityWallpaperDetailsBinding
 import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.BaseActivity
 import com.gbversion.tool.statussaver.tools.downloader.BasicImageDownloader
-import com.gbversion.tool.statussaver.utils.AdsUtils
-import com.gbversion.tool.statussaver.utils.NetworkState
-import com.gbversion.tool.statussaver.utils.originalPath
-import com.gbversion.tool.statussaver.utils.shareMediaUri
+import com.gbversion.tool.statussaver.utils.*
 import java.io.File
 
 class WallpapersDetailsActivity : BaseActivity() {
@@ -25,7 +34,11 @@ class WallpapersDetailsActivity : BaseActivity() {
     var isAllVisible: Boolean = false
     var imageUrl: String? = null
     var downloadUrl = ""
-    val walpType by lazy { intent.getStringExtra("walpType") }
+    var downloadBmp: Bitmap? = null
+    val walpType by lazy {
+        if (intent.hasExtra("walpType")) intent.getStringExtra("walpType")
+        else ""
+    }
 
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,11 +51,12 @@ class WallpapersDetailsActivity : BaseActivity() {
 
         binding.run {
 
-            if (NetworkState.isOnline())
+            if (NetworkState.isOnline()) {
                 AdsUtils.loadBanner(
                     this@WallpapersDetailsActivity, RemoteConfigUtils.adIdBanner(),
                     binding.bannerContainer
                 )
+            }
 
             appTitle.text = ""
             setSupportActionBar(binding.toolbar)
@@ -86,19 +100,45 @@ class WallpapersDetailsActivity : BaseActivity() {
                     object : AdsUtils.Companion.FullScreenCallback() {
                         override fun continueExecution() {
                             imageUrl = downloadUrl
-                            imageUrl?.let { url ->
-                                BasicImageDownloader(this@WallpapersDetailsActivity)
-                                    .saveImageToExternal(
-                                        url,
-                                        File(
-                                            originalPath,
-                                            if (walpType == "wallpapers") {
-                                                "Wallpapers"
-                                            } else {
-                                                "Status"
-                                            }
+                            downloadBmp?.let {
+                                try {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                                        FileUtilsss.saveBitmapAPI30(
+                                            this@WallpapersDetailsActivity,
+                                            it,
+                                            "IMG_${System.currentTimeMillis()}",
+                                            "image/png",
+                                            RootDirectoryWallpapers
+                                        ) {
+                                            Toast.makeText(
+                                                this@WallpapersDetailsActivity,
+                                                "Photo saved!",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                    } else {
+                                        FileUtilsss.saveBitmapAsFileDir(
+                                            this@WallpapersDetailsActivity,
+                                            downloadBmp, RootDirectoryWallpapers.name, ".png"
                                         )
-                                    )
+                                        Toast.makeText(
+                                            this@WallpapersDetailsActivity,
+                                            "Photo saved!",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                } catch (e: Exception) {
+                                }
+                            } ?: let {
+                                imageUrl?.let { url ->
+                                    BasicImageDownloader(this@WallpapersDetailsActivity)
+                                        .saveImageToExternal(
+                                            url,
+                                            if (walpType == "wallpapers")
+                                                RootDirectoryWallpapers
+                                            else RootDirectoryStatus
+                                        )
+                                }
                             }
                         }
                     })
@@ -106,13 +146,9 @@ class WallpapersDetailsActivity : BaseActivity() {
 
             fabShare.setOnClickListener {
                 imageUrl = downloadUrl
-                imageUrl?.let { url ->
-                    val file = getExternalFilesDir("Wallpapers")
-                    if (file?.exists() == false)
-                        file.mkdirs()
+                downloadBmp?.let { bmp ->
                     BasicImageDownloader(this@WallpapersDetailsActivity)
-                        .saveImageToTemp(url, file!!, false, {
-                        }) {
+                        .saveImageBmpToTemp(this@WallpapersDetailsActivity, bmp) {
                             Log.e("TAG", "onCreate: ${it}")
                             shareMediaUri(this@WallpapersDetailsActivity, arrayListOf(it))
                         }
@@ -121,43 +157,104 @@ class WallpapersDetailsActivity : BaseActivity() {
 
             fabSetWP.setOnClickListener {
                 val wallpaperManager = WallpaperManager.getInstance(applicationContext)
-                BasicImageDownloader(this@WallpapersDetailsActivity)
-                    .saveImageToTemp(
-                        downloadUrl,
-                        File(cacheDir, "temp_wallpapers"), false, { bmp ->
-//                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                                wallpaperManager.setBitmap(
-//                                    bmp,
-//                                    null,
-//                                    true,
-//                                    WallpaperManager.FLAG_SYSTEM
-//                                )
-//                            } else {
-//                                wallpaperManager.setBitmap(bmp)
-//                            }
-                        }) { uri ->
-                        Log.e("TAG", "uriWP: ${uri}")
-                        val intent = Intent(Intent.ACTION_ATTACH_DATA)
-                        intent.addCategory(Intent.CATEGORY_DEFAULT)
-                        grantUriPermission(packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                        intent.setDataAndType(uri, contentResolver.getType(uri))
-                        intent.putExtra("mimeType", contentResolver.getType(uri))
 
-                        val resInfoList: List<ResolveInfo> = packageManager.queryIntentActivities(
-                            intent,
-                            PackageManager.MATCH_DEFAULT_ONLY
+                downloadBmp?.let {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        val savedFile = FileUtilsss.saveBitmapAsFileDirFile(
+                            this@WallpapersDetailsActivity,
+                            downloadBmp, File(cacheDir, "temp_wallpapers"), ".png"
                         )
-                        for (resolveInfo in resInfoList) {
-                            val packageName: String = resolveInfo.activityInfo.packageName
-                            grantUriPermission(
-                                packageName,
-                                uri,
-                                Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
-                            )
-                        }
 
-                        startActivity(Intent.createChooser(intent, "Set as:"))
+                        val uri = FileProvider.getUriForFile(
+                            this@WallpapersDetailsActivity,
+                            "${packageName}.provider",
+                            savedFile
+                        )
+
+                        Handler(Looper.getMainLooper()).postDelayed(
+                            {
+                                val intent = Intent(Intent.ACTION_ATTACH_DATA)
+                                intent.addCategory(Intent.CATEGORY_DEFAULT)
+                                grantUriPermission(
+                                    packageName,
+                                    uri,
+                                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                )
+                                intent.setDataAndType(uri, contentResolver.getType(uri))
+                                intent.putExtra("mimeType", contentResolver.getType(uri))
+
+                                val resInfoList: List<ResolveInfo> =
+                                    packageManager.queryIntentActivities(
+                                        intent,
+                                        PackageManager.MATCH_DEFAULT_ONLY
+                                    )
+                                for (resolveInfo in resInfoList) {
+                                    val packageName: String =
+                                        resolveInfo.activityInfo.packageName
+                                    grantUriPermission(
+                                        packageName,
+                                        uri,
+                                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                    )
+                                }
+
+                                startActivity(Intent.createChooser(intent, "Set as:"))
+                            },
+                            500
+                        )
+                    } else {
+                        val savedFile = FileUtilsss.saveBitmapAsFileDirFile(
+                            this@WallpapersDetailsActivity,
+                            downloadBmp, File(cacheDir, "temp_wallpapers"), ".png"
+                        )
+
+                        val uri = FileProvider.getUriForFile(
+                            this@WallpapersDetailsActivity,
+                            "${packageName}.provider",
+                            savedFile
+                        )
+
+                        Handler(Looper.getMainLooper()).postDelayed(
+                            {
+                                val intent = Intent(Intent.ACTION_ATTACH_DATA)
+                                intent.addCategory(Intent.CATEGORY_DEFAULT)
+                                grantUriPermission(
+                                    packageName,
+                                    uri,
+                                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                )
+                                intent.setDataAndType(uri, contentResolver.getType(uri))
+                                intent.putExtra("mimeType", contentResolver.getType(uri))
+
+                                val resInfoList: List<ResolveInfo> =
+                                    packageManager.queryIntentActivities(
+                                        intent,
+                                        PackageManager.MATCH_DEFAULT_ONLY
+                                    )
+                                for (resolveInfo in resInfoList) {
+                                    val packageName: String = resolveInfo.activityInfo.packageName
+                                    grantUriPermission(
+                                        packageName,
+                                        uri,
+                                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                    )
+                                }
+
+                                startActivity(Intent.createChooser(intent, "Set as:"))
+                            },
+                            500
+                        )
                     }
+                }
+
+//                BasicImageDownloader(this@WallpapersDetailsActivity)
+//                    .saveImageToTemp(
+//                        downloadUrl,
+//                        File(cacheDir, "temp_wallpapers"), false, { bmp ->
+//                        }) { uri ->
+//                        Log.e("TAG", "uriWP: ${uri}")
+//
+//                    }
             }
         }
     }
@@ -165,8 +262,35 @@ class WallpapersDetailsActivity : BaseActivity() {
     private fun loadWallpaper() {
         Log.e("TAG", "loadWallpaper: ${downloadUrl}")
 
-        Glide.with(this).load(downloadUrl)
-            .placeholder(R.drawable.ic_wallpapers)
+        Glide.with(this)
+            .asBitmap()
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+            .load(downloadUrl)
+            .addListener(object : RequestListener<Bitmap> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Bitmap>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    downloadBmp = null
+                    Log.e("TAG", "onLoadFailed: ${e?.message}")
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Bitmap?,
+                    model: Any?,
+                    target: Target<Bitmap>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    downloadBmp = resource
+                    Log.e("TAG", "downloadBmp: ${downloadBmp?.width}")
+                    return false
+                }
+            })
+            .transition(BitmapTransitionOptions.withCrossFade())
             .into(binding.imgWallpaper)
     }
 

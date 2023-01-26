@@ -24,10 +24,11 @@ class GridSaveActivity : BaseActivity() {
 //                getString(R.string.banner_id_details)
 //            )
             binding.run {
-                AdsUtils.loadNativeSmall(
+                AdsUtils.loadNativeSmallProgress(
                     this@GridSaveActivity,
                     getString(R.string.admob_native_id),
-                    adFrame
+                    adFrame,
+                    adProgress
                 )
             }
         }

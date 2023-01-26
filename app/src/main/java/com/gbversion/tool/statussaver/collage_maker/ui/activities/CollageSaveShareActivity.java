@@ -34,10 +34,11 @@ public class CollageSaveShareActivity extends BaseActivity {
         if (NetworkState.Companion.isOnline()) {
 //            AdsUtils.Companion.loadBanner(this, binding.bannerContainer,
 //                    getString(R.string.banner_id_details));
-            AdsUtils.Companion.loadNative(
+            AdsUtils.Companion.loadNativeProgress(
                     this,
                     getString(R.string.admob_native_id),
-                    binding.adFrame
+                    binding.adFrame,
+                    binding.adProgress
             );
         }
 

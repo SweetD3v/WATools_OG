@@ -19,7 +19,6 @@ class CleanerHomeActivity : BaseActivity() {
         binding.run {
 
             if (NetworkState.isOnline()
-                && RemoteConfigUtils.canEnter
             ) {
                 AdsUtils.loadBanner(
                     this@CleanerHomeActivity, RemoteConfigUtils.adIdBanner(),

@@ -44,10 +44,11 @@ class CompressSavePhotoActivity : AppCompatActivity() {
 //                getString(R.string.banner_id_details)
 //            )
 
-            AdsUtils.loadNative(
+            AdsUtils.loadNativeProgress(
                 this@CompressSavePhotoActivity,
                 getString(R.string.admob_native_id),
-                binding.adFrame
+                binding.adFrame,
+                binding.adProgress
             )
         }
 

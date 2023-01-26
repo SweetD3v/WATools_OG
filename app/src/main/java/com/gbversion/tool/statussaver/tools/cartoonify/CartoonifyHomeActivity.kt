@@ -27,11 +27,11 @@ class CartoonifyHomeActivity : BaseActivity() {
 //                    getString(R.string.banner_id_details)
 //                )
 
-                AdsUtils.loadNative(
-                    this@CartoonifyHomeActivity,
-                    getString(R.string.admob_native_id),
-                    adFrame
-                )
+//                AdsUtils.loadNative(
+//                    this@CartoonifyHomeActivity,
+//                    getString(R.string.admob_native_id),
+//                    adFrame
+//                )
             }
 
             imgBack.setOnClickListener {

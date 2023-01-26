@@ -30,10 +30,11 @@ class PhotoCmpHomeActivity : BaseActivity() {
 //                    getString(R.string.banner_id_details)
 //                )
 
-                AdsUtils.loadNative(
+                AdsUtils.loadNativeProgress(
                     this@PhotoCmpHomeActivity,
                     getString(R.string.admob_native_id),
-                    adFrame
+                    adFrame,
+                    adProgress
                 )
             }
 

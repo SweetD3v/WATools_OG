@@ -44,10 +44,11 @@ class AgeCalculatorActivity : BaseActivity() {
 //                    this@AgeCalculatorActivity, bannerContainer,
 //                    getString(R.string.banner_id_details)
 //                )
-                AdsUtils.loadNative(
+                AdsUtils.loadNativeProgress(
                     this@AgeCalculatorActivity,
                     getString(R.string.admob_native_id),
-                    adFrame
+                    adFrame,
+                    adProgress
                 )
             }
 

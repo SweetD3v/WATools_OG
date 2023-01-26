@@ -36,37 +36,44 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/sticker_pack_list"
         android:layout_width="match_parent"
+        android:layout_below="@id/toolbar"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar">
+        android:layout_marginTop="16dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+<!--    <androidx.core.widget.NestedScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_below="@id/toolbar">-->
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/adCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="4dp"
-                app:cardUseCompatPadding="true">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
 
-                <FrameLayout
-                    android:id="@+id/adFrame"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </com.google.android.material.card.MaterialCardView>
+<!--            <com.google.android.material.card.MaterialCardView-->
+<!--                android:id="@+id/adCard"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginHorizontal="8dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                app:cardCornerRadius="4dp"-->
+<!--                app:cardElevation="4dp"-->
+<!--                app:cardUseCompatPadding="true">-->
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/sticker_pack_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp" />
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+<!--                <FrameLayout-->
+<!--                    android:id="@+id/adFrame"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent" />-->
+<!--            </com.google.android.material.card.MaterialCardView>-->
+
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/sticker_pack_list"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginTop="16dp" />-->
+<!--        </LinearLayout>-->
+<!--    </androidx.core.widget.NestedScrollView>-->
 </RelativeLayout>

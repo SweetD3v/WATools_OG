@@ -59,6 +59,13 @@ var RootDirectoryTwitterShow = File(
             + File.separator + WAToolsApp.getInstance()
         .getString(R.string.app_name) + File.separator + "Twitter"
 )
+
+var RootDirectoryInstaDP = File(
+    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
+            + File.separator + WAToolsApp.getInstance()
+        .getString(R.string.app_name) + File.separator + "Insta DP"
+)
+
 var RootDirectoryWhatsappShow = File(
     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
             + File.separator + WAToolsApp.getInstance()

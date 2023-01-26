@@ -102,11 +102,11 @@ class PhoneBoosterActivity : BaseActivity() {
                 override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
                     if (currentId == R.id.end) {
                         if (NetworkState.isOnline()
-                            && RemoteConfigUtils.canEnter
                         ) {
-                            AdsUtils.loadNative(
+                            AdsUtils.loadNativeProgress(
                                 this@PhoneBoosterActivity, RemoteConfigUtils.adIdNative(),
-                                adFrame
+                                adFrame,
+                                adProgress
                             )
                         }
                     }
@@ -146,7 +146,6 @@ class PhoneBoosterActivity : BaseActivity() {
 
                     override fun onAnimationEnd(animation: Animator?) {
                         if (NetworkState.isOnline()
-                            && RemoteConfigUtils.canEnter
                         ) {
                             AdsUtils.loadInterstitialAd(this@PhoneBoosterActivity,
                                 RemoteConfigUtils.adIdInterstital(),

@@ -127,7 +127,14 @@
                 android:layout_marginHorizontal="8dp"
                 app:cardCornerRadius="4dp"
                 app:cardElevation="4dp"
+                android:minHeight="230dp"
                 app:cardUseCompatPadding="true">
+
+                <ProgressBar
+                    android:id="@+id/adProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
 
                 <FrameLayout
                     android:id="@+id/adFrame"

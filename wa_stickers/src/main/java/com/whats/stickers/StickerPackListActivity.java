@@ -42,7 +42,7 @@ public class StickerPackListActivity extends AddStickerPackActivity {
             getSupportActionBar().setTitle(getResources().getQuantityString(R.plurals.title_activity_sticker_packs_list, stickerPackList.size()));
         }
 
-        AdsUtils.Companion.loadNative(this, "ca-app-pub-3940256099942544/2247696110", findViewById(R.id.adFrame));
+//        AdsUtils.Companion.loadNative(this, "ca-app-pub-3940256099942544/2247696110", findViewById(R.id.adFrame));
 
         findViewById(R.id.imgBack).setOnClickListener(v -> {
             onBackPressed();

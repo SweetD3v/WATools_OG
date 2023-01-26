@@ -40,10 +40,11 @@ class CompressPhotoActivity : AppCompatActivity() {
 //                this, binding.bannerContainer,
 //                getString(R.string.banner_id_details)
 //            )
-            AdsUtils.loadNativeSmall(
+            AdsUtils.loadNativeSmallProgress(
                 this@CompressPhotoActivity,
                 getString(R.string.admob_native_id),
-                binding.adFrame
+                binding.adFrame,
+                binding.adProgress
             )
         }
 

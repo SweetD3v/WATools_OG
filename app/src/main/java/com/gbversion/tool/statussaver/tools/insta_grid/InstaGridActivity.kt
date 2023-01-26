@@ -59,10 +59,11 @@ class InstaGridActivity : BaseActivity() {
 //                    this@InstaGridActivity, bannerContainer,
 //                    getString(R.string.banner_id_details)
 //                )
-                AdsUtils.loadNativeSmall(
+                AdsUtils.loadNativeSmallProgress(
                     this@InstaGridActivity,
                     getString(R.string.admob_native_id),
-                    adFrame
+                    adFrame,
+                    adProgress
                 )
             }
 

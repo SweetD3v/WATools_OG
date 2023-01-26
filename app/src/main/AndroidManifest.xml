@@ -66,6 +66,11 @@
             android:name=".ui.activities.PrivacyPolicyActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".tools.video_downloader.InstaDPDownloaderActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activities.ExitActivity"
             android:exported="false"

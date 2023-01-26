@@ -14,10 +14,15 @@ import com.android.volley.toolbox.Volley
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityInstaDpDownloaderBinding
 import com.gbversion.tool.statussaver.databinding.DialogConnectingServerBinding
+import com.gbversion.tool.statussaver.databinding.DialogServerDownBinding
 import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.BaseActivity
+import com.gbversion.tool.statussaver.tools.downloader.BasicImageDownloader
+import com.gbversion.tool.statussaver.tools.mycreation.MyCreationToolsActivity
 import com.gbversion.tool.statussaver.utils.AdsUtils
 import com.gbversion.tool.statussaver.utils.NetworkState
+import com.gbversion.tool.statussaver.utils.SMType
+import com.gbversion.tool.statussaver.utils.getClipBoardItems
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -67,10 +72,11 @@ class InstaDPDownloaderActivity : BaseActivity() {
 //                    getString(R.string.banner_id_details)
 //                )
 
-                AdsUtils.loadNative(
+                AdsUtils.loadNativeProgress(
                     this@InstaDPDownloaderActivity,
                     RemoteConfigUtils.adIdNative(),
-                    adFrame
+                    adFrame,
+                    adProgress
                 )
             }
 

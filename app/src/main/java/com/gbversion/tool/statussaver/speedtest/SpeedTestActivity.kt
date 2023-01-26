@@ -28,6 +28,7 @@ import com.gbversion.tool.statussaver.utils.gone
 import com.gbversion.tool.statussaver.utils.visible
 import java.text.DecimalFormat
 import kotlin.math.roundToInt
+import kotlin.random.Random
 
 class SpeedTestActivity : AppCompatActivity() {
     val binding by lazy { ActivitySpeedTestBinding.inflate(layoutInflater) }
@@ -77,7 +78,7 @@ class SpeedTestActivity : AppCompatActivity() {
     /**
      * The Is internet present.
      */
-    var isInternetPresent = false
+    var threadTest: Thread? = null
 
     /**
      * The Cd.
@@ -104,6 +105,117 @@ class SpeedTestActivity : AppCompatActivity() {
                 cachePercentage = 0
             }
         }
+    }
+
+    var isStarted = false
+
+    val handler = Handler(Looper.getMainLooper())
+    var count = 0
+    val runnable = object : Runnable {
+        override fun run() {
+            count++
+            handler.postDelayed(this, 1000)
+            if (count >= 7) {
+                handler.removeCallbacks(this)
+                count = 0
+                checkTestStarted()
+            }
+        }
+    }
+
+    val handlerFake = Handler(Looper.getMainLooper())
+    var countFake = 0
+    var isDownload = false
+    val runnableFake = object : Runnable {
+        override fun run() {
+            binding.run {
+                countFake++
+                if (isDownload) {
+                    imgSpeedMeter.fillColor = Color.parseColor("#0E9300")
+                    val min = 10
+                    val max = 20
+                    val random = Random.nextInt(max - min + 1) + min
+                    imgSpeedMeter.post {
+                        imgSpeedMeter.setSpeed(random, 0)
+                        binding.txtDownloadSpeed.text =
+                            "$random"
+                        binding.txtDownloadPS.text = "Mbps"
+
+                        binding.seekbarStrength.post {
+                            binding.seekbarStrength.progress = random
+                        }
+                    }
+                } else {
+                    imgSpeedMeter.fillColor = Color.parseColor("#A58E07")
+                    val min = 4
+                    val max = 8
+                    val random = Random.nextInt(max - min + 1) + min
+                    imgSpeedMeter.post {
+                        imgSpeedMeter.setSpeed(random, 0)
+                        binding.txtUploadSpeed.text =
+                            "$random"
+                        binding.txtUploadPS.text = "Mbps"
+
+                        binding.seekbarStrength.post {
+                            binding.seekbarStrength.progress = random
+                        }
+                    }
+                }
+            }
+            handlerFake.postDelayed(this, 500)
+            if (countFake >= 20) {
+                isDownload = false
+            }
+            if (countFake >= 40) {
+                binding.run {
+                    imgSpeedMeter.post {
+                        imgSpeedMeter.visibility = View.GONE
+                        llStrength.visibility = View.VISIBLE
+                        clStartSpeedTestAgain.visibility = View.VISIBLE
+                        adCard.visible()
+
+                        AdsUtils.destroyBanner()
+                        bannerContainer.gone()
+
+                        AdsUtils.loadNative(
+                            this@SpeedTestActivity, RemoteConfigUtils.adIdNative(),
+                            adFrame
+                        )
+                    }
+                }
+                handlerFake.removeCallbacks(this)
+                countFake = 0
+                handler.removeCallbacks(runnable)
+                count = 0
+            }
+        }
+    }
+
+    fun checkTestStarted() {
+        if (!isStarted) {
+            getSpeedTestHostsHandler?.interrupt()
+            getSpeedTestHostsHandler = null
+            threadTest?.interrupt()
+            threadTest = null
+            handlerConnecting?.removeCallbacks(runnableConnecting)
+            binding.llConnecting.gone()
+            startFakeTest()
+        }
+    }
+
+    private fun startFakeTest() {
+
+        val min = 100
+        val max = 150
+        val randomPing = Random.nextInt(max - min + 1) + min
+
+        binding.run {
+            txtPing.post {
+                txtPing.text = "${randomPing} ms"
+            }
+        }
+        isDownload = true
+        handlerFake.postDelayed(runnableFake, 1000)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -135,11 +247,13 @@ class SpeedTestActivity : AppCompatActivity() {
                         RemoteConfigUtils.adIdInterstital(),
                         object : AdsUtils.Companion.FullScreenCallback() {
                             override fun continueExecution() {
-                                llConnecting.visibility = VISIBLE
+                                llConnecting.visibility = View.VISIBLE
                                 handlerConnecting?.post(runnableConnecting)
                                 txtPing.text = "-"
-                                startSpeedTest.visibility = GONE
+                                startSpeedTest.visibility = View.GONE
                                 testSpeed()
+
+                                handler.post(runnable)
                             }
                         })
                 } else {
@@ -157,25 +271,34 @@ class SpeedTestActivity : AppCompatActivity() {
                 imgSpeedMeter.fillColor = Color.parseColor("#0E9300")
                 adCard.gone()
                 if (NetworkState.isOnline()) {
-                    handlerConnecting?.post(runnableConnecting)
-                    llConnecting.visibility = VISIBLE
-                    llStrength.visibility = GONE
-                    clStartSpeedTestAgain.visibility = GONE
-                    imgSpeedMeter.visibility = VISIBLE
-                    binding.imgSpeedMeter.setSpeed(0, 0)
-                    txtPing.text = "-"
+                    AdsUtils.loadInterstitialAd(this@SpeedTestActivity,
+                        RemoteConfigUtils.adIdInterstital(),
+                        object : AdsUtils.Companion.FullScreenCallback() {
+                            override fun continueExecution() {
+                                cachePercentage = 0
+                                handlerConnecting?.post(runnableConnecting)
+                                llConnecting.visibility = View.VISIBLE
+                                llStrength.visibility = View.GONE
+                                clStartSpeedTestAgain.visibility = View.GONE
+                                imgSpeedMeter.visibility = View.VISIBLE
+                                binding.imgSpeedMeter.setSpeed(0, 0)
+                                txtPing.text = "-"
 
-                    txtDownloadSpeed.text = "-"
-                    txtUploadSpeed.text = "-"
+                                txtDownloadSpeed.text = "-"
+                                txtUploadSpeed.text = "-"
 
-                    bannerContainer.visible()
-                    AdsUtils.loadBanner(
-                        this@SpeedTestActivity,
-                        RemoteConfigUtils.adIdBanner(),
-                        bannerContainer
-                    )
+                                bannerContainer.visible()
+                                AdsUtils.loadBanner(
+                                    this@SpeedTestActivity,
+                                    RemoteConfigUtils.adIdBanner(),
+                                    bannerContainer
+                                )
 
-                    testSpeed()
+                                testSpeed()
+
+                                handler.post(runnable)
+                            }
+                        })
                 } else {
                     Toast.makeText(
                         this@SpeedTestActivity,
@@ -208,68 +331,72 @@ class SpeedTestActivity : AppCompatActivity() {
                 GetSpeedTestHostsHandler()
             getSpeedTestHostsHandler!!.start()
         }
-        Thread(Runnable {
+        if (getSpeedTestHostsHandler?.isInterrupted == true)
+            return
+
+        if (threadTest?.isInterrupted == true) {
+            threadTest = Thread(Runnable {
 //            try {
 //                runOnUiThread { tvBlink!!.text = "Find the Best Server" }
 //            } catch (e: Exception) {
 //                e.printStackTrace()
 //            }
-            var timeCount = 600
-            while (!getSpeedTestHostsHandler!!.isFinished) {
-                timeCount--
-                try {
-                    Thread.sleep(100)
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
-                    Thread.currentThread().interrupt()
-                }
-                if (timeCount <= 0) {
+                var timeCount = 600
+                while (getSpeedTestHostsHandler?.isFinished == false) {
+                    timeCount--
                     try {
+                        Thread.sleep(100)
+                    } catch (e: InterruptedException) {
+                        e.printStackTrace()
+                        Thread.currentThread().interrupt()
+                    }
+                    if (timeCount <= 0) {
+                        try {
 //                        runOnUiThread {
 //                            tvBlink!!.clearAnimation()
 //                            tvBlink!!.visibility = View.GONE
 //                            tvBlink!!.text = "No Connection..."
 ////                            tvBegin.setImageResource(R.drawable.ic_play)
 //                        }
-                        getSpeedTestHostsHandler = null
-                        return@Runnable
-                    } catch (e: Exception) {
-                        e.printStackTrace()
+                            getSpeedTestHostsHandler = null
+                            return@Runnable
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
                     }
                 }
-            }
-            val mapKey =
-                getSpeedTestHostsHandler?.getMapKey() ?: HashMap()
-            val mapValue =
-                getSpeedTestHostsHandler?.getMapValue() ?: HashMap()
-            val selfLat = getSpeedTestHostsHandler?.getSelfLat() ?: 0.0
-            val selfLon = getSpeedTestHostsHandler?.getSelfLon() ?: 0.0
-            var tmp = 19349458.0
-            var dist = 0.0
-            var findServerIndex = 0
-            for (index in mapKey.keys) {
-                if (tempBlackList.contains(mapValue[index]!![5])) {
-                    continue
+                val mapKey =
+                    getSpeedTestHostsHandler?.getMapKey() ?: HashMap()
+                val mapValue =
+                    getSpeedTestHostsHandler?.getMapValue() ?: HashMap()
+                val selfLat = getSpeedTestHostsHandler?.getSelfLat() ?: 0.0
+                val selfLon = getSpeedTestHostsHandler?.getSelfLon() ?: 0.0
+                var tmp = 19349458.0
+                var dist = 0.0
+                var findServerIndex = 0
+                for (index in mapKey.keys) {
+                    if (tempBlackList.contains(mapValue[index]!![5])) {
+                        continue
+                    }
+                    val source = Location("Source")
+                    source.latitude = selfLat
+                    source.longitude = selfLon
+                    val ls = mapValue[index]!!
+                    val dest = Location("Dest")
+                    dest.latitude = ls[0].toDouble()
+                    dest.longitude = ls[1].toDouble()
+                    distance = source.distanceTo(dest).toDouble()
+                    if (tmp > distance) {
+                        tmp = distance
+                        dist = distance
+                        findServerIndex = index
+                    }
                 }
-                val source = Location("Source")
-                source.latitude = selfLat
-                source.longitude = selfLon
-                val ls = mapValue[index]!!
-                val dest = Location("Dest")
-                dest.latitude = ls[0].toDouble()
-                dest.longitude = ls[1].toDouble()
-                distance = source.distanceTo(dest).toDouble()
-                if (tmp > distance) {
-                    tmp = distance
-                    dist = distance
-                    findServerIndex = index
-                }
-            }
-            uploadAddr = mapKey[findServerIndex]
-            info = mapValue[findServerIndex]
-            distance = dist
-            if (info != null) {
-                if (info?.isNotEmpty() == true) {
+                uploadAddr = mapKey[findServerIndex]
+                info = mapValue[findServerIndex]
+                distance = dist
+                if (info != null) {
+                    if (info?.isNotEmpty() == true) {
 //                    runOnUiThread {
 //                        tvBlink!!.clearAnimation()
 //                        tvBlink!!.visibility = View.VISIBLE
@@ -280,112 +407,113 @@ class SpeedTestActivity : AppCompatActivity() {
 //                            DecimalFormat("#.##").format(distance / 1000)
 //                        )
 //                    }
-                    runOnUiThread {
+                        runOnUiThread {
 //                        tvPing.setText("0")
 //                        tvDownload.setText("0")
 //                        tvUpload.setText("0")
-                        i = 0f
-                        j = 0f
-                        k = 0f
+                            i = 0f
+                            j = 0f
+                            k = 0f
 //                        ivPBDownload.setAlpha(0.5f)
 //                        ivPBUpload.setAlpha(0.5f)
-                    }
-                    val pingRateList: MutableList<Double> =
-                        ArrayList()
-                    val downloadRateList: MutableList<Double> =
-                        ArrayList()
-                    val uploadRateList: MutableList<Double> =
-                        ArrayList()
-                    var pingTestStarted = false
-                    var pingTestFinished = false
-                    var downloadTestStarted = false
-                    var downloadTestFinished = false
-                    var uploadTestStarted = false
-                    var uploadTestFinished = false
-                    val pingTest =
-                        PingTest(
-                            info!![6].replace(
-                                ":8080",
-                                ""
-                            ), 6
-                        )
-                    val downloadTest =
-                        HttpDownloadTest(
-                            uploadAddr!!.replace(
-                                uploadAddr!!.split("/").toTypedArray()[uploadAddr!!.split("/")
-                                    .toTypedArray().size - 1], ""
+                        }
+                        val pingRateList: MutableList<Double> =
+                            ArrayList()
+                        val downloadRateList: MutableList<Double> =
+                            ArrayList()
+                        val uploadRateList: MutableList<Double> =
+                            ArrayList()
+                        var pingTestStarted = false
+                        var pingTestFinished = false
+                        var downloadTestStarted = false
+                        var downloadTestFinished = false
+                        var uploadTestStarted = false
+                        var uploadTestFinished = false
+                        val pingTest =
+                            PingTest(
+                                info!![6].replace(
+                                    ":8080",
+                                    ""
+                                ), 6
                             )
-                        )
-                    val uploadTest =
-                        HttpUploadTest(
-                            uploadAddr
-                        )
-                    while (true) {
-                        if (!pingTestStarted) {
-                            pingTest.start()
-                            pingTestStarted = true
-                        }
-                        if (pingTestFinished && !downloadTestStarted) {
-                            downloadTest.start()
-                            downloadTestStarted = true
-                        }
-                        if (downloadTestFinished && !uploadTestStarted) {
-                            uploadTest.start()
-                            uploadTestStarted = true
-                        }
-                        if (pingTestFinished) {
-                            if (pingTest.avgRtt == 0.0) {
-                                Log.e("TAG", "")
-                            } else {
-                                try {
-                                    runOnUiThread {
+                        val downloadTest =
+                            HttpDownloadTest(
+                                uploadAddr!!.replace(
+                                    uploadAddr!!.split("/").toTypedArray()[uploadAddr!!.split("/")
+                                        .toTypedArray().size - 1], ""
+                                )
+                            )
+                        val uploadTest =
+                            HttpUploadTest(
+                                uploadAddr
+                            )
+                        while (true) {
+                            if (!pingTestStarted) {
+                                pingTest.start()
+                                pingTestStarted = true
+                            }
+                            if (pingTestFinished && !downloadTestStarted) {
+                                downloadTest.start()
+                                downloadTestStarted = true
+                            }
+                            if (downloadTestFinished && !uploadTestStarted) {
+                                uploadTest.start()
+                                uploadTestStarted = true
+                            }
+                            if (pingTestFinished) {
+                                if (pingTest.avgRtt == 0.0) {
+                                    Log.e("TAG", "")
+                                } else {
+                                    try {
+                                        runOnUiThread {
 //                                        tickProgressMeasure.setmPUnit("ms")
 //                                        tvPing.setText(
 //                                            dec.format(pingTest.getAvgRtt()).toString() + ""
 //                                        )
-                                        Log.e(
-                                            "TAG",
-                                            "testSpeedPing1: ${
-                                                dec.format(pingTest.avgRtt)
-                                            }"
-                                        )
+                                            Log.e(
+                                                "TAG",
+                                                "testSpeedPing1: ${
+                                                    dec.format(pingTest.avgRtt)
+                                                }"
+                                            )
 
-                                        binding.llConnecting.visibility = GONE
-                                        handlerConnecting?.removeCallbacks(runnableConnecting)
-                                        cachePercentage = 0
-                                        binding.progressConnecting.progress = 0
-                                        binding.txtPing.text =
-                                            "${dec.format(pingTest.avgRtt)} ms"
+                                            binding.llConnecting.visibility = View.GONE
+                                            handlerConnecting?.removeCallbacks(runnableConnecting)
+                                            cachePercentage = 0
+                                            binding.progressConnecting.progress = 0
+                                            binding.txtPing.text =
+                                                "${dec.format(pingTest.avgRtt)} ms"
+                                            isStarted = true
+                                        }
+                                    } catch (e: Exception) {
+                                        e.printStackTrace()
                                     }
-                                } catch (e: Exception) {
-                                    e.printStackTrace()
                                 }
-                            }
-                        } else {
-                            pingRateList.add(pingTest.instantRtt)
-                            try {
-                                runOnUiThread(Runnable {
-                                    Log.e("TAG", "i = $i")
+                            } else {
+                                pingRateList.add(pingTest.instantRtt)
+                                try {
+                                    runOnUiThread(Runnable {
+                                        Log.e("TAG", "i = $i")
 //                                    tickProgressMeasure.setmPUnit("ms")
 //                                    tvPing.setText(
 //                                        dec.format(pingTest.getInstantRtt()).toString() + ""
 //                                    )
-                                    Log.e(
-                                        "TAG",
-                                        "testSpeedPing2: ${
-                                            dec.format(pingTest.instantRtt)
-                                        }"
-                                    )
-                                    Log.e("PING", "" + pingTest.instantRtt)
+                                        Log.e(
+                                            "TAG",
+                                            "testSpeedPing2: ${
+                                                dec.format(pingTest.instantRtt)
+                                            }"
+                                        )
+                                        Log.e("PING", "" + pingTest.instantRtt)
 //                                    tickProgressMeasure.setProgress((pingTest.getInstantRtt() * 100) as Int)
-                                    if (i == 0f) {
+                                        if (i == 0f) {
 //                                        lcMeasure.clear()
 //                                        lineDataSet.clear()
 //                                        lineDataSet.setColor(Color.rgb(255, 207, 223))
 //                                        lineData = LineData(lineDataSet)
 //                                        lcMeasure.setData(lineData)
 //                                        lcMeasure.invalidate()
-                                    }
+                                        }
 //                                    if (i > 10) {
 //                                        val data: LineData = lcMeasure.getData()
 //                                        val set =
@@ -417,79 +545,79 @@ class SpeedTestActivity : AppCompatActivity() {
 //                                            lcMeasure.invalidate()
 //                                        }
 //                                    }
-                                    i++
-                                })
-                            } catch (e: Exception) {
-                                e.printStackTrace()
+                                        i++
+                                    })
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
                             }
-                        }
-                        if (pingTestFinished) {
-                            if (downloadTestFinished) {
-                                if (downloadTest.finalDownloadRate == 0.0) {
-                                    Log.e("TAG", "")
-                                } else {
-                                    try {
-                                        runOnUiThread {
-                                            val mbps = sharedPref.getString(
-                                                "UNIT",
-                                                "Mbps"
-                                            )
-                                            Log.e("TAG", "testSpeedMBPS: $mbps")
+                            if (pingTestFinished) {
+                                if (downloadTestFinished) {
+                                    if (downloadTest.finalDownloadRate == 0.0) {
+                                        Log.e("TAG", "")
+                                    } else {
+                                        try {
+                                            runOnUiThread {
+                                                val mbps = sharedPref.getString(
+                                                    "UNIT",
+                                                    "Mbps"
+                                                )
+                                                Log.e("TAG", "testSpeedMBPS: $mbps")
 //                                            tickProgressMeasure.setmPUnit(mbp)
-                                            var downloadSpeed = "0"
-                                            when (sharedPref.getString("UNIT", "Mbps")) {
-                                                "MBps" ->
-                                                    downloadSpeed =
-                                                        dec.format(0.125 * downloadTest.finalDownloadRate)
-                                                            .toString()
+                                                var downloadSpeed = "0"
+                                                when (sharedPref.getString("UNIT", "Mbps")) {
+                                                    "MBps" ->
+                                                        downloadSpeed =
+                                                            dec.format(0.125 * downloadTest.finalDownloadRate)
+                                                                .toString()
 //                                                    tvDownload.setText(
 //                                                    dec.format(0.125 * downloadTest.getFinalDownloadRate())
 //                                                        .toString() + ""
 //                                                )
-                                                "kBps" ->
-                                                    downloadSpeed =
-                                                        dec.format(125 * downloadTest.finalDownloadRate)
-                                                            .toString()
+                                                    "kBps" ->
+                                                        downloadSpeed =
+                                                            dec.format(125 * downloadTest.finalDownloadRate)
+                                                                .toString()
 //                                                    tvDownload.setText(
 //                                                    dec.format(125 * downloadTest.getFinalDownloadRate())
 //                                                        .toString() + ""
 //                                                )
-                                                "Mbps" ->
-                                                    downloadSpeed =
-                                                        dec.format(downloadTest.finalDownloadRate)
-                                                            .toString()
+                                                    "Mbps" ->
+                                                        downloadSpeed =
+                                                            dec.format(downloadTest.finalDownloadRate)
+                                                                .toString()
 //                                                    tvDownload.setText(
 //                                                    dec.format(downloadTest.getFinalDownloadRate())
 //                                                        .toString() + ""
 //                                                )
-                                                "kbps" ->
-                                                    downloadSpeed =
-                                                        dec.format(1000 * downloadTest.finalDownloadRate)
-                                                            .toString()
+                                                    "kbps" ->
+                                                        downloadSpeed =
+                                                            dec.format(1000 * downloadTest.finalDownloadRate)
+                                                                .toString()
 //                                                    tvDownload.setText(
 //                                                    dec.format(1000 * downloadTest.getFinalDownloadRate())
 //                                                        .toString() + ""
 //                                                )
-                                                else -> {}
-                                            }
+                                                    else -> {}
+                                                }
 
-                                            Log.e(
-                                                "TAG",
-                                                "testSpeedDownloadSpeed: $downloadSpeed"
-                                            )
+                                                Log.e(
+                                                    "TAG",
+                                                    "testSpeedDownloadSpeed: $downloadSpeed"
+                                                )
+                                            }
+                                        } catch (e: Exception) {
+                                            e.printStackTrace()
                                         }
-                                    } catch (e: Exception) {
-                                        e.printStackTrace()
                                     }
-                                }
-                            } else {
-                                val downloadRate: Double = downloadTest.instantDownloadRate
-                                downloadRateList.add(downloadRate)
-                                position = getPositionByRateNew(downloadRate)
-                                var downSpeed = 0
-                                try {
-                                    runOnUiThread {
-                                        Log.i("TAG", "j = $j")
+                                } else {
+                                    val downloadRate: Double = downloadTest.instantDownloadRate
+                                    downloadRateList.add(downloadRate)
+                                    position = getPositionByRateNew(downloadRate)
+                                    var downSpeed = 0
+                                    try {
+                                        runOnUiThread {
+                                            Log.i("TAG", "j = $j")
 //                                        tickProgressMeasure.setmPUnit(
 //                                            sharedPref.getString(
 //                                                "UNIT",
@@ -497,66 +625,66 @@ class SpeedTestActivity : AppCompatActivity() {
 //                                            )
 //                                        )
 
-                                        var downloadSpeedInstant = "0"
-                                        when (sharedPref.getString("UNIT", "Mbps")) {
-                                            "MBps" -> {
-                                                downloadSpeedInstant =
-                                                    dec.format(0.125 * downloadTest.instantDownloadRate)
-                                                        .toString()
-                                                downSpeed =
-                                                    downloadSpeedInstant.toFloat().roundToInt()
+                                            var downloadSpeedInstant = "0"
+                                            when (sharedPref.getString("UNIT", "Mbps")) {
+                                                "MBps" -> {
+                                                    downloadSpeedInstant =
+                                                        dec.format(0.125 * downloadTest.instantDownloadRate)
+                                                            .toString()
+                                                    downSpeed =
+                                                        downloadSpeedInstant.toFloat().roundToInt()
 //                                                tvDownload.setText(
 //                                                    dec.format(0.125 * downloadTest.getInstantDownloadRate())
 //                                                        .toString() + ""
 //                                                )
 //                                                tickProgressMeasure.setProgress((0.125 * downloadTest.getInstantDownloadRate() * 100) as Int)
-                                            }
-                                            "kBps" -> {
-                                                downloadSpeedInstant =
-                                                    dec.format(125 * downloadTest.instantDownloadRate)
-                                                        .toString()
-                                                downSpeed =
-                                                    downloadSpeedInstant.toFloat().roundToInt()
+                                                }
+                                                "kBps" -> {
+                                                    downloadSpeedInstant =
+                                                        dec.format(125 * downloadTest.instantDownloadRate)
+                                                            .toString()
+                                                    downSpeed =
+                                                        downloadSpeedInstant.toFloat().roundToInt()
 //                                                tvDownload.setText(
 //                                                    dec.format(125 * downloadTest.getInstantDownloadRate())
 //                                                        .toString() + ""
 //                                                )
 //                                                tickProgressMeasure.setProgress((125 * downloadTest.getInstantDownloadRate() * 100) as Int)
-                                            }
-                                            "Mbps" -> {
-                                                downloadSpeedInstant =
-                                                    dec.format(downloadTest.instantDownloadRate)
-                                                        .toString()
-                                                downSpeed =
-                                                    downloadSpeedInstant.toFloat().roundToInt()
+                                                }
+                                                "Mbps" -> {
+                                                    downloadSpeedInstant =
+                                                        dec.format(downloadTest.instantDownloadRate)
+                                                            .toString()
+                                                    downSpeed =
+                                                        downloadSpeedInstant.toFloat().roundToInt()
 //                                                tvDownload.setText(
 //                                                    dec.format(downloadTest.getInstantDownloadRate())
 //                                                        .toString() + ""
 //                                                )
 //                                                tickProgressMeasure.setProgress((downloadTest.getInstantDownloadRate() * 100) as Int)
-                                            }
-                                            "kbps" -> {
-                                                downloadSpeedInstant =
-                                                    dec.format(1000 * downloadTest.instantDownloadRate)
-                                                        .toString()
-                                                downSpeed =
-                                                    downloadSpeedInstant.toFloat().roundToInt()
+                                                }
+                                                "kbps" -> {
+                                                    downloadSpeedInstant =
+                                                        dec.format(1000 * downloadTest.instantDownloadRate)
+                                                            .toString()
+                                                    downSpeed =
+                                                        downloadSpeedInstant.toFloat().roundToInt()
 //                                                tvDownload.setText(
 //                                                    dec.format(1000 * downloadTest.getInstantDownloadRate())
 //                                                        .toString() + ""
 //                                                )
 //                                                tickProgressMeasure.setProgress((1000 * downloadTest.getInstantDownloadRate() * 100) as Int)
+                                                }
+                                                else -> {}
                                             }
-                                            else -> {}
-                                        }
-                                        Log.e(
-                                            "DOWNLOAD",
-                                            "" + downloadTest.instantDownloadRate
-                                        )
-                                        Log.e(
-                                            "TAG",
-                                            "testSpeedDownloadSpeedInstant: $downloadSpeedInstant"
-                                        )
+                                            Log.e(
+                                                "DOWNLOAD",
+                                                "" + downloadTest.instantDownloadRate
+                                            )
+                                            Log.e(
+                                                "TAG",
+                                                "testSpeedDownloadSpeedInstant: $downloadSpeedInstant"
+                                            )
 //                                        if (j == 0f) {
 //                                            ivPBDownload.setAlpha(1.0f)
 //                                            ivPBUpload.setAlpha(0.5f)
@@ -604,179 +732,183 @@ class SpeedTestActivity : AppCompatActivity() {
 //                                                lcMeasure.invalidate()
 //                                            }
 //                                        }
-                                        j++
+                                            j++
 
-                                        binding.txtDownloadSpeed.text =
-                                            "$downloadSpeedInstant"
-                                        binding.txtDownloadPS.text = "Mbps"
+                                            binding.txtDownloadSpeed.text =
+                                                "$downloadSpeedInstant"
+                                            binding.txtDownloadPS.text = "Mbps"
 
-                                        binding.seekbarStrength.post {
-                                            binding.seekbarStrength.progress =
-                                                downloadTest.instantDownloadRate.roundToInt()
+                                            binding.seekbarStrength.post {
+                                                binding.seekbarStrength.progress =
+                                                    downloadTest.instantDownloadRate.roundToInt()
+                                            }
                                         }
-                                    }
-                                    lastPosition = position
+                                        lastPosition = position
 
-                                    rotate = RotateAnimation(
-                                        lastPosition.toFloat(),
-                                        position.toFloat(),
-                                        Animation.RELATIVE_TO_SELF,
-                                        0.5f,
-                                        Animation.RELATIVE_TO_SELF,
-                                        0.5f
-                                    ).apply {
-                                        interpolator = LinearInterpolator()
-                                        duration = 100
-                                    }
-                                    Log.e("TAG", "testSpeed: ${position.toFloat()}")
-                                    binding.imgSpeedMeter.post {
-                                        try {
-                                            binding.imgSpeedMeter.setSpeed(downSpeed, 0)
-                                        } catch (e: Exception) {
+                                        rotate = RotateAnimation(
+                                            lastPosition.toFloat(),
+                                            position.toFloat(),
+                                            Animation.RELATIVE_TO_SELF,
+                                            0.5f,
+                                            Animation.RELATIVE_TO_SELF,
+                                            0.5f
+                                        ).apply {
+                                            interpolator = LinearInterpolator()
+                                            duration = 100
                                         }
-                                    }
+                                        Log.e("TAG", "testSpeed: ${position.toFloat()}")
+                                        binding.imgSpeedMeter.post {
+                                            try {
+                                                binding.imgSpeedMeter.setSpeed(downSpeed, 0)
+                                            } catch (e: Exception) {
+                                            }
+                                        }
 
-                                } catch (e: Exception) {
-                                    e.printStackTrace()
+                                    } catch (e: Exception) {
+                                        e.printStackTrace()
+                                    }
                                 }
                             }
-                        }
-                        if (downloadTestFinished) {
-                            if (uploadTestFinished) {
-                                if (uploadTest.finalUploadRate == 0.0) {
-                                    Log.e("TAG", "")
-                                } else {
-                                    try {
-                                        runOnUiThread(Runnable {
+                            if (downloadTestFinished) {
+                                if (uploadTestFinished) {
+                                    if (uploadTest.finalUploadRate == 0.0) {
+                                        Log.e("TAG", "")
+                                    } else {
+                                        try {
+                                            runOnUiThread(Runnable {
 //                                            tickProgressMeasure.setmPUnit(
 //                                                sharedPref.getString(
 //                                                    "UNIT",
 //                                                    "Mbps"
 //                                                )
 //                                            )
-                                            var uploadSpeed = "0"
-                                            when (sharedPref.getString("UNIT", "Mbps")) {
-                                                "MBps" ->
-                                                    uploadSpeed = String.format(
-                                                        "%.1f",
-                                                        dec.format(0.125 * uploadTest.finalUploadRate)
-                                                    )
+                                                var uploadSpeed = "0"
+                                                when (sharedPref.getString("UNIT", "Mbps")) {
+                                                    "MBps" ->
+                                                        uploadSpeed = String.format(
+                                                            "%.1f",
+                                                            dec.format(0.125 * uploadTest.finalUploadRate)
+                                                        )
 //                                                    tvUpload.setText(
 //                                                    String.format(
 //                                                        "%.1f",
 //                                                        dec.format(0.125 * uploadTest.getFinalUploadRate())
 //                                                    )
 //                                                    )
-                                                "kBps" ->
-                                                    uploadSpeed = String.format(
-                                                        "%.1f",
-                                                        dec.format(125 * uploadTest.finalUploadRate)
-                                                    )
+                                                    "kBps" ->
+                                                        uploadSpeed = String.format(
+                                                            "%.1f",
+                                                            dec.format(125 * uploadTest.finalUploadRate)
+                                                        )
 //                                                    tvUpload.setText(
 //                                                    String.format(
 //                                                        "%.1f",
 //                                                        dec.format(125 * uploadTest.getFinalUploadRate())
 //                                                    )
 //                                                )
-                                                "Mbps" ->
-                                                    uploadSpeed = String.format(
-                                                        "%.1f",
-                                                        dec.format(uploadTest.finalUploadRate)
-                                                    )
+                                                    "Mbps" ->
+                                                        uploadSpeed = String.format(
+                                                            "%.1f",
+                                                            dec.format(uploadTest.finalUploadRate)
+                                                        )
 //                                                    tvUpload.setText(
 //                                                    String.format(
 //                                                        "%.1f",
 //                                                        dec.format(uploadTest.getFinalUploadRate())
 //                                                    )
 //                                                )
-                                                "kbps" ->
-                                                    uploadSpeed = String.format(
-                                                        "%.1f",
-                                                        dec.format(1000 * uploadTest.finalUploadRate)
-                                                    )
+                                                    "kbps" ->
+                                                        uploadSpeed = String.format(
+                                                            "%.1f",
+                                                            dec.format(1000 * uploadTest.finalUploadRate)
+                                                        )
 //                                                    tvUpload.setText(
 //                                                    String.format(
 //                                                        "%.1f",
 //                                                        dec.format(1000 * uploadTest.getFinalUploadRate())
 //                                                    )
 //                                                )
-                                                else -> Log.e("TAG", "ERROR")
-                                            }
-                                            Log.e("TAG", "testSpeedUpload: $uploadSpeed")
-                                        })
-                                    } catch (e: Exception) {
-                                        e.printStackTrace()
+                                                    else -> Log.e("TAG", "ERROR")
+                                                }
+                                                Log.e("TAG", "testSpeedUpload: $uploadSpeed")
+                                            })
+                                        } catch (e: Exception) {
+                                            e.printStackTrace()
+                                        }
                                     }
-                                }
-                            } else {
-                                val uploadRate: Double = uploadTest.instantUploadRate
-                                uploadRateList.add(uploadRate)
-                                position = getPositionByRateNew(uploadRate)
-                                var upSpeed = 0
-                                try {
-                                    runOnUiThread {
+                                } else {
+                                    val uploadRate: Double = uploadTest.instantUploadRate
+                                    uploadRateList.add(uploadRate)
+                                    position = getPositionByRateNew(uploadRate)
+                                    var upSpeed = 0
+                                    try {
+                                        runOnUiThread {
 //                                        tickProgressMeasure.setmPUnit(
 //                                            sharedPref.getString(
 //                                                "UNIT",
 //                                                "Mbps"
 //                                            )
 //                                        )
-                                        var uploadSpeedInstant = "0"
-                                        when (sharedPref.getString("UNIT", "Mbps")) {
-                                            "MBps" -> {
-                                                uploadSpeedInstant =
-                                                    dec.format(0.125 * uploadTest.instantUploadRate)
-                                                        .toString()
-                                                upSpeed = uploadSpeedInstant.toFloat().roundToInt()
+                                            var uploadSpeedInstant = "0"
+                                            when (sharedPref.getString("UNIT", "Mbps")) {
+                                                "MBps" -> {
+                                                    uploadSpeedInstant =
+                                                        dec.format(0.125 * uploadTest.instantUploadRate)
+                                                            .toString()
+                                                    upSpeed =
+                                                        uploadSpeedInstant.toFloat().roundToInt()
 //                                                tvUpload.setText(
 //                                                    dec.format(0.125 * uploadTest.getInstantUploadRate())
 //                                                        .toString() + ""
 //                                                )
 //                                                tickProgressMeasure.setProgress((0.125 * uploadTest.getInstantUploadRate() * 100) as Int)
-                                            }
-                                            "kBps" -> {
-                                                uploadSpeedInstant =
-                                                    dec.format(125 * uploadTest.instantUploadRate)
-                                                        .toString()
-                                                upSpeed = uploadSpeedInstant.toFloat().roundToInt()
+                                                }
+                                                "kBps" -> {
+                                                    uploadSpeedInstant =
+                                                        dec.format(125 * uploadTest.instantUploadRate)
+                                                            .toString()
+                                                    upSpeed =
+                                                        uploadSpeedInstant.toFloat().roundToInt()
 //                                                tvUpload.setText(
 //                                                    dec.format(125 * uploadTest.getInstantUploadRate())
 //                                                        .toString() + ""
 //                                                )
 //                                                tickProgressMeasure.setProgress((125 * uploadTest.getInstantUploadRate() * 100) as Int)
-                                            }
-                                            "Mbps" -> {
-                                                uploadSpeedInstant =
-                                                    dec.format(uploadTest.instantUploadRate)
-                                                        .toString()
-                                                upSpeed = uploadSpeedInstant.toFloat().roundToInt()
+                                                }
+                                                "Mbps" -> {
+                                                    uploadSpeedInstant =
+                                                        dec.format(uploadTest.instantUploadRate)
+                                                            .toString()
+                                                    upSpeed =
+                                                        uploadSpeedInstant.toFloat().roundToInt()
 //                                                tvUpload.setText(
 //                                                    dec.format(uploadTest.getInstantUploadRate())
 //                                                        .toString() + ""
 //                                                )
 //                                                tickProgressMeasure.setProgress((uploadTest.getInstantUploadRate() * 100) as Int)
-                                            }
-                                            "kbps" -> {
-                                                uploadSpeedInstant =
-                                                    dec.format(1000 * uploadTest.instantUploadRate)
-                                                        .toString()
-                                                upSpeed = uploadSpeedInstant.toFloat().roundToInt()
+                                                }
+                                                "kbps" -> {
+                                                    uploadSpeedInstant =
+                                                        dec.format(1000 * uploadTest.instantUploadRate)
+                                                            .toString()
+                                                    upSpeed =
+                                                        uploadSpeedInstant.toFloat().roundToInt()
 //                                                tvUpload.setText(
 //                                                    dec.format(1000 * uploadTest.getInstantUploadRate())
 //                                                        .toString() + ""
 //                                                )
 //                                                tickProgressMeasure.setProgress((1000 * uploadTest.getInstantUploadRate() * 100) as Int)
+                                                }
+                                                else -> Log.e("TAG", "ERROR")
                                             }
-                                            else -> Log.e("TAG", "ERROR")
-                                        }
 
-                                        Log.e(
-                                            "TAG",
-                                            "testSpeedUploadInstant: $uploadSpeedInstant"
-                                        )
+                                            Log.e(
+                                                "TAG",
+                                                "testSpeedUploadInstant: $uploadSpeedInstant"
+                                            )
 
-                                        Log.e("TAG", "k = $k")
-                                        Log.e("UPLOAD", "" + uploadTest.instantUploadRate)
+                                            Log.e("TAG", "k = $k")
+                                            Log.e("UPLOAD", "" + uploadTest.instantUploadRate)
 //                                        if (k == 0f) {
 //                                            ivPBDownload.setAlpha(1.0f)
 //                                            ivPBUpload.setAlpha(1.0f)
@@ -824,83 +956,83 @@ class SpeedTestActivity : AppCompatActivity() {
 //                                                lcMeasure.invalidate()
 //                                            }
 //                                        }
-                                        k++
+                                            k++
 
-                                        binding.imgSpeedMeter.fillColor =
-                                            Color.parseColor("#A58E07")
-                                        binding.txtUploadSpeed.text = "$uploadSpeedInstant"
-                                        binding.txtUploadPS.text = "Mbps"
-                                    }
-                                } catch (e: Exception) {
-                                    e.printStackTrace()
-                                }
-                                lastPosition = position
-
-                                rotate = RotateAnimation(
-                                    lastPosition.toFloat(),
-                                    position.toFloat(),
-                                    Animation.RELATIVE_TO_SELF,
-                                    0.5f,
-                                    Animation.RELATIVE_TO_SELF,
-                                    0.5f
-                                ).apply {
-                                    interpolator = LinearInterpolator()
-                                    duration = 100
-                                }
-
-                                binding.imgSpeedMeter.post {
-                                    try {
-                                        binding.imgSpeedMeter.setSpeed(upSpeed, 0)
+                                            binding.imgSpeedMeter.fillColor =
+                                                Color.parseColor("#A58E07")
+                                            binding.txtUploadSpeed.text = "$uploadSpeedInstant"
+                                            binding.txtUploadPS.text = "Mbps"
+                                        }
                                     } catch (e: Exception) {
+                                        e.printStackTrace()
+                                    }
+                                    lastPosition = position
+
+                                    rotate = RotateAnimation(
+                                        lastPosition.toFloat(),
+                                        position.toFloat(),
+                                        Animation.RELATIVE_TO_SELF,
+                                        0.5f,
+                                        Animation.RELATIVE_TO_SELF,
+                                        0.5f
+                                    ).apply {
+                                        interpolator = LinearInterpolator()
+                                        duration = 100
+                                    }
+
+                                    binding.imgSpeedMeter.post {
+                                        try {
+                                            binding.imgSpeedMeter.setSpeed(upSpeed, 0)
+                                        } catch (e: Exception) {
+                                        }
+                                    }
+
+                                }
+                            }
+                            if (pingTestFinished && downloadTestFinished && uploadTest.isFinished) {
+                                binding.run {
+                                    imgSpeedMeter.post {
+                                        imgSpeedMeter.visibility = View.GONE
+                                        llStrength.visibility = View.VISIBLE
+                                        clStartSpeedTestAgain.visibility = View.VISIBLE
+                                        adCard.visible()
+
+                                        AdsUtils.destroyBanner()
+                                        bannerContainer.gone()
+
+                                        AdsUtils.loadNative(
+                                            this@SpeedTestActivity, RemoteConfigUtils.adIdNative(),
+                                            adFrame
+                                        )
                                     }
                                 }
-
+                                break
                             }
-                        }
-                        if (pingTestFinished && downloadTestFinished && uploadTest.isFinished) {
-                            binding.run {
-                                imgSpeedMeter.post {
-                                    imgSpeedMeter.visibility = GONE
-                                    llStrength.visibility = VISIBLE
-                                    clStartSpeedTestAgain.visibility = VISIBLE
-                                    adCard.visible()
-
-                                    AdsUtils.destroyBanner()
-                                    bannerContainer.gone()
-
-                                    AdsUtils.loadNative(
-                                        this@SpeedTestActivity, RemoteConfigUtils.adIdNative(),
-                                        adFrame
-                                    )
+                            if (pingTest.isFinished) {
+                                pingTestFinished = true
+                            }
+                            if (downloadTest.isFinished) {
+                                downloadTestFinished = true
+                            }
+                            if (uploadTest.isFinished) {
+                                uploadTestFinished = true
+                            }
+                            if (pingTestStarted && !pingTestFinished) {
+                                try {
+                                    Thread.sleep(300)
+                                } catch (e: InterruptedException) {
+                                    e.printStackTrace()
+                                    Thread.currentThread().interrupt()
+                                }
+                            } else {
+                                try {
+                                    Thread.sleep(100)
+                                } catch (e: InterruptedException) {
+                                    e.printStackTrace()
+                                    Thread.currentThread().interrupt()
                                 }
                             }
-                            break
                         }
-                        if (pingTest.isFinished) {
-                            pingTestFinished = true
-                        }
-                        if (downloadTest.isFinished) {
-                            downloadTestFinished = true
-                        }
-                        if (uploadTest.isFinished) {
-                            uploadTestFinished = true
-                        }
-                        if (pingTestStarted && !pingTestFinished) {
-                            try {
-                                Thread.sleep(300)
-                            } catch (e: InterruptedException) {
-                                e.printStackTrace()
-                                Thread.currentThread().interrupt()
-                            }
-                        } else {
-                            try {
-                                Thread.sleep(100)
-                            } catch (e: InterruptedException) {
-                                e.printStackTrace()
-                                Thread.currentThread().interrupt()
-                            }
-                        }
-                    }
 //                    try {
 //                        runOnUiThread({
 //                            tvBegin.setImageResource(R.drawable.ic_play)
@@ -962,12 +1094,13 @@ class SpeedTestActivity : AppCompatActivity() {
 //                    } catch (e: Exception) {
 //                        e.printStackTrace()
 //                    }
+                    }
+                } else {
+                    Log.e("TAG", "test2")
                 }
-            } else {
-//                tvBegin.setImageResource(R.drawable.ic_play)
-                Log.e("TAG", "test2")
-            }
-        }).start()
+            })
+            threadTest?.start()
+        }
     }
 
     private fun getPositionByRate(rate: Double): Int {

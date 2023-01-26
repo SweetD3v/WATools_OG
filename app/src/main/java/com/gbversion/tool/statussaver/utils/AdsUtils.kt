@@ -10,26 +10,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.gbversion.tool.statussaver.R
+import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
-import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
-import com.google.android.gms.ads.*
 
 class AdsUtils {
     companion object {
         private var adView: AdView? = null
-        var clicksCountCreation: Int = 0
         var clicksCountWA: Int = 0
         var clicksCountWallp: Int = 0
-        var clicksCount4: Int = 0
-        var clicksCount3: Int = 0
-        var clicksCount2: Int = 0
         var clicksCountTools: Int = 1
+        var clicksAlternate: Boolean = true
 
         var interstitialAd: InterstitialAd? = null
 
@@ -47,7 +44,7 @@ class AdsUtils {
             adId: String,
             fullScreenCallback: FullScreenCallback?
         ) {
-            if (!NetworkState.isOnline() && !RemoteConfigUtils.canEnter) {
+            if (!NetworkState.isOnline()) {
                 fullScreenCallback?.continueExecution()
                 return
             }
@@ -61,7 +58,7 @@ class AdsUtils {
             } catch (e: Exception) {
                 MyProgressDialog.dismissDialog()
             }
-            runnable?.let { handler?.postDelayed(it, 3000) }
+            runnable?.let { handler?.postDelayed(it, 5000) }
 
             InterstitialAd.load(
                 activity,
@@ -82,7 +79,7 @@ class AdsUtils {
                                 handler = null
                                 runnable = null
                                 fullScreenCallback?.onAdDismissed()
-                                fullScreenCallback?.continueExecution()
+//                                fullScreenCallback?.continueExecution()
                             }
 
                             override fun onAdFailedToShowFullScreenContent(p0: AdError) {
@@ -90,11 +87,12 @@ class AdsUtils {
                                 handler = null
                                 runnable = null
                                 fullScreenCallback?.onAdFailedToShow()
-                                fullScreenCallback?.continueExecution()
+//                                fullScreenCallback?.continueExecution()
                             }
                         }
 
                         MyProgressDialog.dismissDialog()
+                        fullScreenCallback?.continueExecution()
                         interstitialAd?.show(activity)
                         runnable?.let { handler?.removeCallbacks(it) }
                         handler = null
@@ -166,9 +164,46 @@ class AdsUtils {
                             frameLayout.visibility = View.GONE
                         }
                     })
+                    .build()
+            adLoader.loadAd(AdRequest.Builder().build())
+        }
+
+        fun loadNativeProgress(
+            context: Context,
+            adId: String,
+            frameLayout: FrameLayout,
+            adProgress: ProgressBar
+        ) {
+            val adLoader =
+                AdLoader.Builder(context, adId)
+                    .forNativeAd { nativeAd: NativeAd ->
+                        val adView =
+                            (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
+                                .inflate(
+                                    R.layout.admob_native_medium_new,
+                                    null
+                                ) as NativeAdView
+                        adView.mediaView = adView.findViewById(R.id.media_view)
+                        adView.headlineView = adView.findViewById(R.id.primary)
+                        adView.bodyView = adView.findViewById(R.id.secondary)
+                        adView.callToActionView = adView.findViewById(R.id.call_to_action)
+                        adView.advertiserView = adView.findViewById(R.id.tertiary)
+                        adView.iconView = adView.findViewById(R.id.icon)
+                        populateUnifiedNativeAdView(adView, nativeAd)
+                        frameLayout.visibility = View.VISIBLE
+                        adProgress.gone()
+                        frameLayout.removeAllViews()
+                        frameLayout.addView(adView)
+                    }
                     .withAdListener(object : AdListener() {
-                        override fun onAdFailedToLoad(error: LoadAdError) {
-                            Log.e("TAG", "onAdFailedToLoad: $error")
+                        override fun onAdLoaded() {
+                            super.onAdLoaded()
+                            adProgress.gone()
+                        }
+
+                        override fun onAdFailedToLoad(adError: LoadAdError) {
+                            frameLayout.visibility = View.GONE
+                            adProgress.visible()
                         }
                     })
                     .build()
@@ -204,6 +239,48 @@ class AdsUtils {
                     .withAdListener(object : AdListener() {
                         override fun onAdFailedToLoad(error: LoadAdError) {
                             Log.e("TAG", "onAdFailedToLoad: $error")
+                        }
+                    })
+                    .build()
+            adLoader.loadAd(AdRequest.Builder().build())
+        }
+
+        fun loadNativeSmallProgress(
+            context: Context,
+            adId: String,
+            frameLayout: FrameLayout,
+            adProgress: ProgressBar
+        ) {
+            val adLoader =
+                AdLoader.Builder(context, adId)
+                    .forNativeAd { nativeAd: NativeAd ->
+                        val adView =
+                            (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
+                                .inflate(
+                                    R.layout.admob_native_small,
+                                    null
+                                ) as NativeAdView
+                        adView.mediaView = adView.findViewById(R.id.media_view)
+                        adView.headlineView = adView.findViewById(R.id.primary)
+                        adView.bodyView = adView.findViewById(R.id.secondary)
+                        adView.callToActionView = adView.findViewById(R.id.call_to_action)
+                        adView.advertiserView = adView.findViewById(R.id.tertiary)
+                        adView.iconView = adView.findViewById(R.id.icon)
+                        populateUnifiedNativeAdView(adView, nativeAd)
+                        frameLayout.visibility = View.VISIBLE
+                        adProgress.gone()
+                        frameLayout.removeAllViews()
+                        frameLayout.addView(adView)
+                    }
+                    .withAdListener(object : AdListener() {
+                        override fun onAdLoaded() {
+                            super.onAdLoaded()
+                            adProgress.gone()
+                        }
+
+                        override fun onAdFailedToLoad(adError: LoadAdError) {
+                            frameLayout.visibility = View.GONE
+                            adProgress.visible()
                         }
                     })
                     .build()

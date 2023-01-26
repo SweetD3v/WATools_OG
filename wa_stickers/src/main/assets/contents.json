@@ -5,7 +5,7 @@
     {
       "identifier": "1",
       "name": "Pack 1",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -103,7 +103,7 @@
     {
       "identifier": "2",
       "name": "Pack 2",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -177,7 +177,7 @@
     {
       "identifier": "3",
       "name": "Pack 3",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -227,7 +227,7 @@
     {
       "identifier": "4",
       "name": "Pack 4",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -277,7 +277,7 @@
     {
       "identifier": "5",
       "name": "Pack 5",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -315,7 +315,7 @@
     {
       "identifier": "6",
       "name": "Pack 6",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -371,7 +371,7 @@
     {
       "identifier": "7",
       "name": "Pack 7",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -421,7 +421,7 @@
     {
       "identifier": "8",
       "name": "Pack 8",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -483,7 +483,7 @@
     {
       "identifier": "9",
       "name": "Pack 9",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -521,7 +521,7 @@
     {
       "identifier": "10",
       "name": "Pack 10",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -559,7 +559,7 @@
     {
       "identifier": "11",
       "name": "Pack 11",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -597,7 +597,7 @@
     {
       "identifier": "12",
       "name": "Pack 12",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -635,7 +635,7 @@
     {
       "identifier": "13",
       "name": "Pack 13",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -673,7 +673,7 @@
     {
       "identifier": "14",
       "name": "Pack 14",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -711,7 +711,7 @@
     {
       "identifier": "15",
       "name": "Pack 15",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -749,7 +749,7 @@
     {
       "identifier": "16",
       "name": "Pack 16",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -799,7 +799,7 @@
     {
       "identifier": "17",
       "name": "Pack 17",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -837,7 +837,7 @@
     {
       "identifier": "18",
       "name": "Pack 18",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -875,7 +875,7 @@
     {
       "identifier": "19",
       "name": "Pack 19",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -913,7 +913,7 @@
     {
       "identifier": "20",
       "name": "Pack 20",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -963,7 +963,7 @@
     {
       "identifier": "21",
       "name": "Pack 21",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -1025,7 +1025,7 @@
     {
       "identifier": "22",
       "name": "Pack 22",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -1135,7 +1135,7 @@
     {
       "identifier": "23",
       "name": "Pack 23",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -1227,7 +1227,7 @@
     {
       "identifier": "24",
       "name": "Pack 24",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -1277,7 +1277,7 @@
     {
       "identifier": "25",
       "name": "Pack 25",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -1351,7 +1351,7 @@
     {
       "identifier": "26",
       "name": "Pack 26",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -1395,7 +1395,7 @@
     {
       "identifier": "27",
       "name": "Pack 27",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -1457,7 +1457,7 @@
     {
       "identifier": "28",
       "name": "Pack 28",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -1501,7 +1501,7 @@
     {
       "identifier": "29",
       "name": "Pack 29",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -1545,7 +1545,7 @@
     {
       "identifier": "30",
       "name": "Pack 30",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -1589,7 +1589,7 @@
     {
       "identifier": "31",
       "name": "Pack 31",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,
@@ -1633,7 +1633,7 @@
     {
       "identifier": "32",
       "name": "Pack 32",
-      "publisher": "All Video Downloader",
+      "publisher": "GB Version",
       "tray_image_file": "st1.webp",
       "image_data_version": "1",
       "avoid_cache": false,

@@ -26,11 +26,11 @@ class PhotoFilterHomeActivity : BaseActivity() {
 //                    getString(R.string.banner_id_details),
 //                )
 
-                AdsUtils.loadNative(
-                    this@PhotoFilterHomeActivity,
-                    getString(R.string.admob_native_id),
-                    adFrame
-                )
+//                AdsUtils.loadNative(
+//                    this@PhotoFilterHomeActivity,
+//                    getString(R.string.admob_native_id),
+//                    adFrame
+//                )
             }
 
             binding.imgBack.setOnClickListener {
