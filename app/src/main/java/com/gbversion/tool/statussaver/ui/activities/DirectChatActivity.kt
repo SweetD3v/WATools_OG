@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.gbversion.tool.statussaver.databinding.ActivityDirectChatBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
+import com.gbversion.tool.statussaver.utils.AdsUtils
+import com.gbversion.tool.statussaver.utils.NetworkState
 import java.net.URLEncoder
 
 
@@ -18,6 +21,16 @@ class DirectChatActivity : BaseActivity() {
         setContentView(binding.root)
 
         binding.run {
+
+            if (NetworkState.isOnline()) {
+                AdsUtils.loadNativeProgress(
+                    this@DirectChatActivity,
+                    RemoteConfigUtils.adIdNative(),
+                    adFrame,
+                    adProgress
+                )
+            }
+
             btnSend.setOnClickListener {
                 val message = edtMessage.text.toString()
                 if (edtNumber.text.toString().trim().isNotEmpty()

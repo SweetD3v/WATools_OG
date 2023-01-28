@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.gbversion.tool.statussaver.adapter.AllMediaAdapter
-import com.gbversion.tool.adapters.WAMediaAdapter
+import com.gbversion.tool.statussaver.adapter.WAMediaAdapter
 import com.gbversion.tool.statussaver.databinding.FragmentWaimagesBinding
 import com.gbversion.tool.statussaver.models.Media
 import com.gbversion.tool.statussaver.utils.dpToPx
@@ -18,6 +18,7 @@ class AllVideosFragment : BaseFragment<FragmentWaimagesBinding>() {
     }
 
     var imagesList = mutableListOf<Media>()
+    val waMediaAdapter = WAMediaAdapter(ctx)
 
     companion object {
         open fun newInstance(): AllVideosFragment {
@@ -49,8 +50,6 @@ class AllVideosFragment : BaseFragment<FragmentWaimagesBinding>() {
                             rvWAImages.adapter = allMediaAdapter
                         }
                     }
-                    val waMediaAdapter = WAMediaAdapter(ctx, imagesList)
-                    rvWAImages.adapter = waMediaAdapter
                 }
             }
         }

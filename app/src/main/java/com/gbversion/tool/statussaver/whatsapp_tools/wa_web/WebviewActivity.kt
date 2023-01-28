@@ -5,15 +5,12 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
-import android.os.Build
-import android.os.Bundle
-import android.os.Message
+import android.os.*
 import android.text.SpannableString
 import android.text.method.LinkMovementMethod
 import android.text.util.Linkify
@@ -34,6 +31,15 @@ import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityWaWebBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
+import com.gbversion.tool.statussaver.utils.AdsUtils
+import com.gbversion.tool.statussaver.utils.NetworkState
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import gun0912.tedimagepicker.extenstion.toggle
@@ -74,9 +80,14 @@ open class WebviewActivity : AppCompatActivity(), NavigationView.OnNavigationIte
 
     val binding by lazy { ActivityWaWebBinding.inflate(layoutInflater) }
 
-    private val activity: Activity = this
+    val activity by lazy { this@WebviewActivity }
 
-    lateinit var mSharedPrefs: SharedPreferences
+    val mSharedPrefs by lazy {
+        getSharedPreferences(
+            this@WebviewActivity.packageName,
+            MODE_PRIVATE
+        )
+    }
 
     private var mLastBackClick: Long = 0
 
@@ -110,7 +121,6 @@ open class WebviewActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             val navigationView = findViewById<NavigationView>(R.id.nav_view)
             navigationView.setNavigationItemSelectedListener(this@WebviewActivity)
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-            mSharedPrefs = getSharedPreferences(this@WebviewActivity.packageName, MODE_PRIVATE)
             mDarkMode = mSharedPrefs.getBoolean("darkMode", false)
 
             appBarMain.imgBack.setOnClickListener { drawer.toggle() }
@@ -345,6 +355,10 @@ open class WebviewActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             }
             appBarMain.contentMain.webview.settings.userAgentString = USER_AGENT
         }
+
+        if (NetworkState.isOnline()) {
+            loadInterstitialAd(this@WebviewActivity, RemoteConfigUtils.adIdInterstital())
+        }
     }
 
     private fun showMorePopup(v: View) {
@@ -397,7 +411,6 @@ open class WebviewActivity : AppCompatActivity(), NavigationView.OnNavigationIte
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String?>,
@@ -574,8 +587,96 @@ open class WebviewActivity : AppCompatActivity(), NavigationView.OnNavigationIte
 //            )
 //            showToast("Click back again to close")
 //            mLastBackClick = System.currentTimeMillis()
-            finishAffinity()
+            if (!AdsUtils.clicksAlternate) {
+                showFullScreenAd()
+            } else {
+                finish()
+            }
         }
+    }
+
+    var interstitialAd: InterstitialAd? = null
+    var failedToLoad = false
+
+    fun loadInterstitialAd(
+        activity: Activity,
+        adId: String
+    ) {
+        if (!NetworkState.isOnline()) {
+            return
+        }
+
+        InterstitialAd.load(
+            activity,
+            adId,
+            AdRequest.Builder().build(),
+            object : InterstitialAdLoadCallback() {
+                override fun onAdLoaded(ad: InterstitialAd) {
+                    failedToLoad = false
+                    interstitialAd = ad
+//                    interstitialAd?.fullScreenContentCallback = object :
+//                        FullScreenContentCallback() {
+//                        override fun onAdShowedFullScreenContent() {
+//
+//                        }
+//
+//                        override fun onAdDismissedFullScreenContent() {
+//                            startActivity(intent)
+//                        }
+//
+//                        override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+//                            startActivity(intent)
+//                        }
+//                    }
+                    Log.e("TAG", "onAdLoaded: ${interstitialAd}")
+                }
+
+                override fun onAdFailedToLoad(ad: LoadAdError) {
+                    failedToLoad = true
+                    Log.e("TAG", "adException: ${ad.responseInfo}")
+                }
+            })
+    }
+
+
+    fun showFullScreenAd() {
+        if (failedToLoad) {
+            continueExec()
+            return
+        }
+        Log.e("TAG", "showFullScreenAd: ${interstitialAd}")
+        interstitialAd?.let {
+            it.fullScreenContentCallback = object :
+                FullScreenContentCallback() {
+                override fun onAdShowedFullScreenContent() {
+
+                }
+
+                override fun onAdDismissedFullScreenContent() {
+
+                }
+
+                override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                }
+            }
+            continueExec()
+            it.show(this@WebviewActivity)
+        } ?: let {
+            failedToLoad = true
+            if (NetworkState.isOnline()) {
+                loadInterstitialAd(this@WebviewActivity, RemoteConfigUtils.adIdInterstital())
+                val pd = AdsUtils.ProgressDialogMine()
+                pd.showDialog(this@WebviewActivity, "Please wait...", false)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    pd.dismissDialog()
+                    showFullScreenAd()
+                }, 3000)
+            } else continueExec()
+        }
+    }
+
+    fun continueExec() {
+        finish()
     }
 
     private fun loadWhatsapp() {
@@ -613,7 +714,6 @@ open class WebviewActivity : AppCompatActivity(), NavigationView.OnNavigationIte
             return
         }
 
-        //ToDo: Scroll to the right. See `focusChatTextInput(e)-Method of bootstrap_qr.e002978cf4688a3eaf75.js:formatted  line 67087
         webview.loadUrl(
             ("javascript:(function(){" +
                     "  try { " +

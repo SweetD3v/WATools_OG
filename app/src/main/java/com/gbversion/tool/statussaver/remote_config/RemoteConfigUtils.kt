@@ -4,7 +4,6 @@ class RemoteConfigUtils {
     companion object {
         private var admobData: FireAdModel? = null
 
-
         fun adIdInterstital(): String {
             return "/22686075355/com.gbversion.tool.statussaver.interstitial"
 //            return "ca-app-pub-3940256099942544/8691691433"

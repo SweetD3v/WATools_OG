@@ -7,6 +7,9 @@ import android.os.Bundle
 import android.widget.Toast
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivitySendEmptyBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
+import com.gbversion.tool.statussaver.utils.AdsUtils
+import com.gbversion.tool.statussaver.utils.NetworkState
 import java.net.URLEncoder
 
 class EmptySendActivity : BaseActivity() {
@@ -18,6 +21,15 @@ class EmptySendActivity : BaseActivity() {
         setContentView(binding.root)
 
         binding.run {
+            if (NetworkState.isOnline()) {
+                AdsUtils.loadNativeProgress(
+                    this@EmptySendActivity,
+                    RemoteConfigUtils.adIdNative(),
+                    adFrame,
+                    adProgress
+                )
+            }
+
             btnSend.setOnClickListener {
                 if (edtNumber.text.toString().trim().isNotEmpty()
                     && edtLines.text.toString().trim().isNotEmpty()

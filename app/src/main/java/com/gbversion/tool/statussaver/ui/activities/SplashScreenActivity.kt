@@ -8,7 +8,6 @@ import android.os.Looper
 import android.widget.Toast
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivitySplashBinding
 import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.utils.gone
@@ -21,7 +20,7 @@ import com.google.android.gms.ads.appopen.AppOpenAd.AppOpenAdLoadCallback
 
 class SplashScreenActivity : BaseActivity(), LifecycleObserver {
     val binding by lazy { ActivitySplashBinding.inflate(layoutInflater) }
-    private val SPLASH_TIME_OUT: Long = 5500
+    private val SPLASH_TIME_OUT: Long = 6000
     var isShowingAd = false
     private var appOpenAd: AppOpenAd? = null
     private var loadCallback: AppOpenAdLoadCallback? = null

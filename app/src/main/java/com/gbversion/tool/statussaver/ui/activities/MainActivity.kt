@@ -1,14 +1,14 @@
 package com.gbversion.tool.statussaver.ui.activities
 
+import android.Manifest
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
+import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import com.gbversion.tool.statussaver.databinding.ActivityMainBinding
-import com.gbversion.tool.statussaver.phone_booster.app_utils.batteryPerms
-import com.gbversion.tool.statussaver.phone_booster.app_utils.getAllAppsPermissions
 import com.google.android.material.snackbar.Snackbar
 import com.internet.speed_meter.SpeedMeterService
 
@@ -23,6 +23,14 @@ class MainActivity : BaseActivity() {
                 startService(speedMeterIntent)
             }
         }
+
+    var storagePermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions(),
+        object : ActivityResultCallback<Map<String, Boolean>> {
+            override fun onActivityResult(result: Map<String, Boolean>) {
+
+            }
+        })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,17 +52,32 @@ class MainActivity : BaseActivity() {
         startService(speedMeterIntent)
 //        }
 
-        var permissions = getAllAppsPermissions(this)
-        permissions = ArrayList(permissions.filter {
-            it.permissions.contains(batteryPerms[0])
-                    || it.permissions.contains(batteryPerms[1])
-                    || it.permissions.contains(batteryPerms[2])
-                    || it.permissions.contains(batteryPerms[3])
-        })
-        for (permission in permissions) {
-            Log.e(
-                "TAGApp",
-                "App Name : ${permission.appName} -> Is Sensitive: ${permission.isSensitive}"
+//        var permissions = getAllAppsPermissions(this)
+//        permissions = ArrayList(permissions.filter {
+//            it.permissions.contains(batteryPerms[0])
+//                    || it.permissions.contains(batteryPerms[1])
+//                    || it.permissions.contains(batteryPerms[2])
+//                    || it.permissions.contains(batteryPerms[3])
+//        })
+//        for (permission in permissions) {
+//            Log.e(
+//                "TAGApp",
+//                "App Name : ${permission.appName} -> Is Sensitive: ${permission.isSensitive}"
+//            )
+//        }
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+            storagePermissionLauncher.launch(
+                arrayOf(
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                )
+            )
+        } else {
+            storagePermissionLauncher.launch(
+                arrayOf(
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                )
             )
         }
     }

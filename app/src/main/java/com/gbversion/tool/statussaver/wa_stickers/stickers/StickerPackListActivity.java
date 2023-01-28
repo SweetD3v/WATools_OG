@@ -10,7 +10,11 @@ package com.gbversion.tool.statussaver.wa_stickers.stickers;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.Pair;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gbversion.tool.statussaver.R;
 import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils;
 import com.gbversion.tool.statussaver.utils.AdsUtils;
+import com.gbversion.tool.statussaver.utils.AsyncTaskRunner;
 import com.gbversion.tool.statussaver.utils.NetworkState;
 
 import java.lang.ref.WeakReference;
@@ -33,7 +38,7 @@ public class StickerPackListActivity extends AddStickerPackActivity {
     private RecyclerView packRecyclerView;
     private StickerPackListAdapter allStickerPacksListAdapter;
     private WhiteListCheckAsyncTask whiteListCheckAsyncTask;
-    private ArrayList<StickerPack> stickerPackList;
+    private ArrayList<StickerPack> stickerPackList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +46,7 @@ public class StickerPackListActivity extends AddStickerPackActivity {
         setContentView(R.layout.activity_sticker_pack_list);
         packRecyclerView = findViewById(R.id.sticker_pack_list);
         packRecyclerView.setNestedScrollingEnabled(false);
-        stickerPackList = getIntent().getParcelableArrayListExtra(EXTRA_STICKER_PACK_LIST_DATA);
-        showStickerPackList(stickerPackList);
+
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(getResources().getQuantityString(R.plurals.title_activity_sticker_packs_list, stickerPackList.size()));
         }
@@ -56,11 +60,54 @@ public class StickerPackListActivity extends AddStickerPackActivity {
         findViewById(R.id.imgBack).setOnClickListener(v -> {
             onBackPressed();
         });
+
+        loadStickers();
+    }
+
+    private void loadStickers() {
+        new AsyncTaskRunner<Void, Pair<String, ArrayList<StickerPack>>>(this) {
+
+            @NonNull
+            @Override
+            public Pair<String, ArrayList<StickerPack>> doInBackground(@Nullable Void unused) {
+                ArrayList<StickerPack> stickerPackList;
+                try {
+                    try {
+                        stickerPackList = StickerPackLoader.fetchStickerPacks(StickerPackListActivity.this);
+                        if (stickerPackList.size() == 0) {
+                            return new Pair<>("could not find any packs", null);
+                        }
+                        for (StickerPack stickerPack : stickerPackList) {
+                            StickerPackValidator.verifyStickerPackValidity(StickerPackListActivity.this, stickerPack);
+                        }
+                        return new Pair<>(null, stickerPackList);
+                    } catch (Exception e) {
+                        return new Pair<>("could not fetch sticker packs", null);
+                    }
+                } catch (Exception e) {
+                    Log.e("EntryActivity", "error fetching sticker packs", e);
+                    return new Pair<>(e.getMessage(), null);
+                }
+            }
+
+            @Override
+            public void onPostExecute(@Nullable Pair<String, ArrayList<StickerPack>> stringArrayListPair) {
+                super.onPostExecute(stringArrayListPair);
+
+                if (stringArrayListPair != null) {
+                    stickerPackList = stringArrayListPair.second;
+                    showStickerPackList(stickerPackList);
+                }
+
+            }
+        }.execute(null, false);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        if (stickerPackList.isEmpty())
+            return;
         whiteListCheckAsyncTask = new WhiteListCheckAsyncTask(this);
         whiteListCheckAsyncTask.execute(stickerPackList.toArray(new StickerPack[0]));
     }

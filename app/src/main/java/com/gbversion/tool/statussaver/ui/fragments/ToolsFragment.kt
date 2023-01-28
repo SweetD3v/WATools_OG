@@ -14,6 +14,7 @@ import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -41,7 +42,8 @@ import com.gbversion.tool.statussaver.ui.activities.PrivacyPolicyActivity
 import com.gbversion.tool.statussaver.utils.AdsUtils
 import com.gbversion.tool.statussaver.utils.MyProgressDialog
 import com.gbversion.tool.statussaver.utils.NetworkState
-import com.gbversion.tool.statussaver.wa_stickers.stickers.WAStickersActivity
+import com.gbversion.tool.statussaver.wa_stickers.stickers.StickerPackListActivity
+import com.gbversion.tool.statussaver.wa_stickers.stickers.WAStickersActivity.SHOW_STICKERS_LIST
 import com.gbversion.tool.statussaver.whatsapp_tools.wa_web.WebviewActivity
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
@@ -54,6 +56,8 @@ class ToolsFragment : BaseFragment<MainLayMainBinding>() {
     override fun getLayout(): MainLayMainBinding {
         return MainLayMainBinding.inflate(layoutInflater)
     }
+
+    val localBroadcastManager by lazy { LocalBroadcastManager.getInstance(ctx) }
 
     companion object {
         open fun newInstance(): ToolsFragment {
@@ -238,20 +242,14 @@ class ToolsFragment : BaseFragment<MainLayMainBinding>() {
             }
 
             llAgeCalc.setOnClickListener {
-                if (NetworkState.isOnline() && AdsUtils.clicksAlternate) {
-                    AdsUtils.clicksAlternate = false
-                    AdsUtils.loadInterstitialAd(
-                        requireActivity(),
-                        RemoteConfigUtils.adIdInterstital(),
-                        object : AdsUtils.Companion.FullScreenCallback() {
-                            override fun continueExecution() {
-                                startActivity(Intent(ctx, AgeCalculatorActivity::class.java))
-                            }
-                        })
-                } else {
-                    AdsUtils.clicksAlternate = true
-                    startActivity(Intent(ctx, AgeCalculatorActivity::class.java))
-                }
+                AdsUtils.loadInterstitialAd(
+                    requireActivity(),
+                    RemoteConfigUtils.adIdInterstital(),
+                    object : AdsUtils.Companion.FullScreenCallback() {
+                        override fun continueExecution() {
+                            startActivity(Intent(ctx, AgeCalculatorActivity::class.java))
+                        }
+                    })
             }
 
             llInstaGrid.setOnClickListener {
@@ -272,37 +270,25 @@ class ToolsFragment : BaseFragment<MainLayMainBinding>() {
             }
 
             llCleanerRef.setOnClickListener {
-                if (NetworkState.isOnline() && AdsUtils.clicksAlternate) {
-                    AdsUtils.clicksAlternate = false
-                    AdsUtils.loadInterstitialAd(
-                        requireActivity(),
-                        RemoteConfigUtils.adIdInterstital(),
-                        object : AdsUtils.Companion.FullScreenCallback() {
-                            override fun continueExecution() {
-                                startActivity(Intent(ctx, CleanerHomeActivity::class.java))
-                            }
-                        })
-                } else {
-                    AdsUtils.clicksAlternate = true
-                    startActivity(Intent(ctx, CleanerHomeActivity::class.java))
-                }
+                AdsUtils.loadInterstitialAd(
+                    requireActivity(),
+                    RemoteConfigUtils.adIdInterstital(),
+                    object : AdsUtils.Companion.FullScreenCallback() {
+                        override fun continueExecution() {
+                            startActivity(Intent(ctx, CleanerHomeActivity::class.java))
+                        }
+                    })
             }
 
             imgCleaner.setOnClickListener {
-                if (NetworkState.isOnline() && AdsUtils.clicksAlternate) {
-                    AdsUtils.clicksAlternate = false
-                    AdsUtils.loadInterstitialAd(
-                        requireActivity(),
-                        RemoteConfigUtils.adIdInterstital(),
-                        object : AdsUtils.Companion.FullScreenCallback() {
-                            override fun continueExecution() {
-                                startActivity(Intent(ctx, CleanerHomeActivity::class.java))
-                            }
-                        })
-                } else {
-                    AdsUtils.clicksAlternate = true
-                    startActivity(Intent(ctx, CleanerHomeActivity::class.java))
-                }
+                AdsUtils.loadInterstitialAd(
+                    requireActivity(),
+                    RemoteConfigUtils.adIdInterstital(),
+                    object : AdsUtils.Companion.FullScreenCallback() {
+                        override fun continueExecution() {
+                            startActivity(Intent(ctx, CleanerHomeActivity::class.java))
+                        }
+                    })
             }
 
             llCollageMaker.setOnClickListener {
@@ -379,14 +365,7 @@ class ToolsFragment : BaseFragment<MainLayMainBinding>() {
             rlWhatsappWeb.setOnClickListener {
                 if (NetworkState.isOnline() && AdsUtils.clicksAlternate) {
                     AdsUtils.clicksAlternate = false
-                    AdsUtils.loadInterstitialAd(
-                        requireActivity(),
-                        RemoteConfigUtils.adIdInterstital(),
-                        object : AdsUtils.Companion.FullScreenCallback() {
-                            override fun continueExecution() {
-                                startActivity(Intent(ctx, WebviewActivity::class.java))
-                            }
-                        })
+                    startActivity(Intent(ctx, WebviewActivity::class.java))
                 } else {
                     AdsUtils.clicksAlternate = true
                     startActivity(Intent(ctx, WebviewActivity::class.java))
@@ -414,7 +393,7 @@ class ToolsFragment : BaseFragment<MainLayMainBinding>() {
                     loadInterstitialAdWA(requireActivity(), RemoteConfigUtils.adIdInterstital())
                 } else {
                     AdsUtils.clicksAlternate = true
-                    adClosedListener?.onAdClosed()
+                    continueToWA()
                 }
             }
 
@@ -452,20 +431,14 @@ class ToolsFragment : BaseFragment<MainLayMainBinding>() {
             }
 
             llSpeedTest.setOnClickListener {
-                if (NetworkState.isOnline() && AdsUtils.clicksAlternate) {
-                    AdsUtils.clicksAlternate = false
-                    AdsUtils.loadInterstitialAd(
-                        requireActivity(),
-                        RemoteConfigUtils.adIdInterstital(),
-                        object : AdsUtils.Companion.FullScreenCallback() {
-                            override fun continueExecution() {
-                                startActivity(Intent(ctx, SpeedTestActivity::class.java))
-                            }
-                        })
-                } else {
-                    AdsUtils.clicksAlternate = true
-                    startActivity(Intent(ctx, SpeedTestActivity::class.java))
-                }
+                AdsUtils.loadInterstitialAd(
+                    requireActivity(),
+                    RemoteConfigUtils.adIdInterstital(),
+                    object : AdsUtils.Companion.FullScreenCallback() {
+                        override fun continueExecution() {
+                            startActivity(Intent(ctx, SpeedTestActivity::class.java))
+                        }
+                    })
             }
 
             imgDrawer.setOnClickListener { drawerLayout.openDrawer(GravityCompat.START) }
@@ -489,12 +462,10 @@ class ToolsFragment : BaseFragment<MainLayMainBinding>() {
     }
 
     fun continueToWA() {
-        startActivity(Intent(ctx, WAStickersActivity::class.java))
-        adClosedListener = WAStickersActivity()
+        startActivity(Intent(ctx, StickerPackListActivity::class.java))
     }
 
     var interstitialAdWA: InterstitialAd? = null
-    var adClosedListener: AdClosedListener? = null
 
     fun loadInterstitialAdWA(
         activity: Activity,
@@ -533,14 +504,16 @@ class ToolsFragment : BaseFragment<MainLayMainBinding>() {
                             runnable?.let { handler?.removeCallbacks(it) }
                             handler = null
                             runnable = null
-                            adClosedListener?.onAdClosed()
+//                            adClosedListener?.onAdClosed()
+                            localBroadcastManager.sendBroadcast(Intent(SHOW_STICKERS_LIST))
                         }
 
                         override fun onAdFailedToShowFullScreenContent(p0: AdError) {
                             runnable?.let { handler?.removeCallbacks(it) }
                             handler = null
                             runnable = null
-                            adClosedListener?.onAdClosed()
+//                            adClosedListener?.onAdClosed()
+                            localBroadcastManager.sendBroadcast(Intent(SHOW_STICKERS_LIST))
                         }
                     }
 
@@ -557,13 +530,10 @@ class ToolsFragment : BaseFragment<MainLayMainBinding>() {
                     handler = null
                     runnable = null
                     MyProgressDialog.dismissDialog()
-                    adClosedListener?.onAdClosed()
+//                    adClosedListener?.onAdClosed()
+                    localBroadcastManager.sendBroadcast(Intent(SHOW_STICKERS_LIST))
                 }
             })
-    }
-
-    interface AdClosedListener {
-        fun onAdClosed()
     }
 
     private fun initMyPopularVideos() {

@@ -303,11 +303,24 @@
 
                 </RelativeLayout>
 
+                <TextView
+                    android:id="@+id/txtEditing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ll_top_lay"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/gilroy_bold"
+                    android:text="Editing tools"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
                 <LinearLayout
                     android:id="@+id/ll_centre_rect"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/ll_top_lay"
+                    android:layout_below="@id/txtEditing"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/ic_main_rect_bg"
                     android:orientation="horizontal"
@@ -347,7 +360,7 @@
                                 android:gravity="center"
                                 android:text="Insta Grid"
                                 android:textColor="@color/white"
-                                android:textSize="12dp" />
+                                android:textSize="14sp" />
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -379,7 +392,7 @@
                                 android:gravity="center"
                                 android:text="Editor"
                                 android:textColor="@color/white"
-                                android:textSize="12dp" />
+                                android:textSize="14sp" />
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -411,7 +424,7 @@
                                 android:gravity="center"
                                 android:text="Collage"
                                 android:textColor="@color/white"
-                                android:textSize="12dp" />
+                                android:textSize="14sp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -443,7 +456,7 @@
                                 android:gravity="center"
                                 android:text="Facts"
                                 android:textColor="@color/white"
-                                android:textSize="12dp" />
+                                android:textSize="14sp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -467,7 +480,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:fontFamily="@font/gilroy_bold"
-                        android:text="Whatsapp Tools"
+                        android:text="WA Tools"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -481,38 +494,11 @@
                         android:weightSum="1">
 
                         <RelativeLayout
-                            android:id="@+id/rl_whatsapp_web"
+                            android:id="@+id/rl_whatsapp_sticker"
                             android:layout_width="0dp"
                             android:layout_height="64dp"
                             android:layout_marginStart="16dp"
                             android:layout_marginEnd="8dp"
-                            android:layout_weight="0.5"
-                            android:background="@drawable/gradient_wp_web"
-                            app:rippleColor="#33E6F5FF">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="28dp"
-                                android:fontFamily="@font/gilroy_semibold"
-                                android:text="WA Web"
-                                android:textColor="@color/white"
-                                android:textSize="12dp" />
-
-                            <ImageView
-                                android:layout_width="64dp"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentEnd="true"
-                                android:src="@drawable/wt_web" />
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/rl_whatsapp_sticker"
-                            android:layout_width="0dp"
-                            android:layout_height="64dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="16dp"
                             android:layout_weight="0.5"
                             android:background="@drawable/gradient_wp_sticker"
                             app:rippleColor="#33E6F5FF">
@@ -525,7 +511,7 @@
                                 android:fontFamily="@font/gilroy_semibold"
                                 android:text="WA Sticker"
                                 android:textColor="@color/white"
-                                android:textSize="12dp" />
+                                android:textSize="14sp" />
 
                             <ImageView
                                 android:layout_width="64dp"
@@ -533,6 +519,34 @@
                                 android:layout_alignParentEnd="true"
                                 android:src="@drawable/wt_sticker" />
                         </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rl_whatsapp_web"
+                            android:layout_width="0dp"
+                            android:layout_height="64dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/gradient_wp_web"
+                            app:rippleColor="#33E6F5FF">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="28dp"
+                                android:fontFamily="@font/gilroy_semibold"
+                                android:text="WA Web"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:layout_width="64dp"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentEnd="true"
+                                android:src="@drawable/wt_web" />
+                        </RelativeLayout>
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -560,9 +574,9 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="28dp"
                                 android:fontFamily="@font/gilroy_semibold"
-                                android:text="WA\nDirect Chat"
+                                android:text="Direct\nChat"
                                 android:textColor="@color/white"
-                                android:textSize="12dp" />
+                                android:textSize="14sp" />
 
                             <ImageView
                                 android:layout_width="64dp"
@@ -587,9 +601,9 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="28dp"
                                 android:fontFamily="@font/gilroy_semibold"
-                                android:text="WA\nEmpty Message"
+                                android:text="Empty\nMessage"
                                 android:textColor="@color/white"
-                                android:textSize="12dp" />
+                                android:textSize="14sp" />
 
                             <ImageView
                                 android:layout_width="64dp"
@@ -845,7 +859,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:elevation="8dp"
-                    android:paddingVertical="12dp"
+                    android:paddingVertical="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

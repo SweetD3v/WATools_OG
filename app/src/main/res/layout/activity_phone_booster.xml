@@ -111,6 +111,7 @@
                 android:rotation="-45"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
+                android:scaleType="centerCrop"
                 app:lottie_rawRes="@raw/phone_booster" />
 
             <com.airbnb.lottie.LottieAnimationView

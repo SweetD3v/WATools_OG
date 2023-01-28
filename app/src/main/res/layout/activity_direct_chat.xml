@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".statussaver.ui.activities.DirectChatActivity">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/toolbar"
@@ -28,10 +26,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
-            android:layout_toEndOf="@id/imgBack"
-            android:gravity="center"
             android:layout_marginEnd="52dp"
+            android:layout_toEndOf="@id/imgBack"
             android:fontFamily="@font/gilroy_bold"
+            android:gravity="center"
             android:maxLines="1"
             android:text="@string/direct_chat"
             android:textColor="@color/black"
@@ -87,7 +85,7 @@
         <EditText
             android:id="@+id/edtMessage"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="200dp"
             android:layout_below="@id/ccPicker"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -96,8 +94,8 @@
             android:backgroundTint="#C7C7C7"
             android:elevation="8dp"
             android:gravity="top"
-            android:padding="16dp"
-            android:hint="@string/enter_your_text_here"/>
+            android:hint="@string/enter_your_text_here"
+            android:padding="16dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/btnSend"
@@ -136,7 +134,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_toEndOf="@id/txtSend"
                 android:background="@drawable/circle_background"
-                android:backgroundTint="@color/color_primary_dark"
+                android:backgroundTint="@color/colorPrimaryDark1"
                 android:padding="8dp"
                 app:layout_constraintBottom_toBottomOf="@id/txtSend"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -144,6 +142,30 @@
                 app:layout_constraintTop_toTopOf="@id/txtSend"
                 app:srcCompat="@drawable/ic_send" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/adCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnSend"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="8dp"
+            android:minHeight="230dp"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true">
+
+            <ProgressBar
+                android:id="@+id/adProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+            <FrameLayout
+                android:id="@+id/adFrame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.google.android.material.card.MaterialCardView>
     </RelativeLayout>
 
 </RelativeLayout>

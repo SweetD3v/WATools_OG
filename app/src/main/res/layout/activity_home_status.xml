@@ -79,11 +79,33 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
-        android:name="com.gbversion.tool.statussaver.ui.fragments.HomeStatusFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bannerContainer"
         android:layout_below="@id/adCard" />
+
+    <RelativeLayout
+        android:id="@+id/rlPermission"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bannerContainer"
+        android:layout_below="@id/adCard">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPermission"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:backgroundTint="@color/colorPrimary"
+            android:fontFamily="@font/gilroy_semibold"
+            android:lineSpacingMultiplier="1.3"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="8dp"
+            android:text="Give Storage permission"
+            android:textAllCaps="false"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
 
     <FrameLayout
         android:id="@+id/bannerContainer"

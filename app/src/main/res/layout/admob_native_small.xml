@@ -93,6 +93,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="8dp"
                 android:gravity="center"
+                android:backgroundTint="@color/colorPrimary"
                 android:text="Download"
                 android:textAllCaps="true"
                 android:textColor="@color/white"

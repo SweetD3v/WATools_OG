@@ -3,25 +3,27 @@ package com.gbversion.tool.statussaver
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
+import android.util.DisplayMetrics
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.multidex.MultiDexApplication
-import com.gbversion.tool.statussaver.ui.activities.SplashScreenActivity
 import com.facebook.drawee.backends.pipeline.Fresco
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
+import com.gbversion.tool.statussaver.ui.activities.SplashScreenActivity
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.google.android.exoplayer2.upstream.HttpDataSource
 import com.google.android.exoplayer2.util.Util
+import com.google.android.gms.ads.*
 import com.google.android.gms.ads.appopen.AppOpenAd
 import com.google.android.gms.ads.appopen.AppOpenAd.AppOpenAdLoadCallback
-import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
-import com.google.android.gms.ads.*
-import java.util.Date
+import java.util.*
 
 class WAToolsApp : MultiDexApplication(), Application.ActivityLifecycleCallbacks,
     LifecycleObserver {
@@ -49,6 +51,20 @@ class WAToolsApp : MultiDexApplication(), Application.ActivityLifecycleCallbacks
         appOpenAdManager = AppOpenAdManager()
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+    }
+
+    private fun adjustFontScale(configuration: Configuration?) {
+        configuration?.let {
+            it.fontScale = 1.0F
+            val metrics: DisplayMetrics = resources.displayMetrics
+            val wm: WindowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            wm.defaultDisplay.getMetrics(metrics)
+            metrics.scaledDensity = configuration.fontScale * metrics.density
+
+            baseContext.applicationContext.createConfigurationContext(it)
+            baseContext.resources.displayMetrics.setTo(metrics)
+        }
     }
 
     fun buildHttpDataSourceFactory(bandwidthMeter: DefaultBandwidthMeter?): HttpDataSource.Factory {

@@ -20,8 +20,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.gbversion.tool.adapters.WAMediaAdapter
 import com.gbversion.tool.statussaver.R
+import com.gbversion.tool.statussaver.adapter.WAMediaAdapter
 import com.gbversion.tool.statussaver.databinding.FragmentWaimagesBinding
 import com.gbversion.tool.statussaver.interfaces.WATypeChangeListener
 import com.gbversion.tool.statussaver.models.Media
@@ -45,6 +45,8 @@ class WAImagesFragment : BaseFragment<FragmentWaimagesBinding>(), WATypeChangeLi
     var job = Job()
     var ioScope = CoroutineScope(Dispatchers.IO + job)
     var uiScope = CoroutineScope(Dispatchers.Main + job)
+
+    var waMediaAdapter: WAMediaAdapter? = null
 
     private val PERMISSIONS = mutableListOf(
         Manifest.permission.READ_EXTERNAL_STORAGE
@@ -110,6 +112,9 @@ class WAImagesFragment : BaseFragment<FragmentWaimagesBinding>(), WATypeChangeLi
                 rvWAImages.addOuterGridSpacing((albumGridSpacing).toInt())
                 rvWAImages.addItemDecoration(GridMarginDecoration(albumGridSpacing.toInt()))
             }
+
+            waMediaAdapter = WAMediaAdapter(ctx)
+            rvWAImages.adapter = waMediaAdapter
         }
     }
 
@@ -233,28 +238,16 @@ class WAImagesFragment : BaseFragment<FragmentWaimagesBinding>(), WATypeChangeLi
     private fun loadImages() {
         if (isAdded) {
             binding.apply {
-                val imageListNew = mutableListOf<Media>()
-
                 job = Job()
                 ioScope = CoroutineScope(Dispatchers.IO + job)
                 uiScope = CoroutineScope(Dispatchers.Main + job)
 
                 ioScope.launch {
                     getMediaWACoroutine(ctx) { list ->
-                        for (media in list) {
-                            if (!media.path.contains(".nomedia", true)
-                            ) {
-                                imageListNew.add(media)
-                            }
-//                            Log.e("TAG", "loadImagesWA: ${media.path}")
-                        }
+                        imagesList =
+                            list.filter { !it.path.contains(".nomedia", true) }.toMutableList()
                         uiScope.launch {
-                            imagesList = imageListNew
-                            uiScope.launch {
-                                val waMediaAdapter = WAMediaAdapter(ctx, imagesList)
-                                binding.rvWAImages.adapter = waMediaAdapter
-                                waMediaAdapter.notifyItemRangeChanged(0, imagesList.size)
-                            }
+                            waMediaAdapter?.updateList(imagesList)
                         }
                     }
                 }
@@ -265,28 +258,17 @@ class WAImagesFragment : BaseFragment<FragmentWaimagesBinding>(), WATypeChangeLi
     private fun loadImagesWB() {
         if (isAdded) {
             binding.apply {
-                val imageListNew = mutableListOf<Media>()
-
                 job = Job()
                 ioScope = CoroutineScope(Dispatchers.IO + job)
                 uiScope = CoroutineScope(Dispatchers.Main + job)
 
                 ioScope.launch {
                     getMediaWAWBCoroutine(ctx) { list ->
-                        for (media in list) {
-                            if (!media.path.contains(".nomedia", true)
-                            ) {
-                                imageListNew.add(media)
-                            }
-//                            Log.e("TAG", "loadImagesWA: ${media.path}")
-                        }
+                        imagesList =
+                            list.filter { !it.path.contains(".nomedia", true) }.toMutableList()
+
                         uiScope.launch {
-                            imagesList = imageListNew
-                            uiScope.launch {
-                                val waMediaAdapter = WAMediaAdapter(ctx, imagesList)
-                                binding.rvWAImages.adapter = waMediaAdapter
-                                waMediaAdapter.notifyItemRangeChanged(0, imagesList.size)
-                            }
+                            waMediaAdapter?.updateList(imagesList)
                         }
                     }
                 }

@@ -20,8 +20,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.gbversion.tool.adapters.WAMediaAdapter
 import com.gbversion.tool.statussaver.R
+import com.gbversion.tool.statussaver.adapter.WAMediaAdapter
 import com.gbversion.tool.statussaver.databinding.FragmentWaimagesBinding
 import com.gbversion.tool.statussaver.interfaces.WATypeChangeListener
 import com.gbversion.tool.statussaver.models.Media
@@ -253,7 +253,7 @@ class WAVideosFragment : BaseFragment<FragmentWaimagesBinding>(), WATypeChangeLi
                         uiScope.launch {
                             videosList = imageListNew
                             uiScope.launch {
-                                val waMediaAdapter = WAMediaAdapter(ctx, videosList)
+                                val waMediaAdapter = WAMediaAdapter(ctx)
                                 binding.rvWAImages.adapter = waMediaAdapter
                                 waMediaAdapter.notifyItemRangeChanged(0, videosList.size)
                             }
@@ -285,7 +285,7 @@ class WAVideosFragment : BaseFragment<FragmentWaimagesBinding>(), WATypeChangeLi
                         uiScope.launch {
                             videosList = imageListNew
                             uiScope.launch {
-                                val waMediaAdapter = WAMediaAdapter(ctx, videosList)
+                                val waMediaAdapter = WAMediaAdapter(ctx)
                                 binding.rvWAImages.adapter = waMediaAdapter
                                 waMediaAdapter.notifyItemRangeChanged(0, videosList.size)
                             }

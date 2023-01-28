@@ -49,7 +49,7 @@ class PhoneBoosterActivity : BaseActivity() {
                 }
                 4 -> {
                     appTitle.text = getString(R.string.cpu_cooler)
-                    animMain.setAnimation(R.raw.cpu_cooler)
+                    animMain.setAnimation(R.raw.cooler)
                 }
             }
 
@@ -127,16 +127,18 @@ class PhoneBoosterActivity : BaseActivity() {
                 animDone.visible()
                 animDone.playAnimation()
 
-                if (CLEANER_TYPE == 0) {
-                    toastShort(this@PhoneBoosterActivity, "RAM Cleaned!")
-                } else if (CLEANER_TYPE == 1) {
-                    toastShort(this@PhoneBoosterActivity, "Battery Optimized!")
-                } else if (CLEANER_TYPE == 2) {
-                    toastShort(this@PhoneBoosterActivity, "Network Optimized!")
-                } else if (CLEANER_TYPE == 3) {
-                    toastShort(this@PhoneBoosterActivity, "Memory Freed!")
-                } else if (CLEANER_TYPE == 4) {
-                    toastShort(this@PhoneBoosterActivity, "CPU Optimized!")
+                if (!isFinishing && !isDestroyed) {
+                    if (CLEANER_TYPE == 0) {
+                        toastShort(this@PhoneBoosterActivity, "RAM Cleaned!")
+                    } else if (CLEANER_TYPE == 1) {
+                        toastShort(this@PhoneBoosterActivity, "Battery Optimized!")
+                    } else if (CLEANER_TYPE == 2) {
+                        toastShort(this@PhoneBoosterActivity, "Network Optimized!")
+                    } else if (CLEANER_TYPE == 3) {
+                        toastShort(this@PhoneBoosterActivity, "Memory Freed!")
+                    } else if (CLEANER_TYPE == 4) {
+                        toastShort(this@PhoneBoosterActivity, "CPU Optimized!")
+                    }
                 }
 
                 animDone.addAnimatorListener(object : Animator.AnimatorListener {
