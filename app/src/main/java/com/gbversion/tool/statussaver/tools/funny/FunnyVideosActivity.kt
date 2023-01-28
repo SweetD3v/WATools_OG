@@ -131,7 +131,7 @@ class FunnyVideosActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: VH, position: Int) {
             holder.binding.run {
-                val popularVid = popularList[holder.bindingAdapterPosition]
+                val popularVid = popularList[holder.adapterPosition]
 
                 Glide.with(ctx).load(popularVid.videoUrl)
                     .into(imgWallpaper)

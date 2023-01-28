@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityInstaGridBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.BaseActivity
 import com.gbversion.tool.statussaver.utils.AdsUtils
 import com.gbversion.tool.statussaver.utils.NetworkState
@@ -61,7 +62,7 @@ class InstaGridActivity : BaseActivity() {
 //                )
                 AdsUtils.loadNativeSmallProgress(
                     this@InstaGridActivity,
-                    getString(R.string.admob_native_id),
+                    RemoteConfigUtils.adIdNative(),
                     adFrame,
                     adProgress
                 )

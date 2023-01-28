@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityPhotocmpHomeBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.mycreation.MyCreationToolsActivity
 import com.gbversion.tool.statussaver.ui.activities.BaseActivity
 import com.gbversion.tool.statussaver.utils.AdsUtils
@@ -32,7 +33,7 @@ class PhotoCmpHomeActivity : BaseActivity() {
 
                 AdsUtils.loadNativeProgress(
                     this@PhotoCmpHomeActivity,
-                    getString(R.string.admob_native_id),
+                    RemoteConfigUtils.adIdNative(),
                     adFrame,
                     adProgress
                 )

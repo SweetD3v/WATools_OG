@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityPicEditorHomeBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.mycreation.MyCreationToolsActivity
 import com.gbversion.tool.statussaver.ui.activities.BaseActivity
 import com.gbversion.tool.statussaver.ui.fragments.HomeFragment
@@ -30,7 +31,7 @@ class PicEditorHomeActivity : BaseActivity() {
 
                 AdsUtils.loadNativeProgress(
                     this@PicEditorHomeActivity,
-                    getString(R.string.admob_native_id),
+                    RemoteConfigUtils.adIdNative(),
                     adFrame,
                     adProgress
                 )

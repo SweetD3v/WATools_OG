@@ -1,9 +1,12 @@
 package com.gbversion.tool.statussaver.ui.fragments
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,9 +39,16 @@ import com.gbversion.tool.statussaver.ui.activities.EmptySendActivity
 import com.gbversion.tool.statussaver.ui.activities.HomeStatus_Activity
 import com.gbversion.tool.statussaver.ui.activities.PrivacyPolicyActivity
 import com.gbversion.tool.statussaver.utils.AdsUtils
+import com.gbversion.tool.statussaver.utils.MyProgressDialog
 import com.gbversion.tool.statussaver.utils.NetworkState
+import com.gbversion.tool.statussaver.wa_stickers.stickers.WAStickersActivity
 import com.gbversion.tool.statussaver.whatsapp_tools.wa_web.WebviewActivity
-import com.whats.stickers.WAStickersActivity
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 
 class ToolsFragment : BaseFragment<MainLayMainBinding>() {
     override fun getLayout(): MainLayMainBinding {
@@ -401,29 +411,10 @@ class ToolsFragment : BaseFragment<MainLayMainBinding>() {
             rlWhatsappSticker.setOnClickListener {
                 if (NetworkState.isOnline() && AdsUtils.clicksAlternate) {
                     AdsUtils.clicksAlternate = false
-                    AdsUtils.loadInterstitialAd(
-                        requireActivity(),
-                        RemoteConfigUtils.adIdInterstital(),
-                        object : AdsUtils.Companion.FullScreenCallback() {
-                            override fun continueExecution() {
-                                startActivity(Intent(ctx, WAStickersActivity::class.java))
-                            }
-                        })
+                    loadInterstitialAdWA(requireActivity(), RemoteConfigUtils.adIdInterstital())
                 } else {
-                    if (NetworkState.isOnline() && AdsUtils.clicksAlternate) {
-                        AdsUtils.clicksAlternate = false
-                        AdsUtils.loadInterstitialAd(
-                            requireActivity(),
-                            RemoteConfigUtils.adIdInterstital(),
-                            object : AdsUtils.Companion.FullScreenCallback() {
-                                override fun continueExecution() {
-                                    startActivity(Intent(ctx, WAStickersActivity::class.java))
-                                }
-                            })
-                    } else {
-                        AdsUtils.clicksAlternate = true
-                        startActivity(Intent(ctx, WAStickersActivity::class.java))
-                    }
+                    AdsUtils.clicksAlternate = true
+                    adClosedListener?.onAdClosed()
                 }
             }
 
@@ -459,7 +450,7 @@ class ToolsFragment : BaseFragment<MainLayMainBinding>() {
                     startActivity(Intent(ctx, EmptySendActivity::class.java))
                 }
             }
-            
+
             llSpeedTest.setOnClickListener {
                 if (NetworkState.isOnline() && AdsUtils.clicksAlternate) {
                     AdsUtils.clicksAlternate = false
@@ -495,6 +486,84 @@ class ToolsFragment : BaseFragment<MainLayMainBinding>() {
             }
 
         }
+    }
+
+    fun continueToWA() {
+        startActivity(Intent(ctx, WAStickersActivity::class.java))
+        adClosedListener = WAStickersActivity()
+    }
+
+    var interstitialAdWA: InterstitialAd? = null
+    var adClosedListener: AdClosedListener? = null
+
+    fun loadInterstitialAdWA(
+        activity: Activity,
+        adId: String
+    ) {
+        if (!NetworkState.isOnline()) {
+            continueToWA()
+            return
+        }
+        var handler: Handler? = Handler(Looper.getMainLooper())
+        var runnable: Runnable? = Runnable {
+            MyProgressDialog.dismissDialog()
+            continueToWA()
+            interstitialAdWA?.show(activity)
+        }
+        try {
+            MyProgressDialog.showDialog(activity, "Please wait...", false)
+        } catch (e: Exception) {
+            MyProgressDialog.dismissDialog()
+        }
+        runnable?.let { handler?.postDelayed(it, 5000) }
+
+        InterstitialAd.load(
+            activity,
+            adId,
+            AdRequest.Builder().build(),
+            object : InterstitialAdLoadCallback() {
+                override fun onAdLoaded(ad: InterstitialAd) {
+                    interstitialAdWA = ad
+                    interstitialAdWA?.fullScreenContentCallback = object :
+                        FullScreenContentCallback() {
+                        override fun onAdShowedFullScreenContent() {
+                        }
+
+                        override fun onAdDismissedFullScreenContent() {
+                            runnable?.let { handler?.removeCallbacks(it) }
+                            handler = null
+                            runnable = null
+                            adClosedListener?.onAdClosed()
+                        }
+
+                        override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                            runnable?.let { handler?.removeCallbacks(it) }
+                            handler = null
+                            runnable = null
+                            adClosedListener?.onAdClosed()
+                        }
+                    }
+
+                    MyProgressDialog.dismissDialog()
+                    continueToWA()
+                    interstitialAdWA?.show(activity)
+                    runnable?.let { handler?.removeCallbacks(it) }
+                    handler = null
+                    runnable = null
+                }
+
+                override fun onAdFailedToLoad(ad: LoadAdError) {
+                    runnable?.let { handler?.removeCallbacks(it) }
+                    handler = null
+                    runnable = null
+                    MyProgressDialog.dismissDialog()
+                    adClosedListener?.onAdClosed()
+                }
+            })
+    }
+
+    interface AdClosedListener {
+        fun onAdClosed()
     }
 
     private fun initMyPopularVideos() {
@@ -553,7 +622,7 @@ class ToolsFragment : BaseFragment<MainLayMainBinding>() {
 
         override fun onBindViewHolder(holder: VH, position: Int) {
             holder.binding.run {
-                val popularVid = popularList[holder.bindingAdapterPosition]
+                val popularVid = popularList[holder.adapterPosition]
 
                 Glide.with(ctx).load(popularVid.thumbUrl)
                     .centerCrop()

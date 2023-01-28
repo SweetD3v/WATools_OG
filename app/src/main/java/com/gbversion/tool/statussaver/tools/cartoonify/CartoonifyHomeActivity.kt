@@ -29,7 +29,7 @@ class CartoonifyHomeActivity : BaseActivity() {
 
 //                AdsUtils.loadNative(
 //                    this@CartoonifyHomeActivity,
-//                    getString(R.string.admob_native_id),
+//                    RemoteConfigUtils.adIdNative(),
 //                    adFrame
 //                )
             }

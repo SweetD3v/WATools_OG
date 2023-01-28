@@ -3,6 +3,7 @@ package com.gbversion.tool.statussaver.tools.age_calc
 import android.os.Bundle
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityAgeCalcDetailsBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.BaseActivity
 import com.gbversion.tool.statussaver.utils.AdsUtils
 import com.gbversion.tool.statussaver.utils.NetworkState
@@ -47,7 +48,7 @@ class AgeCalcDetailsActivity : BaseActivity() {
 //                )
 
                 AdsUtils.loadNativeSmallProgress(
-                    this@AgeCalcDetailsActivity, getString(R.string.admob_native_id),
+                    this@AgeCalcDetailsActivity, RemoteConfigUtils.adIdNative(),
                     adFrame,
                     adProgress
                 )

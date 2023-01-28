@@ -496,7 +496,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="28dp"
                                 android:fontFamily="@font/gilroy_semibold"
-                                android:text="Whatsapp \nWeb"
+                                android:text="WA Web"
                                 android:textColor="@color/white"
                                 android:textSize="12dp" />
 
@@ -523,7 +523,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="28dp"
                                 android:fontFamily="@font/gilroy_semibold"
-                                android:text="Whatsapp \nSticker"
+                                android:text="WA Sticker"
                                 android:textColor="@color/white"
                                 android:textSize="12dp" />
 
@@ -560,7 +560,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="28dp"
                                 android:fontFamily="@font/gilroy_semibold"
-                                android:text="Whatsapp \nChat"
+                                android:text="WA\nDirect Chat"
                                 android:textColor="@color/white"
                                 android:textSize="12dp" />
 
@@ -587,7 +587,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="28dp"
                                 android:fontFamily="@font/gilroy_semibold"
-                                android:text="Empty \nMessage"
+                                android:text="WA\nEmpty Message"
                                 android:textColor="@color/white"
                                 android:textSize="12dp" />
 

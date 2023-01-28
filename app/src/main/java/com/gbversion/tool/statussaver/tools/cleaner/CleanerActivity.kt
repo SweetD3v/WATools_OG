@@ -173,7 +173,7 @@ class CleanerActivity : BaseActivity() {
 
             if (NetworkState.isOnline()) {
                 AdsUtils.loadNativeSmallProgress(
-                    this@CleanerActivity, getString(R.string.admob_native_id),
+                    this@CleanerActivity, RemoteConfigUtils.adIdNative(),
                     adFrame,
                     adProgress
                 )

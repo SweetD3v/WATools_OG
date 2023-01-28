@@ -35,7 +35,7 @@ class SaveShareCartoonActivity : BaseActivity() {
 
 //                AdsUtils.loadNativeSmall(
 //                    this@SaveShareCartoonActivity,
-//                    getString(R.string.admob_native_id),
+//                    RemoteConfigUtils.adIdNative(),
 //                    adFrame
 //                )
             }

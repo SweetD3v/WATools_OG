@@ -50,7 +50,7 @@ class WADownloadsFragment : BaseFragment<FragmentWaimagesBinding>(), WATypeChang
 
 //            AdsUtils.loadNative(
 //                requireActivity(),
-//                getString(R.string.admob_native_id),
+//                RemoteConfigUtils.adIdNative(),
 //                adFrame
 //            )
 

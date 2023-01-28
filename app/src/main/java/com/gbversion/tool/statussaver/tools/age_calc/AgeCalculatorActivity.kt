@@ -46,7 +46,7 @@ class AgeCalculatorActivity : BaseActivity() {
 //                )
                 AdsUtils.loadNativeProgress(
                     this@AgeCalculatorActivity,
-                    getString(R.string.admob_native_id),
+                    RemoteConfigUtils.adIdNative(),
                     adFrame,
                     adProgress
                 )

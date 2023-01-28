@@ -29,7 +29,7 @@ class PhotoWarpHomeActivity : BaseActivity() {
 
 //                AdsUtils.loadNative(
 //                    this@PhotoWarpHomeActivity,
-//                    getString(R.string.admob_native_id),
+//                    RemoteConfigUtils.adIdNative(),
 //                    adFrame
 //                )
             }

@@ -28,7 +28,7 @@ class SketchifyHomeActivity : BaseActivity() {
 
 //                AdsUtils.loadNative(
 //                    this@SketchifyHomeActivity,
-//                    getString(R.string.admob_native_id),
+//                    RemoteConfigUtils.adIdNative(),
 //                    adFrame
 //                )
             }

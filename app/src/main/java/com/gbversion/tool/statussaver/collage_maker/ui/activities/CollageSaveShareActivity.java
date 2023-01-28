@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.ceylonlabs.imageviewpopup.ImagePopup;
 import com.gbversion.tool.statussaver.R;
 import com.gbversion.tool.statussaver.databinding.CollageSaveLayoutBinding;
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils;
 import com.gbversion.tool.statussaver.tools.BaseActivity;
 import com.gbversion.tool.statussaver.tools.mycreation.MyCreationToolsActivity;
 import com.gbversion.tool.statussaver.tools.photoeditor.PicEditorHomeActivity;
@@ -36,7 +37,7 @@ public class CollageSaveShareActivity extends BaseActivity {
 //                    getString(R.string.banner_id_details));
             AdsUtils.Companion.loadNativeProgress(
                     this,
-                    getString(R.string.admob_native_id),
+                    RemoteConfigUtils.Companion.adIdNative(),
                     binding.adFrame,
                     binding.adProgress
             );

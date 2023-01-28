@@ -10,7 +10,7 @@ class NetworkState {
     companion object {
         fun isOnline(): Boolean {
             val cm =
-                WAToolsApp.mInstance.getSystemService(Service.CONNECTIVITY_SERVICE) as ConnectivityManager
+                WAToolsApp.getInstance().getSystemService(Service.CONNECTIVITY_SERVICE) as ConnectivityManager
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 val net = cm.activeNetwork ?: return false
                 val actNw = cm.getNetworkCapabilities(net) ?: return false

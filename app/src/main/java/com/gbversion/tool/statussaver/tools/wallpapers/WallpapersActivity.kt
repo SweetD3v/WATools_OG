@@ -13,6 +13,7 @@ import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityWallpapersBinding
 import com.gbversion.tool.statussaver.databinding.ItemWallpapersBinding
 import com.gbversion.tool.statussaver.models.WallModelPixabay
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.BaseActivity
 import com.gbversion.tool.statussaver.tools.mycreation.MyCreationToolsActivity
 import com.gbversion.tool.statussaver.utils.AdsUtils
@@ -59,7 +60,7 @@ class WallpapersActivity : BaseActivity() {
 
             AdsUtils.loadNativeProgress(
                 this@WallpapersActivity,
-                getString(R.string.admob_native_id),
+                RemoteConfigUtils.adIdNative(),
                 binding.adFrame,
                 binding.adProgress
             )
@@ -184,7 +185,7 @@ class WallpapersActivity : BaseActivity() {
         }
 
         override fun onBindViewHolder(holder: VH, position: Int) {
-            val wallpaper = wallpapers[holder.bindingAdapterPosition]
+            val wallpaper = wallpapers[holder.adapterPosition]
             Log.e("TAG", "onBindViewHolder: ${wallpaper.largeImageURL}")
             Glide.with(ctx).load(wallpaper.largeImageURL)
                 .centerCrop()
@@ -193,10 +194,10 @@ class WallpapersActivity : BaseActivity() {
             holder.itemView.setOnClickListener {
                 ctx.startActivity(
                     Intent(ctx, WallpapersDetailsActivity::class.java)
-                        .putExtra("position", holder.bindingAdapterPosition)
+                        .putExtra("position", holder.adapterPosition)
                         .putExtra(
                             WALLPAPER_ORIGINAL_URL,
-                            wallpapers[holder.bindingAdapterPosition].largeImageURL
+                            wallpapers[holder.adapterPosition].largeImageURL
                         )
                         .putExtra("walpType", walpType)
                 )

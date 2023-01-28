@@ -24,7 +24,7 @@ class PhotoFiltersSaveActivity : BaseActivity() {
 
 //            AdsUtils.loadNative(
 //                this@PhotoFiltersSaveActivity,
-//                getString(R.string.admob_native_id),
+//                RemoteConfigUtils.adIdNative(),
 //                binding.adFrame
 //            )
         }

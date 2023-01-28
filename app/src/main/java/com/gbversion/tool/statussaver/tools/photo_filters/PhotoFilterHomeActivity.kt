@@ -28,7 +28,7 @@ class PhotoFilterHomeActivity : BaseActivity() {
 
 //                AdsUtils.loadNative(
 //                    this@PhotoFilterHomeActivity,
-//                    getString(R.string.admob_native_id),
+//                    RemoteConfigUtils.adIdNative(),
 //                    adFrame
 //                )
             }

@@ -42,7 +42,7 @@ class CompressPhotoActivity : AppCompatActivity() {
 //            )
             AdsUtils.loadNativeSmallProgress(
                 this@CompressPhotoActivity,
-                getString(R.string.admob_native_id),
+                RemoteConfigUtils.adIdNative(),
                 binding.adFrame,
                 binding.adProgress
             )

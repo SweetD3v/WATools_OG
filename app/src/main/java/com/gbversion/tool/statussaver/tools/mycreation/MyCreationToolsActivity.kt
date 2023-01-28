@@ -45,7 +45,7 @@ class MyCreationToolsActivity : BaseActivity() {
 
                 AdsUtils.loadNativeProgress(
                     this@MyCreationToolsActivity,
-                    getString(R.string.admob_native_id),
+                    RemoteConfigUtils.adIdNative(),
                     adFrame,
                     adProgress
                 )

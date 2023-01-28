@@ -1,0 +1,1672 @@
+{
+  "android_play_store_link": "",
+  "ios_app_store_link": "",
+  "sticker_packs": [
+    {
+      "identifier": "1",
+      "name": "Pack 1",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st5.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st6.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st7.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st8.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st9.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st10.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st11.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st12.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st13.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st14.webp",
+          "emojis": [
+            "🙂"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "2",
+      "name": "Pack 2",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st5.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st6.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st7.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st8.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st9.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st10.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "3",
+      "name": "Pack 3",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st5.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st6.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "4",
+      "name": "Pack 4",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st5.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st6.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "5",
+      "name": "Pack 5",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "6",
+      "name": "Pack 6",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st5.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st6.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st7.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "7",
+      "name": "Pack 7",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st5.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st6.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "8",
+      "name": "Pack 8",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st5.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st6.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st7.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st8.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "9",
+      "name": "Pack 9",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "10",
+      "name": "Pack 10",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "11",
+      "name": "Pack 11",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "12",
+      "name": "Pack 12",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "13",
+      "name": "Pack 13",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "14",
+      "name": "Pack 14",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "15",
+      "name": "Pack 15",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "16",
+      "name": "Pack 16",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st5.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st6.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "17",
+      "name": "Pack 17",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "18",
+      "name": "Pack 18",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "19",
+      "name": "Pack 19",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "20",
+      "name": "Pack 20",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st5.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st6.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "21",
+      "name": "Pack 21",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st5.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st6.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st7.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st8.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "22",
+      "name": "Pack 22",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st5.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st6.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st7.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st8.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st9.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st10.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st11.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st12.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st13.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st14.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st15.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st16.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "23",
+      "name": "Pack 23",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st5.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st6.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st7.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st8.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st9.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st10.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st11.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st12.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st13.webp",
+          "emojis": [
+            "🙂"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "24",
+      "name": "Pack 24",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st5.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st6.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "25",
+      "name": "Pack 25",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st5.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st6.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st7.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st8.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st9.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st10.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "26",
+      "name": "Pack 26",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st5.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "27",
+      "name": "Pack 27",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st5.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st6.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st7.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st8.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "28",
+      "name": "Pack 28",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st5.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "29",
+      "name": "Pack 29",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st5.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "30",
+      "name": "Pack 30",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st5.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "31",
+      "name": "Pack 31",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        },
+        {
+          "image_file": "st5.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    },
+    {
+      "identifier": "32",
+      "name": "Pack 32",
+      "publisher": "GB Version",
+      "tray_image_file": "st1.webp",
+      "image_data_version": "1",
+      "avoid_cache": false,
+      "publisher_email": "",
+      "publisher_website": "",
+      "privacy_policy_website": "",
+      "license_agreement_website": "",
+      "stickers": [
+        {
+          "image_file": "st1.webp",
+          "emojis": [
+            "🙂"
+          ]
+        },
+        {
+          "image_file": "st2.webp",
+          "emojis": [
+            "😄"
+          ]
+        },
+        {
+          "image_file": "st3.webp",
+          "emojis": [
+            "😆"
+          ]
+        },
+        {
+          "image_file": "st4.webp",
+          "emojis": [
+            "😩"
+          ]
+        }
+      ]
+    }
+  ]
+}

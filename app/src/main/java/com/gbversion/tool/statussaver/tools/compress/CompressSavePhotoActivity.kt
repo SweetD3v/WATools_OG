@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityCompressSaveShareBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.utils.AdsUtils
 import com.gbversion.tool.statussaver.utils.FileUtilsss
 import com.gbversion.tool.statussaver.utils.NetworkState
@@ -46,7 +47,7 @@ class CompressSavePhotoActivity : AppCompatActivity() {
 
             AdsUtils.loadNativeProgress(
                 this@CompressSavePhotoActivity,
-                getString(R.string.admob_native_id),
+                RemoteConfigUtils.adIdNative(),
                 binding.adFrame,
                 binding.adProgress
             )

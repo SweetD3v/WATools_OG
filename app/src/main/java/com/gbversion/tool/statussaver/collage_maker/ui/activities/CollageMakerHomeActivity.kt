@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityCollageMakerHomeBinding
+import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.mycreation.MyCreationToolsActivity
 import com.gbversion.tool.statussaver.ui.activities.BaseActivity
 import com.gbversion.tool.statussaver.ui.fragments.HomeFragment
@@ -31,7 +32,7 @@ class CollageMakerHomeActivity : BaseActivity() {
 //                )
                 AdsUtils.loadNativeProgress(
                     this@CollageMakerHomeActivity,
-                    getString(R.string.admob_native_id),
+                    RemoteConfigUtils.adIdNative(),
                     adFrame,
                     adProgress
                 )

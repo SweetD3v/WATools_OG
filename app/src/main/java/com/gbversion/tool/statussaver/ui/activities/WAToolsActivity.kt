@@ -3,8 +3,8 @@ package com.gbversion.tool.statussaver.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import com.gbversion.tool.statussaver.databinding.ActivityWatoolsBinding
+import com.gbversion.tool.statussaver.wa_stickers.stickers.WAStickersActivity
 import com.gbversion.tool.statussaver.whatsapp_tools.wa_web.WebviewActivity
-import com.whats.stickers.WAStickersActivity
 
 class WAToolsActivity : BaseActivity() {
     val binding by lazy { ActivityWatoolsBinding.inflate(layoutInflater) }

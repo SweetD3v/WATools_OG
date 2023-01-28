@@ -18,6 +18,9 @@
         android:maxSdkVersion="29" />
 
     <queries>
+        <package android:name="com.whatsapp" />
+        <package android:name="com.whatsapp.w4b" />
+
         <intent>
             <action android:name="android.intent.action.MAIN" />
 
@@ -158,10 +161,6 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".tools.cartoonify.CartoonifyHomeActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".tools.cartoonify.SaveShareCartoonActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -281,6 +280,40 @@
             android:name=".tools.VideoViewActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".wa_stickers.stickers.WAStickersActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeWA" />
+        <activity
+            android:name=".wa_stickers.stickers.StickerPackListActivity"
+            android:theme="@style/AppThemeWA" />
+        <activity
+            android:name=".wa_stickers.stickers.StickerPackDetailsActivity"
+            android:parentActivityName=".wa_stickers.stickers.StickerPackListActivity"
+            android:theme="@style/AppThemeWA"
+            tools:ignore="UnusedAttribute">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".wa_stickers.stickers.StickerPackListActivity" />
+        </activity>
+        <activity
+            android:name=".wa_stickers.stickers.StickerPackInfoActivity"
+            android:label="@string/title_activity_sticker_pack_info"
+            android:parentActivityName=".wa_stickers.stickers.StickerPackDetailsActivity"
+            android:theme="@style/AppThemeWA"
+            tools:ignore="UnusedAttribute">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".wa_stickers.stickers.StickerPackDetailsActivity" />
+        </activity>
+
+        <provider
+            android:name="com.gbversion.tool.statussaver.wa_stickers.stickers.StickerContentProvider"
+            android:authorities="${contentProviderAuthority}"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.whatsapp.sticker.READ" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
