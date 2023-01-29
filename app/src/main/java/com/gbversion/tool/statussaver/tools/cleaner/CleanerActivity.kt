@@ -1,15 +1,23 @@
 package com.gbversion.tool.statussaver.tools.cleaner
 
 import android.animation.Animator
+import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import com.gbversion.tool.statussaver.R
 import com.gbversion.tool.statussaver.databinding.ActivityCacheCleanerBinding
+import com.gbversion.tool.statussaver.phone_booster.models.AppModel
 import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.tools.BaseActivity
 import com.gbversion.tool.statussaver.utils.*
-import com.gbversion.tool.statussaver.utils.AdsUtils.Companion.loadInterstitialAd
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 
 class CleanerActivity : BaseActivity() {
     val binding by lazy { ActivityCacheCleanerBinding.inflate(layoutInflater) }
@@ -19,12 +27,72 @@ class CleanerActivity : BaseActivity() {
     var cachePercentageReverse: Int = 100
     var cachePercentage: Int = 0
     var showedAd: Boolean = false
+    var junkAppsList: MutableList<AppModel> = mutableListOf()
+
+    var interstitialAd: InterstitialAd? = null
+
+    fun loadInterstitialAd(
+        activity: Activity,
+        adId: String
+    ) {
+        if (!NetworkState.isOnline()) {
+            return
+        }
+
+        InterstitialAd.load(
+            activity,
+            adId,
+            AdRequest.Builder().build(),
+            object : InterstitialAdLoadCallback() {
+                override fun onAdLoaded(ad: InterstitialAd) {
+                    interstitialAd = ad
+                    Log.e("TAG", "onAdLoaded: ${interstitialAd}")
+                }
+
+                override fun onAdFailedToLoad(ad: LoadAdError) {
+                    Log.e("TAG", "adException: ${ad.responseInfo}")
+                }
+            })
+    }
+
+    fun showFullScreenAd() {
+        Log.e("TAG", "showFullScreenAd: ${interstitialAd}")
+        interstitialAd?.let {
+            it.fullScreenContentCallback = object :
+                FullScreenContentCallback() {
+                override fun onAdShowedFullScreenContent() {
+                    showedAd = true
+                }
+
+                override fun onAdDismissedFullScreenContent() {
+                    showedAd = true
+                    finish()
+                }
+
+                override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                    showedAd = false
+                    finish()
+                }
+            }
+            it.show(this)
+        } ?: let {
+            if (NetworkState.isOnline()) {
+                loadInterstitialAd(this, RemoteConfigUtils.adIdInterstital())
+                val pd = AdsUtils.ProgressDialogMine()
+                pd.showDialog(this, "Please wait...", false)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    pd.dismissDialog()
+                    showFullScreenAd()
+                }, 3000)
+            } else finish()
+        }
+    }
 
     val runnableReverse = object : Runnable {
         override fun run() {
             cachePercentageReverse -= 2
             binding.txtTotalPercentage.text = "$cachePercentageReverse %"
-            binding.btnCleanCache.text = "Cleaning..."
+            binding.btnCleanJunk.text = "Cleaning..."
             handler?.postDelayed(this, 50)
 
             if (cachePercentageReverse == 0) {
@@ -35,34 +103,34 @@ class CleanerActivity : BaseActivity() {
                     txtTotalCacheSize.animate().scaleX(0f).scaleY(0f).apply {
                         duration = 500
                         setListener(object : Animator.AnimatorListener {
-                            override fun onAnimationStart(p0: Animator) {
+                            override fun onAnimationStart(p0: Animator?) {
                             }
 
-                            override fun onAnimationEnd(p0: Animator) {
+                            override fun onAnimationEnd(p0: Animator?) {
                                 txtTotalCacheSize.text = "Cache cleaned"
                             }
 
-                            override fun onAnimationCancel(p0: Animator) {
+                            override fun onAnimationCancel(p0: Animator?) {
                             }
 
-                            override fun onAnimationRepeat(p0: Animator) {
+                            override fun onAnimationRepeat(p0: Animator?) {
                             }
                         })
                     }
                     txtTotalPercentage.animate().scaleX(0f).scaleY(0f).apply {
                         duration = 500
                         setListener(object : Animator.AnimatorListener {
-                            override fun onAnimationStart(p0: Animator) {
+                            override fun onAnimationStart(p0: Animator?) {
                             }
 
-                            override fun onAnimationEnd(p0: Animator) {
+                            override fun onAnimationEnd(p0: Animator?) {
                                 txtTotalPercentage.text = "0 B"
                             }
 
-                            override fun onAnimationCancel(p0: Animator) {
+                            override fun onAnimationCancel(p0: Animator?) {
                             }
 
-                            override fun onAnimationRepeat(p0: Animator) {
+                            override fun onAnimationRepeat(p0: Animator?) {
                             }
                         })
                     }
@@ -75,8 +143,8 @@ class CleanerActivity : BaseActivity() {
                             txtTotalCacheSize.animate().scaleX(1f).scaleY(1f).apply {
                                 duration = 500
                             }
-                            btnCleanCache.text = "Done"
-                            btnCleanCache.isEnabled = true
+                            btnCleanJunk.text = "Done"
+                            btnCleanJunk.isEnabled = true
                         }, 500)
                 }
             }
@@ -89,7 +157,7 @@ class CleanerActivity : BaseActivity() {
         override fun run() {
             cachePercentage += 1
             binding.txtTotalPercentage.text = "$cachePercentage %"
-            binding.btnCleanCache.text = "Optimizing..."
+            binding.btnCleanJunk.text = "Optimizing..."
             handler?.postDelayed(this, 50)
 
             if (cachePercentage == 100) {
@@ -110,36 +178,36 @@ class CleanerActivity : BaseActivity() {
                                 txtTotalPercentage.animate().scaleX(0f).scaleY(0f).apply {
                                     duration = 500
                                     setListener(object : Animator.AnimatorListener {
-                                        override fun onAnimationStart(p0: Animator) {
+                                        override fun onAnimationStart(p0: Animator?) {
                                         }
 
-                                        override fun onAnimationEnd(p0: Animator) {
+                                        override fun onAnimationEnd(p0: Animator?) {
                                             txtTotalPercentage.text = size
                                         }
 
-                                        override fun onAnimationCancel(p0: Animator) {
+                                        override fun onAnimationCancel(p0: Animator?) {
                                         }
 
-                                        override fun onAnimationRepeat(p0: Animator) {
+                                        override fun onAnimationRepeat(p0: Animator?) {
                                         }
                                     })
                                 }
                                 txtTotalCacheSize.animate().scaleX(0f).scaleY(0f).apply {
                                     duration = 500
                                     setListener(object : Animator.AnimatorListener {
-                                        override fun onAnimationStart(p0: Animator) {
+                                        override fun onAnimationStart(p0: Animator?) {
                                         }
 
-                                        override fun onAnimationEnd(p0: Animator) {
+                                        override fun onAnimationEnd(p0: Animator?) {
                                             txtTotalCacheSize.text = "Cache size"
-                                            btnCleanCache.text = "Clean"
-                                            btnCleanCache.isEnabled = true
+                                            btnCleanJunk.text = "Clean"
+                                            btnCleanJunk.isEnabled = true
                                         }
 
-                                        override fun onAnimationCancel(p0: Animator) {
+                                        override fun onAnimationCancel(p0: Animator?) {
                                         }
 
-                                        override fun onAnimationRepeat(p0: Animator) {
+                                        override fun onAnimationRepeat(p0: Animator?) {
                                         }
                                     })
                                 }
@@ -169,70 +237,60 @@ class CleanerActivity : BaseActivity() {
         handler = Handler(Looper.getMainLooper())
         handler?.post(runnable)
 
+        loadInterstitialAd(this, RemoteConfigUtils.adIdInterstital())
+
         binding.run {
 
             if (NetworkState.isOnline()) {
-                AdsUtils.loadNativeSmallProgress(
-                    this@CleanerActivity, RemoteConfigUtils.adIdNative(),
-                    adFrame,
-                    adProgress
+                AdsUtils.loadNativeSmall(
+                    this@CleanerActivity,
+                    RemoteConfigUtils.adIdNative(),
+                    adFrame
                 )
+//                AdsUtils.loadBanner(
+//                    this@CleanerActivity, getString(R.string.interstitial_id),
+//                    bannerContainer
+//                )
             }
+
+            appTitle.text = getString(R.string.cleaner)
+//            toolbar.root.background = ContextCompat.getDrawable(
+//                this@CleanerActivity,
+//                R.drawable.top_bar_gradient_green
+//            )
 
             imgBack.setOnClickListener {
                 onBackPressed()
             }
 
-            btnCleanCache.setOnClickListener {
-                if (btnCleanCache.text.equals("Done")) {
-                    loadInterstitialAd(
-                        this@CleanerActivity,
-                        RemoteConfigUtils.adIdInterstital(),
-                        object : AdsUtils.Companion.FullScreenCallback() {
-
-                            override fun onAdFailed() {
-                                showedAd = false
+            btnCleanJunk.setOnClickListener {
+                if (btnCleanJunk.isEnabled) {
+                    if (btnCleanJunk.text.equals("Done")) {
+                        showFullScreenAd()
+                    } else {
+                        object : AsyncTaskRunner<Void?, String>(this@CleanerActivity) {
+                            override fun doInBackground(params: Void?): String {
+                                cacheDir.deleteRecursively()
+                                return "Cleaning..."
                             }
 
-                            override fun onAdDismissed() {
-                                showedAd = true
+                            override fun onPostExecute(result: String?) {
+                                super.onPostExecute(result)
+                                result?.let { size ->
+                                    handlerReverse?.post(runnableReverse)
+                                    binding.txtTotalCacheSize.text = size
+                                    btnCleanJunk.isEnabled = false
+                                }
                             }
-
-                            override fun onAdFailedToShow() {
-                                showedAd = false
-                            }
-
-                            override fun onAdShowed() {
-                                showedAd = true
-                            }
-
-                            override fun continueExecution() {
-                                onBackPressed()
-                            }
-                        })
-                } else {
-                    object : AsyncTaskRunner<Void?, String>(this@CleanerActivity) {
-                        override fun doInBackground(params: Void?): String {
-                            cacheDir.deleteRecursively()
-                            return "Cleaning..."
-                        }
-
-                        override fun onPostExecute(result: String?) {
-                            super.onPostExecute(result)
-                            result?.let { size ->
-                                handlerReverse?.post(runnableReverse)
-                                binding.txtTotalCacheSize.text = size
-                                btnCleanCache.isEnabled = false
-                            }
-                        }
-                    }.execute(null, false)
+                        }.execute(null, false)
+                    }
                 }
             }
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    interface AppItemClickListener {
+        fun onAppClicked(appModel: AppModel, position: Int)
     }
 
     override fun onPause() {
@@ -243,17 +301,8 @@ class CleanerActivity : BaseActivity() {
 
     override fun onBackPressed() {
         if (!showedAd) {
-            loadInterstitialAd(
-                this,
-                RemoteConfigUtils.adIdInterstital(),
-                object : AdsUtils.Companion.FullScreenCallback() {
-                    override fun continueExecution() {
-                        finish()
-                    }
-                })
-            return
-        }
-        finish()
+            showFullScreenAd()
+        } else finish()
     }
 
     override fun onDestroy() {

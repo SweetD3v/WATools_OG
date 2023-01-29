@@ -26,6 +26,7 @@ import com.gbversion.tool.statussaver.models.PopularVids
 import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.speedtest.SpeedTestActivity
 import com.gbversion.tool.statussaver.tools.age_calc.AgeCalculatorActivity
+import com.gbversion.tool.statussaver.tools.cleaner.CleanerActivity
 import com.gbversion.tool.statussaver.tools.cleaner.CleanerHomeActivity
 import com.gbversion.tool.statussaver.tools.funny.FunnyVideosActivity
 import com.gbversion.tool.statussaver.tools.insta_grid.InstaGridActivity
@@ -275,7 +276,7 @@ class ToolsFragment : BaseFragment<MainLayMainBinding>() {
                     RemoteConfigUtils.adIdInterstital(),
                     object : AdsUtils.Companion.FullScreenCallback() {
                         override fun continueExecution() {
-                            startActivity(Intent(ctx, CleanerHomeActivity::class.java))
+                            startActivity(Intent(ctx, CleanerActivity::class.java))
                         }
                     })
             }
@@ -286,7 +287,7 @@ class ToolsFragment : BaseFragment<MainLayMainBinding>() {
                     RemoteConfigUtils.adIdInterstital(),
                     object : AdsUtils.Companion.FullScreenCallback() {
                         override fun continueExecution() {
-                            startActivity(Intent(ctx, CleanerHomeActivity::class.java))
+                            startActivity(Intent(ctx, CleanerActivity::class.java))
                         }
                     })
             }

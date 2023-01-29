@@ -187,4 +187,5 @@
     <string name="sticker_pack_animation_indicator" tools:ignore="MissingTranslation">Animated sticker pack</string>
     <!-- text we display at the end of sticker pack details page showing that users can tap sticker to see bigger version -->
     <string name="sticker_pack_details_tap_to_preview" tools:ignore="MissingTranslation">Tap to preview sticker</string>
+    <string name="clean">Clean</string>
 </resources>
