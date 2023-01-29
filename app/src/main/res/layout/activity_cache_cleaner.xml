@@ -103,30 +103,55 @@
                             android:layout_marginTop="8dp"
                             android:elevation="2dp"
                             android:fontFamily="@font/poppins_bold"
-                            android:text="calculating..."
+                            android:text="Click here to start"
                             android:textColor="@color/black"
                             android:textSize="18sp" />
                     </LinearLayout>
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/btnCleanJunk"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_gravity="bottom|center"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="24dp"
-                    android:background="@drawable/top_bar_gradient_cleaner_2"
-                    android:clickable="true"
-                    android:elevation="8dp"
-                    android:focusable="true"
-                    android:fontFamily="@font/gilroy_bold"
-                    android:gravity="center"
-                    android:text="@string/clean"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/btnCleanJunk"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_gravity="bottom|center"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="24dp"
+                        android:background="@drawable/top_bar_gradient_cleaner_2"
+                        android:clickable="true"
+                        android:elevation="8dp"
+                        android:focusable="true"
+                        android:fontFamily="@font/gilroy_bold"
+                        android:gravity="center"
+                        android:text="@string/clean"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/btnStart"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_gravity="bottom|center"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="24dp"
+                        android:background="@drawable/top_bar_gradient_cleaner_2"
+                        android:clickable="true"
+                        android:elevation="8dp"
+                        android:focusable="true"
+                        android:fontFamily="@font/gilroy_bold"
+                        android:gravity="center"
+                        android:text="Start"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+                </RelativeLayout>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/adCard"

@@ -30,6 +30,7 @@ class CleanerActivity : BaseActivity() {
     var junkAppsList: MutableList<AppModel> = mutableListOf()
 
     var interstitialAd: InterstitialAd? = null
+    var hasCleaned = false
 
     fun loadInterstitialAd(
         activity: Activity,
@@ -234,9 +235,6 @@ class CleanerActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        handler = Handler(Looper.getMainLooper())
-        handler?.post(runnable)
-
         loadInterstitialAd(this, RemoteConfigUtils.adIdInterstital())
 
         binding.run {
@@ -263,11 +261,20 @@ class CleanerActivity : BaseActivity() {
                 onBackPressed()
             }
 
+            btnStart.setOnClickListener {
+                btnStart.gone()
+                btnCleanJunk.visible()
+                btnCleanJunk.isEnabled = false
+                txtTotalCacheSize.text = "Optimizing..."
+                refreshCleaner()
+            }
+
             btnCleanJunk.setOnClickListener {
                 if (btnCleanJunk.isEnabled) {
                     if (btnCleanJunk.text.equals("Done")) {
                         showFullScreenAd()
                     } else {
+                        hasCleaned = true
                         object : AsyncTaskRunner<Void?, String>(this@CleanerActivity) {
                             override fun doInBackground(params: Void?): String {
                                 cacheDir.deleteRecursively()
@@ -289,6 +296,18 @@ class CleanerActivity : BaseActivity() {
         }
     }
 
+    fun refreshCleaner() {
+        Log.e("TAG", "onResumePerc: $cachePercentage")
+        cachePercentage = 0
+        binding.txtTotalPercentage.text = "$cachePercentage %"
+        binding.btnCleanJunk.text = "Optimizing..."
+        handler?.removeCallbacks(runnable)
+        handler = null
+
+        handler = Handler(Looper.getMainLooper())
+        handler?.post(runnable)
+    }
+
     interface AppItemClickListener {
         fun onAppClicked(appModel: AppModel, position: Int)
     }
@@ -300,9 +319,12 @@ class CleanerActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        if (!showedAd) {
+        if (!showedAd
+            && hasCleaned
+        ) {
             showFullScreenAd()
-        } else finish()
+        } else
+            finish()
     }
 
     override fun onDestroy() {

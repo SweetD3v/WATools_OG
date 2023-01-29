@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Lifecycle
@@ -15,6 +16,7 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.multidex.MultiDexApplication
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
+import com.gbversion.tool.statussaver.tools.cleaner.CleanerActivity
 import com.gbversion.tool.statussaver.ui.activities.SplashScreenActivity
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
@@ -167,7 +169,8 @@ class WAToolsApp : MultiDexApplication(), Application.ActivityLifecycleCallbacks
         }
     }
 
-    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
+    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+    }
 
     override fun onActivityStarted(activity: Activity) {
         if (!appOpenAdManager.isShowingAd) {
@@ -175,13 +178,18 @@ class WAToolsApp : MultiDexApplication(), Application.ActivityLifecycleCallbacks
         }
     }
 
-    override fun onActivityResumed(activity: Activity) {}
+    override fun onActivityResumed(activity: Activity) {
+    }
 
-    override fun onActivityPaused(activity: Activity) {}
+    override fun onActivityPaused(activity: Activity) {
+    }
 
-    override fun onActivityStopped(activity: Activity) {}
+    override fun onActivityStopped(activity: Activity) {
+    }
 
-    override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+    override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
+    }
 
-    override fun onActivityDestroyed(activity: Activity) {}
+    override fun onActivityDestroyed(activity: Activity) {
+    }
 }

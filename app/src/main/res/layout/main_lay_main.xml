@@ -32,12 +32,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp"
+                android:layout_centerVertical="true"
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/gilroy_bold"
                 android:text="GB Version Pro"
                 android:textColor="@color/black"
                 android:textSize="24dp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgStickers"
+                android:background="?selectableItemBackgroundBorderless"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:padding="8dp"
+                app:srcCompat="@drawable/sticker_wa" />
         </RelativeLayout>
 
         <ScrollView
@@ -321,10 +332,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/txtEditing"
-                    android:layout_marginTop="16dp"
                     android:background="@drawable/ic_main_rect_bg"
                     android:orientation="horizontal"
-                    android:paddingVertical="8dp"
+                    android:paddingVertical="16dp"
                     android:weightSum="1">
 
                     <LinearLayout
@@ -348,8 +358,8 @@
                             android:orientation="vertical">
 
                             <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="56dp"
-                                android:layout_height="56dp"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
                                 android:src="@drawable/ic_insta_grid1" />
 
                             <TextView
@@ -380,8 +390,8 @@
                             android:orientation="vertical">
 
                             <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="56dp"
-                                android:layout_height="56dp"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
                                 android:src="@drawable/ic_photo_editor" />
 
                             <TextView
@@ -412,8 +422,8 @@
                             android:orientation="vertical">
 
                             <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="56dp"
-                                android:layout_height="56dp"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
                                 android:src="@drawable/ic_collage1" />
 
                             <TextView
@@ -444,8 +454,8 @@
                             android:orientation="vertical">
 
                             <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="56dp"
-                                android:layout_height="56dp"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
                                 android:src="@drawable/ic_facts" />
 
                             <TextView
@@ -494,13 +504,13 @@
                         android:weightSum="1">
 
                         <RelativeLayout
-                            android:id="@+id/rl_whatsapp_sticker"
+                            android:id="@+id/rl_empty_msgs"
                             android:layout_width="0dp"
                             android:layout_height="64dp"
                             android:layout_marginStart="16dp"
                             android:layout_marginEnd="8dp"
                             android:layout_weight="0.5"
-                            android:background="@drawable/gradient_wp_sticker"
+                            android:background="@drawable/gradient_empty_msg"
                             app:rippleColor="#33E6F5FF">
 
                             <TextView
@@ -509,7 +519,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="28dp"
                                 android:fontFamily="@font/gilroy_semibold"
-                                android:text="WA Sticker"
+                                android:text="Empty\nMessage"
                                 android:textColor="@color/white"
                                 android:textSize="14sp" />
 
@@ -517,53 +527,15 @@
                                 android:layout_width="64dp"
                                 android:layout_height="match_parent"
                                 android:layout_alignParentEnd="true"
-                                android:src="@drawable/wt_sticker" />
+                                android:src="@drawable/wt_msg" />
                         </RelativeLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/rl_whatsapp_web"
-                            android:layout_width="0dp"
-                            android:layout_height="64dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="16dp"
-                            android:layout_weight="0.5"
-                            android:background="@drawable/gradient_wp_web"
-                            app:rippleColor="#33E6F5FF">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="28dp"
-                                android:fontFamily="@font/gilroy_semibold"
-                                android:text="WA Web"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-
-                            <ImageView
-                                android:layout_width="64dp"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentEnd="true"
-                                android:src="@drawable/wt_web" />
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_wp_card_gra_2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/ll_wp_card_gra_1"
-                        android:layout_marginTop="16dp"
-                        android:orientation="horizontal"
-                        android:weightSum="1">
 
                         <RelativeLayout
                             android:id="@+id/rl_whatsapp_chat"
                             android:layout_width="0dp"
                             android:layout_height="64dp"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="16dp"
                             android:layout_weight="0.5"
                             android:background="@drawable/gradient_direct_chat"
                             app:rippleColor="#33E6F5FF">
@@ -585,14 +557,25 @@
                                 android:src="@drawable/wt_chate" />
                         </RelativeLayout>
 
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_wp_card_gra_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ll_wp_card_gra_1"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
                         <RelativeLayout
-                            android:id="@+id/rl_empty_msgs"
+                            android:id="@+id/rl_whatsapp_web"
                             android:layout_width="0dp"
                             android:layout_height="64dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="16dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="8dp"
                             android:layout_weight="0.5"
-                            android:background="@drawable/gradient_empty_msg"
+                            android:background="@drawable/gradient_wp_web"
                             app:rippleColor="#33E6F5FF">
 
                             <TextView
@@ -601,7 +584,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="28dp"
                                 android:fontFamily="@font/gilroy_semibold"
-                                android:text="Empty\nMessage"
+                                android:text="WA Web"
                                 android:textColor="@color/white"
                                 android:textSize="14sp" />
 
@@ -609,7 +592,34 @@
                                 android:layout_width="64dp"
                                 android:layout_height="match_parent"
                                 android:layout_alignParentEnd="true"
-                                android:src="@drawable/wt_msg" />
+                                android:src="@drawable/wt_web" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rl_whatsapp_sticker"
+                            android:layout_width="0dp"
+                            android:layout_height="64dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/gradient_wp_sticker"
+                            app:rippleColor="#33E6F5FF">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="28dp"
+                                android:fontFamily="@font/gilroy_semibold"
+                                android:text="WA Sticker"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:layout_width="64dp"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentEnd="true"
+                                android:src="@drawable/wt_sticker" />
                         </RelativeLayout>
                     </LinearLayout>
                 </RelativeLayout>

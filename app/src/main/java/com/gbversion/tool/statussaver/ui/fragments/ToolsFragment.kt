@@ -27,7 +27,6 @@ import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
 import com.gbversion.tool.statussaver.speedtest.SpeedTestActivity
 import com.gbversion.tool.statussaver.tools.age_calc.AgeCalculatorActivity
 import com.gbversion.tool.statussaver.tools.cleaner.CleanerActivity
-import com.gbversion.tool.statussaver.tools.cleaner.CleanerHomeActivity
 import com.gbversion.tool.statussaver.tools.funny.FunnyVideosActivity
 import com.gbversion.tool.statussaver.tools.insta_grid.InstaGridActivity
 import com.gbversion.tool.statussaver.tools.mycreation.MyCreationToolsActivity
@@ -193,9 +192,24 @@ class ToolsFragment : BaseFragment<MainLayMainBinding>() {
             }
 
             llInstaDP.setOnClickListener {
-                startActivity(
-                    Intent(ctx, InstaDPDownloaderActivity::class.java)
-                )
+                if (NetworkState.isOnline() && AdsUtils.clicksAlternate) {
+                    AdsUtils.clicksAlternate = false
+                    AdsUtils.loadInterstitialAd(
+                        requireActivity(),
+                        RemoteConfigUtils.adIdInterstital(),
+                        object : AdsUtils.Companion.FullScreenCallback() {
+                            override fun continueExecution() {
+                                startActivity(
+                                    Intent(ctx, InstaDPDownloaderActivity::class.java)
+                                )
+                            }
+                        })
+                } else {
+                    AdsUtils.clicksAlternate = true
+                    startActivity(
+                        Intent(ctx, InstaDPDownloaderActivity::class.java)
+                    )
+                }
             }
 
             llPhotoEditor.setOnClickListener {
@@ -243,14 +257,20 @@ class ToolsFragment : BaseFragment<MainLayMainBinding>() {
             }
 
             llAgeCalc.setOnClickListener {
-                AdsUtils.loadInterstitialAd(
-                    requireActivity(),
-                    RemoteConfigUtils.adIdInterstital(),
-                    object : AdsUtils.Companion.FullScreenCallback() {
-                        override fun continueExecution() {
-                            startActivity(Intent(ctx, AgeCalculatorActivity::class.java))
-                        }
-                    })
+                if (NetworkState.isOnline() && AdsUtils.clicksAlternate) {
+                    AdsUtils.clicksAlternate = false
+                    AdsUtils.loadInterstitialAd(
+                        requireActivity(),
+                        RemoteConfigUtils.adIdInterstital(),
+                        object : AdsUtils.Companion.FullScreenCallback() {
+                            override fun continueExecution() {
+                                startActivity(Intent(ctx, AgeCalculatorActivity::class.java))
+                            }
+                        })
+                } else {
+                    AdsUtils.clicksAlternate = true
+                    startActivity(Intent(ctx, AgeCalculatorActivity::class.java))
+                }
             }
 
             llInstaGrid.setOnClickListener {
@@ -271,25 +291,37 @@ class ToolsFragment : BaseFragment<MainLayMainBinding>() {
             }
 
             llCleanerRef.setOnClickListener {
-                AdsUtils.loadInterstitialAd(
-                    requireActivity(),
-                    RemoteConfigUtils.adIdInterstital(),
-                    object : AdsUtils.Companion.FullScreenCallback() {
-                        override fun continueExecution() {
-                            startActivity(Intent(ctx, CleanerActivity::class.java))
-                        }
-                    })
+                if (NetworkState.isOnline() && AdsUtils.clicksAlternate) {
+                    AdsUtils.clicksAlternate = false
+                    AdsUtils.loadInterstitialAd(
+                        requireActivity(),
+                        RemoteConfigUtils.adIdInterstital(),
+                        object : AdsUtils.Companion.FullScreenCallback() {
+                            override fun continueExecution() {
+                                startActivity(Intent(ctx, CleanerActivity::class.java))
+                            }
+                        })
+                } else {
+                    AdsUtils.clicksAlternate = true
+                    startActivity(Intent(ctx, CleanerActivity::class.java))
+                }
             }
 
             imgCleaner.setOnClickListener {
-                AdsUtils.loadInterstitialAd(
-                    requireActivity(),
-                    RemoteConfigUtils.adIdInterstital(),
-                    object : AdsUtils.Companion.FullScreenCallback() {
-                        override fun continueExecution() {
-                            startActivity(Intent(ctx, CleanerActivity::class.java))
-                        }
-                    })
+                if (NetworkState.isOnline() && AdsUtils.clicksAlternate) {
+                    AdsUtils.clicksAlternate = false
+                    AdsUtils.loadInterstitialAd(
+                        requireActivity(),
+                        RemoteConfigUtils.adIdInterstital(),
+                        object : AdsUtils.Companion.FullScreenCallback() {
+                            override fun continueExecution() {
+                                startActivity(Intent(ctx, CleanerActivity::class.java))
+                            }
+                        })
+                } else {
+                    AdsUtils.clicksAlternate = true
+                    startActivity(Intent(ctx, CleanerActivity::class.java))
+                }
             }
 
             llCollageMaker.setOnClickListener {
@@ -398,6 +430,16 @@ class ToolsFragment : BaseFragment<MainLayMainBinding>() {
                 }
             }
 
+            imgStickers.setOnClickListener {
+                if (NetworkState.isOnline() && AdsUtils.clicksAlternate) {
+                    AdsUtils.clicksAlternate = false
+                    loadInterstitialAdWA(requireActivity(), RemoteConfigUtils.adIdInterstital())
+                } else {
+                    AdsUtils.clicksAlternate = true
+                    continueToWA()
+                }
+            }
+
             rlWhatsappChat.setOnClickListener {
                 if (NetworkState.isOnline() && AdsUtils.clicksAlternate) {
                     AdsUtils.clicksAlternate = false
@@ -432,14 +474,20 @@ class ToolsFragment : BaseFragment<MainLayMainBinding>() {
             }
 
             llSpeedTest.setOnClickListener {
-                AdsUtils.loadInterstitialAd(
-                    requireActivity(),
-                    RemoteConfigUtils.adIdInterstital(),
-                    object : AdsUtils.Companion.FullScreenCallback() {
-                        override fun continueExecution() {
-                            startActivity(Intent(ctx, SpeedTestActivity::class.java))
-                        }
-                    })
+                if (NetworkState.isOnline() && AdsUtils.clicksAlternate) {
+                    AdsUtils.clicksAlternate = false
+                    AdsUtils.loadInterstitialAd(
+                        requireActivity(),
+                        RemoteConfigUtils.adIdInterstital(),
+                        object : AdsUtils.Companion.FullScreenCallback() {
+                            override fun continueExecution() {
+                                startActivity(Intent(ctx, SpeedTestActivity::class.java))
+                            }
+                        })
+                } else {
+                    AdsUtils.clicksAlternate = true
+                    startActivity(Intent(ctx, SpeedTestActivity::class.java))
+                }
             }
 
             imgDrawer.setOnClickListener { drawerLayout.openDrawer(GravityCompat.START) }

@@ -5,11 +5,13 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.gbversion.tool.statussaver.databinding.ActivitySplashBinding
 import com.gbversion.tool.statussaver.remote_config.RemoteConfigUtils
+import com.gbversion.tool.statussaver.utils.LiveConnection
 import com.gbversion.tool.statussaver.utils.gone
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
@@ -63,17 +65,27 @@ class SplashScreenActivity : BaseActivity(), LifecycleObserver {
         setContentView(binding.root)
 
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
-        fetchAd()
         handlerConnecting?.post(runnableConnecting)
 
         handler?.postDelayed({
             showAdIfAvailable()
         }, SPLASH_TIME_OUT)
-
+        Handler(Looper.getMainLooper())
+            .postDelayed({
+                fetchAd()
+            }, 1000)
     }
 
-    override fun onResume() {
-        super.onResume()
+    private var checkNetworkConnection: LiveConnection? = null
+
+    private fun registerNetworkConnection() {
+        checkNetworkConnection = LiveConnection(application)
+        checkNetworkConnection?.observe(this) { isConnected ->
+            if (isConnected) {
+                Log.e("TAG", "registerNetworkConnection: $isConnected")
+                fetchAd()
+            }
+        }
     }
 
     override fun onPause() {
@@ -100,10 +112,11 @@ class SplashScreenActivity : BaseActivity(), LifecycleObserver {
             override fun onAdLoaded(appOpenAd: AppOpenAd) {
                 this@SplashScreenActivity.appOpenAd = appOpenAd
                 loadTime = System.currentTimeMillis()
+                Log.e("TAG", "onAdLoaded: ${appOpenAd.adUnitId}")
             }
 
             override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                super.onAdFailedToLoad(loadAdError)
+                Log.e("TAG", "onAdFailedToLoad: ${loadAdError.message}")
             }
         }
         val request: AdRequest = getAdRequest()
@@ -114,7 +127,11 @@ class SplashScreenActivity : BaseActivity(), LifecycleObserver {
     }
 
     private fun showAdIfAvailable() {
-        if (!isShowingAd && isAdAvailable()) {
+        if (isAdAvailable()) {
+            if (isShowingAd) {
+                Log.e("LOG_TAG", "The app open ad is already showing.");
+                return
+            }
             val fullScreenContentCallback: FullScreenContentCallback =
                 object : FullScreenContentCallback() {
                     override fun onAdFailedToShowFullScreenContent(adError: AdError) {
